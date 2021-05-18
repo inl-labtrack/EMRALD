@@ -145,7 +145,8 @@ namespace UnitTesting_Simulation
       logicTop.DeserializeDerived(jsonObj2, true, mainModel, false);
       ev.DeserializeDerived(jsonObj, true, mainModel, false);
       ev.LoadObjLinks(jsonObj, true, mainModel);
-      //Is there a way to easily test the triggering of the event or other fcns of event
+
+      //Is there a way to easily test the triggering of the event or other functions of the event
       //test for true
       //Assert.True(ev.EventTriggered());
       //test for false
@@ -179,7 +180,8 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      TimeSpan s = ev.NextTime();
+      Assert.True(s.TotalMilliseconds == 77730.9248);
       //test for false
       //Assert.False(ev.EventTriggered());
 
@@ -211,7 +213,8 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      TimeSpan s = ev.NextTime();
+      Assert.True(s.TotalMilliseconds == 60000);
       //test for false
       //Assert.False(ev.EventTriggered());
 
@@ -253,7 +256,8 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      TimeSpan s = ev.NextTime();
+      Assert.True(s.TotalMilliseconds == 10800);
       //test for false
       //Assert.False(ev.EventTriggered());
 
@@ -361,7 +365,8 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      TimeSpan s = ev.NextTime();
+      Assert.True(s.TotalMilliseconds == 2303065.7113);
       //test for false
       //Assert.False(ev.EventTriggered());
 
@@ -394,7 +399,7 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      Assert.True(ev.NextTime().TotalMilliseconds == 45286473.5153);
       //test for false
       //Assert.False(ev.EventTriggered());
 
@@ -427,7 +432,8 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      TimeSpan s = ev.NextTime();
+      Assert.True(s.TotalMilliseconds == 1151532.8556);
       //test for false
       //Assert.False(ev.EventTriggered());
 
@@ -461,7 +467,7 @@ namespace UnitTesting_Simulation
 
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      Assert.True(ev.NextTime().TotalMilliseconds == 29869832.9832);
       //test for false
       //Assert.False(ev.EventTriggered());
 
