@@ -310,7 +310,7 @@ namespace UnitTesting_Simulation
       EvalVarEvent ev = new EvalVarEvent();
       //use a sample JSON piece to set the values
       string fileLoc = MainTestDir() + itemFolder + testName + ".json";
-      string fileLoc2 = MainTestDir() + itemFolder + testName + "Var3DSimTest.json.json";//for the 3dsim variable
+      string fileLoc2 = MainTestDir() + itemFolder + "Var3DSimTest.json";//for the 3dsim variable
       string jsonModel = "";//for the Ext Sim event
       if (File.Exists(fileLoc))
         jsonModel = File.ReadAllText(fileLoc);
@@ -523,9 +523,9 @@ namespace UnitTesting_Simulation
       TransitionAct act = new TransitionAct();
       //use a sample JSON piece to set the values
       string fileLoc = MainTestDir() + itemFolder + testName + ".json";//Transition Action
-      string fileLoc1 = MainTestDir() + itemFolder + testName + "1.json";//State1
-      string fileLoc2 = MainTestDir() + itemFolder + testName + "2.json";//State2
-      string fileLoc3 = MainTestDir() + itemFolder + testName + "3.json";//Diagram
+      string fileLoc1 = MainTestDir() + itemFolder + "StateTest1.json";//State1
+      string fileLoc2 = MainTestDir() + itemFolder + "StateTest2.json";//State2
+      string fileLoc3 = MainTestDir() + itemFolder + "DiagramTest.json";//Diagram
       string jsonModel = "";
       if (File.Exists(fileLoc))
         jsonModel = File.ReadAllText(fileLoc);
@@ -716,11 +716,9 @@ namespace UnitTesting_Simulation
       act.DeserializeDerived(jsonObj, true, mainModel, false);
       act.LoadObjLinks(jsonObj, true, mainModel);
 
-      Assert.True(act.CompileCode(mainModel.allVariables));
-      
       //Is there a way to easily test the triggering of the event 
       //test for true
-      //Assert.True(ev.EventTriggered());
+      Assert.True(act.CompileCode(mainModel.allVariables));
       //test for false
       //Assert.False(ev.EventTriggered());
 
