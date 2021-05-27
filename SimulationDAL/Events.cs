@@ -459,8 +459,7 @@ namespace SimulationDAL
         }
         varNames = varNames.TrimStart(',');
       }
-      //varNames = string.Join(",", varList.Values);
-      string retStr = null;
+        //varNames = string.Join(",", varList.Values);
 
       retStr = retStr + "\"varNames\": [" + varNames + "]," + Environment.NewLine;// +
       if (variable != "")
@@ -538,11 +537,9 @@ namespace SimulationDAL
           this.AddRelatedItem(curVar.id);
         }
       }
-
       //3D simulation var condition has a variable link
       if (dynObj.variable != null)
       {
-        variable = (string)dynObj.variable;
         SimVariable curVar = lists.allVariables.FindByName((string)dynObj.variable);
         if (curVar == null)
           throw new Exception("Failed to find variable - " + dynObj.variable);
@@ -1079,23 +1076,6 @@ namespace SimulationDAL
 
           dynObj = ((dynamic)obj).Event;
         }
-
-        //  //load the Trigger States.
-        //  if (dynObj.triggerStates != null)
-        //  {
-        //    this.relatedIDs.Clear();
-        //    foreach (dynamic stateName in dynObj.triggerStates)
-        //    {
-        //      State trigState = lists.allStates.FindByName(stateName);
-        //      if (trigState == null)
-        //      {
-        //        throw new Exception("Could not find State - " + stateName + ", to add as a trigger state");
-        //      }
-
-        //      this.relatedIDs.Add(trigState.id);
-        //    }
-        //  }
-        //}
 
         if (!base.DeserializeDerived((object)dynObj, false, lists, useGivenIDs))
           return false;

@@ -884,8 +884,7 @@ namespace SimulationDAL
 
   public class RunExtAppAct : Action //atRunExtApp
   {
-    private string exePath = "";
-    
+    private string exePath = "";    
     private ScriptEngine makeInputFileCompEval = null;
     private ScriptEngine processOutputFileCompEval = null;
     private List<String> codeVariables = new List<String>();
@@ -984,8 +983,17 @@ namespace SimulationDAL
       }
       else
       {
-        if (!exePath.StartsWith("cmd.exe") && !File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\" + exePath))
-          throw new Exception("Executable path for the \"RunApplication\" action does not exist ! - " + exePath);
+        if (!exePath.StartsWith("cmd.exe"))
+        {
+          string fullExePath = exePath;
+          fullExePath = lists.rootPath;
+          if (!fullExePath.EndsWith(@"\"))
+            fullExePath += @"\";
+
+          fullExePath = Path.GetFullPath(Path.Combine(fullExePath + exePath));
+          if (!File.Exists(fullExePath))
+            throw new Exception("Executable path for the \"RunApplication\" action does not exist ! - " + exePath);
+        }
       }
 
       if (dynObj.exeOutputPath == null)
@@ -1217,14 +1225,23 @@ namespace SimulationDAL
       }
 
       string runParams = makeInputFileCompEval.EvaluateString();
+      string fullExePath = exePath;
+      if (!Path.IsPathRooted(exePath))
+      {
+        fullExePath = lists.rootPath;
+        if (!fullExePath.EndsWith(@"\"))
+          fullExePath += @"\";
+
+        fullExePath = Path.GetFullPath(Path.Combine(fullExePath + exePath));
+      }
 
       NLog.Logger logger = NLog.LogManager.GetLogger("logfile");
-      logger.Info("Executing - " + exePath + " " + runParams);
+      logger.Info("Executing - " + fullExePath + " " + runParams);
 
       int exitCode;
       if (runParams != null)
       {
-        if (!File.Exists(exePath) && !exePath.Contains("cmd.exe"))
+        if (!File.Exists(fullExePath) && !exePath.Contains("cmd.exe"))
           throw new Exception("No executable specified for RunExtApp - " + this.name);
 
         if (exePath.Contains("cmd.exe"))
@@ -1233,8 +1250,8 @@ namespace SimulationDAL
         //Start the executable
         extApp = new ProcessStartInfo();
         extApp.Arguments = runParams;
-        extApp.FileName = exePath; // Path.GetFileName(exePath);
-        extApp.WorkingDirectory = Path.GetDirectoryName(exePath);
+        extApp.FileName = fullExePath; // Path.GetFileName(exePath);
+        extApp.WorkingDirectory = Path.GetDirectoryName(fullExePath);
         extApp.UseShellExecute = false;
         extApp.RedirectStandardOutput = false;
         extApp.RedirectStandardError = false;
