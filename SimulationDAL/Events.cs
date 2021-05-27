@@ -459,8 +459,9 @@ namespace SimulationDAL
         }
         varNames = varNames.TrimStart(',');
       }
-        //varNames = string.Join(",", varList.Values);
+      //varNames = string.Join(",", varList.Values);
 
+      string retStr = null;
       retStr = retStr + "\"varNames\": [" + varNames + "]," + Environment.NewLine;// +
       if (variable != "")
       {
