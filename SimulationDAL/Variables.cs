@@ -114,7 +114,27 @@ namespace SimulationDAL
         retStr = retStr + "\"resetOnRuns\": " + this.resetOnRuns.ToString().ToLower() + "," + Environment.NewLine;//removed quotes
       }
 
-      retStr = retStr + "\"type\": \"" + this.dType.Name + "\",";//TODO- type is not matching, retStr/from Editor: Int32/int, Boolean/bool, Double/double, String/string
+      string t = "";
+      switch (this.dType.Name.ToLower())
+      {
+        case "int32":
+          t = "int";
+          break;
+        case "boolean":
+          t = "bool";
+          break;
+        case "string":
+          t = "string";
+          break;
+        case "double":
+          t = "double";
+          break;
+        default:
+          t = "string";
+          break;
+      }
+
+      retStr = retStr + "\"type\": \"" + t + "\",";
       retStr = retStr + GetDerivedJSON();
 
       retStr = retStr + Environment.NewLine + "}";
@@ -399,7 +419,7 @@ namespace SimulationDAL
 
       //add derived items
 
-      retStr = retStr + "," + Environment.NewLine + "\"AccrualStatesData \": [" + Environment.NewLine;
+      retStr = retStr + "," + Environment.NewLine + "\"accrualStatesData \": [" + Environment.NewLine;
       foreach (var state in _StateList)
       {
         //TODO
@@ -437,9 +457,9 @@ namespace SimulationDAL
 
       bool retVal = base.DeserializeDerived((object)dynObj, false, lists, useGivenIDs);
 
-      if (dynObj.AccrualStatesData == null)
+      if (dynObj.accrualStatesData == null)
       {
-        throw new Exception("Missing AccrualStatesData for accrualVariable variable");
+        throw new Exception("Missing accrualStatesData for accrualVariable variable");
       }
 
       if (dynObj.varRate == null)
@@ -447,7 +467,7 @@ namespace SimulationDAL
 
       this.varRate = (EnTimeRate)dynObj.varRate;
 
-      //dynObj = dynObj.AccrualStatesData;
+      //dynObj = dynObj.accrualStatesData;
       //must load everything in LoadObjLinks because the states must be loaded first so we have the IDs.     
 
       processed = true;
@@ -464,14 +484,14 @@ namespace SimulationDAL
           if (dynObj.Variable == null)
             return false;
 
-          dynObj = ((dynamic)obj).Variable.AccrualStatesData;
+          dynObj = ((dynamic)obj).Variable.accrualStatesData;
         }
         int i = 0;
-        foreach (dynamic toStateItem in dynObj.AccrualStatesData)
+        foreach (dynamic toStateItem in dynObj.accrualStatesData)
         {
           string error = VerifyDataObj(toStateItem);
           if (error != "")
-            throw new Exception("\"AccrualStatesData\"[" + i.ToString() + "], " + error);
+            throw new Exception("\"accrualStatesData\"[" + i.ToString() + "], " + error);
           State curState = (State)lists.allStates.FindByName((string)toStateItem.stateName);
           _StateList.Add(curState.id, curState);
           string s = JsonConvert.SerializeObject(toStateItem);
@@ -492,7 +512,7 @@ namespace SimulationDAL
       }
       catch (Exception e)
       {
-        throw new Exception("Missing AccrualStatesData for accrualVariable named - " + this.name + " error - " + e.Message);
+        throw new Exception("Missing accrualStatesData for accrualVariable named - " + this.name + " error - " + e.Message);
       }
 
       return true;
