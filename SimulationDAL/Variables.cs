@@ -576,7 +576,7 @@ namespace SimulationDAL
 
       switch(aData.type)
       {
-        case EnCumultiveType.ctTime://TODO- 
+        case EnCumultiveType.ctTime://TODO- clarify ctTime and varRate usage
           _value = (double)_value + Globals.ConvertToNewTimeSpan(EnTimeRate.trHours, tInState.TotalHours, this.varRate);
           break;
 
