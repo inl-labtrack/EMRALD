@@ -7,7 +7,8 @@
         "value": 65,
         "docLink": "/set/A/text()",
         "docType": "dtXML",
-        "docPath": "./VarDocXmlTestDocInput.xml",
+        "docPath": "C:\\Projects\\EMRALD\\UnitTesting_Simulation\\TestingFiles\\Items\\VarDocXmlTestDocInput.xml",
+        "pathMustExist": true,
         "type": "int"
       }
     }

@@ -1,4 +1,4 @@
-    {
+	{
       "Variable": {
         "id": 1,
         "name": "A",
@@ -7,7 +7,8 @@
         "value": 65,
         "docLink": "$.A",
         "docType": "dtJSON",
-        "docPath": "./VarDocJsonTestDocInput.json",
+        "docPath": "C:\\Projects\\EMRALD\\UnitTesting_Simulation\\TestingFiles\\Items\\VarDocJsonTestDocInput.json",
+        "pathMustExist": true,
         "type": "int"
       }
     }

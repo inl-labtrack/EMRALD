@@ -87,7 +87,6 @@ namespace UnitTesting_Simulation
     /// //////////////
     // Event Tests
     //////////////////
-
     [Fact]
     public void StateCngEventTest()
     {
@@ -382,12 +381,12 @@ namespace UnitTesting_Simulation
       //Assert.False(ev.EventTriggered());
 
       //Reference any regression tests in SimEngineTests that covers this.  
+      //...\UnitTesting\Models\ExpDistTestFINAL.json
 
       //make sure the JSON returned for the item is good 
       string retJsonStr = ev.GetJSON(true, mainModel);
       Assert.True(CompareJSON(retJsonStr, jsonModel));
     }
-
 
     [Fact]
     public void NormDistEventTest()
@@ -495,7 +494,6 @@ namespace UnitTesting_Simulation
     /// //////////////
     // Action Tests
     //////////////////
-
 
     [Fact]
     public void TransitionActTest()
@@ -736,10 +734,9 @@ namespace UnitTesting_Simulation
       act.DeserializeDerived(jsonObj, true, mainModel, false);
       act.LoadObjLinks(jsonObj, true, mainModel);
 
-      Assert.True(act.CompileCode(mainModel.allVariables));
-     
       //Is there a way to easily test the triggering of the event 
       //test for true
+      Assert.True(act.CompileCode(mainModel.allVariables));
       //test for false
       //Assert.False(ev.EventTriggered());
 
