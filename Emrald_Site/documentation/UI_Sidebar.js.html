@@ -1,4 +1,32 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/Sidebar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/Sidebar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
  * @file Functions for interacting with the model.
  * @copyright 2021 Battelle Energy Alliance
  */
@@ -81,11 +109,11 @@ if (typeof Navigation === 'undefined')
             return this.lookupLoaded || this.lookupError;
           }.bind(this),
           function () {
-            if (this.jsonStr && !this.lookupError) {
+            if (this.jsonStr &amp;&amp; !this.lookupError) {
               //var newWindow = window.open();
               //newWindow.document.writeln(this.jsonStr);
               var idx = this.jsonStr.indexOf("Error");
-              if (idx >= 0 && idx < 10) {
+              if (idx >= 0 &amp;&amp; idx &lt; 10) {
                 console.log("Lookup " + this.jsonStr);
                 return;
               }
@@ -180,17 +208,17 @@ if (typeof Navigation === 'undefined')
         model.version = 0.0;
       }
 
-      if (model.version < 1.1) { //update all the string Booleans to real Booleans 
+      if (model.version &lt; 1.1) { //update all the string Booleans to real Booleans 
         for (let curE of model.EventList) {
-          if (curE.Event.mainItem && ((typeof curE.Event.mainItem) == "string")) {
+          if (curE.Event.mainItem &amp;&amp; ((typeof curE.Event.mainItem) == "string")) {
             curE.Event.mainItem = curE.Event.mainItem.toUpperCase() == "TRUE" ? true : false;
           }
         }
         for (let curA of model.ActionList) {
-          if (curA.Action.mainItem && ((typeof curA.Action.mainItem) == "string")) {
+          if (curA.Action.mainItem &amp;&amp; ((typeof curA.Action.mainItem) == "string")) {
             curA.Action.mainItem = curA.Action.mainItem.toUpperCase() == "TRUE" ? true : false;
           }
-          if (curA.Action.mutExcl && ((typeof curA.Action.mutExclm) == "string")) {
+          if (curA.Action.mutExcl &amp;&amp; ((typeof curA.Action.mutExclm) == "string")) {
             curA.Action.mutExcl = curA.Action.mutExcl.toUpperCase() == "TRUE" ? true : false;
           }
         }
@@ -253,7 +281,7 @@ if (typeof Navigation === 'undefined')
       if (diagramList.length > 0) {
         diagramTemplates.add("");
       }
-      for (var i = 0; i < diagramList.length; i++) {
+      for (var i = 0; i &lt; diagramList.length; i++) {
         diagramTemplates.add(diagramList[i].Diagram.name);
       }
       dataObj.diagramTemplates = diagramTemplates;
@@ -274,7 +302,7 @@ if (typeof Navigation === 'undefined')
                 MessageBox.alert("New Diagram", "A diagram with the name '" + outDataObj.name + "' exists, please try a different name.");
                 return false;
               }
-              if (outDataObj.name.length <= 0) {
+              if (outDataObj.name.length &lt;= 0) {
                 MessageBox.alert("New Diagram", "Please fill in a name");
                 return false;
               }
@@ -289,7 +317,7 @@ if (typeof Navigation === 'undefined')
             delete outDataObj.diagramTemplates;
             var diagram = { Diagram: outDataObj };
             //If you choose template, populate diagram with appropriate items
-            if (outDataObj.diagramTemplate && outDataObj.diagramTemplate.length > 0) {
+            if (outDataObj.diagramTemplate &amp;&amp; outDataObj.diagramTemplate.length > 0) {
               this.addNewTemplateDiagram(diagram, outDataObj.diagramTemplate);
               this.openDiagram(diagram.Diagram);
               this.onLoadLocal(diagram.Diagram);
@@ -366,7 +394,7 @@ if (typeof Navigation === 'undefined')
           }
         }
         //if not global only have refresh in menu for Actions and Events
-        else if (cat.id.indexOf("Global_") == -1 && (cat.title == "Actions" || cat.title == "Events")) {
+        else if (cat.id.indexOf("Global_") == -1 &amp;&amp; (cat.title == "Actions" || cat.title == "Events")) {
           cmenu = {
             delegate: el,
             preventContextMenuForPopup: true,
@@ -810,7 +838,7 @@ if (typeof Navigation === 'undefined')
 
       var actObj = null;
 
-      for (var i = 0; i < aList.length; i++) {
+      for (var i = 0; i &lt; aList.length; i++) {
         if (aList[i].Action.name.toUpperCase() == aName.toUpperCase()) {
           actObj = aList[i];
           break;
@@ -838,7 +866,7 @@ if (typeof Navigation === 'undefined')
 
       var evtObj = null;
 
-      for (var i = 0; i < aList.length; i++) {
+      for (var i = 0; i &lt; aList.length; i++) {
         if (aList[i].Event.name.toUpperCase() == aName.toUpperCase()) {
           evtObj = aList[i];
           break;
@@ -866,8 +894,8 @@ if (typeof Navigation === 'undefined')
 
       var varObj = null;
 
-      for (var i = 0; i < aList.length; i++) {
-        if (aList[i].Variable.name && aList[i].Variable.name.toUpperCase() == aName.toUpperCase()) {
+      for (var i = 0; i &lt; aList.length; i++) {
+        if (aList[i].Variable.name &amp;&amp; aList[i].Variable.name.toUpperCase() == aName.toUpperCase()) {
           varObj = aList[i];
           break;
         }
@@ -893,8 +921,8 @@ if (typeof Navigation === 'undefined')
 
       var simObj = null;
 
-      for (var i = 0; i < aList.length; i++) {
-        if (aList[i].ExtSim.name && aList[i].ExtSim.name.toUpperCase() == aName.toUpperCase()) {
+      for (var i = 0; i &lt; aList.length; i++) {
+        if (aList[i].ExtSim.name &amp;&amp; aList[i].ExtSim.name.toUpperCase() == aName.toUpperCase()) {
           simObj = aList[i];
           break;
         }
@@ -920,8 +948,8 @@ if (typeof Navigation === 'undefined')
 
       var simObj = null;
 
-      for (var i = 0; i < aList.length; i++) {
-        if (aList[i].LogicNode.name && aList[i].LogicNode.name.toUpperCase() == aName.toUpperCase()) {
+      for (var i = 0; i &lt; aList.length; i++) {
+        if (aList[i].LogicNode.name &amp;&amp; aList[i].LogicNode.name.toUpperCase() == aName.toUpperCase()) {
           simObj = aList[i];
           break;
         }
@@ -941,7 +969,7 @@ if (typeof Navigation === 'undefined')
     Sidebar.prototype.getDiagramByName = function (model, aName) {
       var dia = null;
       if (model.DiagramList) {
-        for (var i = 0; i < model.DiagramList.length; i++) {
+        for (var i = 0; i &lt; model.DiagramList.length; i++) {
           if (model.DiagramList[i].Diagram.name.toUpperCase() == aName.toUpperCase()) {
             dia = model.DiagramList[i];
             break;
@@ -962,9 +990,9 @@ if (typeof Navigation === 'undefined')
     Sidebar.prototype.getDiagramByStateName = function (sName) {
       var dia = null;
       if (this.DiagramList) {
-        for (var i = 0; i < this.DiagramList.length; i++) {
+        for (var i = 0; i &lt; this.DiagramList.length; i++) {
           if (this.DiagramList[i].Diagram.states) {
-            for (var j = 0; j < this.DiagramList[i].Diagram.states.length; j++) {
+            for (var j = 0; j &lt; this.DiagramList[i].Diagram.states.length; j++) {
               if (this.DiagramList[i].Diagram.states[j].toUpperCase() == sName.toUpperCase()) {
                 dia = this.DiagramList[i];
                 break;
@@ -1001,7 +1029,7 @@ if (typeof Navigation === 'undefined')
       var getLogicNode = function (nodeName) {
         var aNode = null;
         if (LogicNodeList) {
-          for (var i = 0; i < LogicNodeList.length; i++) {
+          for (var i = 0; i &lt; LogicNodeList.length; i++) {
             if (LogicNodeList[i].LogicNode.name == nodeName) {
               aNode = LogicNodeList[i].LogicNode;
               break;
@@ -1014,8 +1042,8 @@ if (typeof Navigation === 'undefined')
       var addChildren = function (node) {
         var logicNode = node.LogicNode.LogicNode;
         node.LogicNode.gateChildren = [];
-        if (logicNode.gateChildren && logicNode.gateChildren.length > 0) {
-          for (var i = 0; i < logicNode.gateChildren.length; i++) {
+        if (logicNode.gateChildren &amp;&amp; logicNode.gateChildren.length > 0) {
+          for (var i = 0; i &lt; logicNode.gateChildren.length; i++) {
             var lnName = logicNode.gateChildren[i]; //logicNode.gateChildren is array[string]
             var clgNode = getLogicNode(lnName);     //return LogicNode object.
             if (clgNode) {
@@ -1033,8 +1061,8 @@ if (typeof Navigation === 'undefined')
         }
 
         node.LogicNode.compChildren = [];
-        if (logicNode.compChildren && logicNode.compChildren.length > 0) {          
-          for (var i = 0; i < logicNode.compChildren.length; i++) {
+        if (logicNode.compChildren &amp;&amp; logicNode.compChildren.length > 0) {          
+          for (var i = 0; i &lt; logicNode.compChildren.length; i++) {
             var cmpName = logicNode.compChildren[i]; //logicNode.compChildren here is array[string]
             var cmpNode = this.getDiagramByName(simApp.allDataModel, cmpName); //cmpNode is a diagram
             if (cmpNode) {
@@ -1069,7 +1097,7 @@ if (typeof Navigation === 'undefined')
      */
     Sidebar.prototype.getStateByName = function (model, aName) {
       var state = null;
-      for (var i = 0; i < model.StateList.length; i++) {
+      for (var i = 0; i &lt; model.StateList.length; i++) {
         if (model.StateList[i].State.name.toUpperCase() == aName.toUpperCase()) {
           state = model.StateList[i];
           break;
@@ -1091,7 +1119,7 @@ if (typeof Navigation === 'undefined')
       if (!model)
         model = this;
       var stateNames;
-      for (var i = 0; i < model.DiagramList.length; i++) {
+      for (var i = 0; i &lt; model.DiagramList.length; i++) {
         if (model.DiagramList[i].Diagram.name == dName) {
           stateNames = model.DiagramList[i].Diagram.states;
           break;
@@ -1116,7 +1144,7 @@ if (typeof Navigation === 'undefined')
       var names = this.getStateNamesForDiagram(model, dName);
       var stateList = [];
       
-      for (var i = 0; i < model.StateList.length; i++) {
+      for (var i = 0; i &lt; model.StateList.length; i++) {
         if (names.includes(model.StateList[i].State.name)) {
           stateList.push(model.StateList[i]);
         }
@@ -1139,7 +1167,7 @@ if (typeof Navigation === 'undefined')
         //get all action object match actionName for all states objects.
         states.forEach(function (state) {
           //look for action name within the ImmediateAction list.
-          if (state.immediateActions && state.immediateActions.length > 0) {
+          if (state.immediateActions &amp;&amp; state.immediateActions.length > 0) {
             state.immediateActions.forEach(function (actionName) {
               var actionObj = this.getActionByName(simApp.allDataModel, actionName);
               if (actionObj)
@@ -1147,9 +1175,9 @@ if (typeof Navigation === 'undefined')
             }.bind(this));
           }
           //look for action name within the eventAction list.
-          if (state.eventActions && state.eventActions.length > 0) {
+          if (state.eventActions &amp;&amp; state.eventActions.length > 0) {
             state.eventActions.forEach(function (eaObj) {
-              if (eaObj.actions && eaObj.actions.length > 0) {
+              if (eaObj.actions &amp;&amp; eaObj.actions.length > 0) {
                 eaObj.actions.forEach(function (actionName) {
                   var actionObj = this.getActionByName(simApp.allDataModel, actionName);
                   if (actionObj)
@@ -1176,21 +1204,21 @@ if (typeof Navigation === 'undefined')
       var actionNames = [];
       if (states instanceof Array) {
         states.forEach(function (state) {
-          if (state.immediateActions && state.immediateActions.length > 0) {
+          if (state.immediateActions &amp;&amp; state.immediateActions.length > 0) {
             state.immediateActions.forEach(function (actionName) {
               var actionObj = this.getActionByName(simApp.allDataModel, actionName);
-              if (actionObj && (actionNames.indexOf(actionName) < 0)) {
+              if (actionObj &amp;&amp; (actionNames.indexOf(actionName) &lt; 0)) {
                 actionList.push(actionObj);
                 actionNames.push(actionName);
               }
             }.bind(this));
           }
-          if (state.eventActions && state.eventActions.length > 0) {
+          if (state.eventActions &amp;&amp; state.eventActions.length > 0) {
             state.eventActions.forEach(function (eaObj) {
-              if (eaObj.actions && eaObj.actions.length > 0) {
+              if (eaObj.actions &amp;&amp; eaObj.actions.length > 0) {
                 eaObj.actions.forEach(function (actionName) {
                   var actionObj = this.getActionByName(simApp.allDataModel, actionName);
-                  if (actionObj && (actionNames.indexOf(actionName) < 0)) {
+                  if (actionObj &amp;&amp; (actionNames.indexOf(actionName) &lt; 0)) {
                     actionList.push(actionObj);
                     actionNames.push(actionName);
                   }
@@ -1216,7 +1244,7 @@ if (typeof Navigation === 'undefined')
       var eventNames = [];
       if (states instanceof Array) {
         states.forEach(function (state) {
-          if (state.events && state.events.length > 0) {
+          if (state.events &amp;&amp; state.events.length > 0) {
             state.events.forEach(function (eventName) {
               var eventObj = this.getEventByName(simApp.allDataModel, eventName);
               if (eventObj) {
@@ -1243,10 +1271,10 @@ if (typeof Navigation === 'undefined')
       var eventNames = [];
       if (states instanceof Array) {
         states.forEach(function (state) {
-          if (state.events && state.events.length > 0) {
+          if (state.events &amp;&amp; state.events.length > 0) {
             state.events.forEach(function (eventName) {
               var eventObj = this.getEventByName(simApp.allDataModel, eventName);
-              if (eventObj && (eventNames.indexOf(eventName) < 0)) {
+              if (eventObj &amp;&amp; (eventNames.indexOf(eventName) &lt; 0)) {
                 eventList.push(eventObj);
                 eventNames.push(eventName);
               }
@@ -1270,7 +1298,7 @@ if (typeof Navigation === 'undefined')
       var model = simApp.allDataModel;
       var event = null;
       if (model.EventList) {
-        for (var i = 0; i < model.EventList.length; i++) {
+        for (var i = 0; i &lt; model.EventList.length; i++) {
           var evt = model.EventList[i];
           if (evt.Event.name == eventName) {
             event = evt;
@@ -1294,7 +1322,7 @@ if (typeof Navigation === 'undefined')
       var action = null;
       var model = simApp.allDataModel;
       if (model.ActionList) {
-        for (var i = 0; i < model.ActionList.length; i++) {
+        for (var i = 0; i &lt; model.ActionList.length; i++) {
           var act = model.ActionList[i];
           if (act.Action.name == actionName) {
             action = act;
@@ -1319,17 +1347,17 @@ if (typeof Navigation === 'undefined')
       var action, event, aName;
       var model = simApp.allDataModel;
       if (model.StateList) {
-        for (var i = 0; i < model.StateList.length; i++) {
+        for (var i = 0; i &lt; model.StateList.length; i++) {
           var st = model.StateList[i];
           if (st.State.name == stateName) {
             state = st;
             st = st.State;
             //get the immediateAction objects.
             if (st.immediateActions.length > 0) {
-              for (var j = 0; j < st.immediateActions.length; j++) {
+              for (var j = 0; j &lt; st.immediateActions.length; j++) {
                 aName = st.immediateActions[j];
                 action = this.getAction(diagram, aName);
-                if (action && (!diagram.ActionList.find(function (act) {
+                if (action &amp;&amp; (!diagram.ActionList.find(function (act) {
                   var found = (act.Action.name == action.Action.name);
                   return found;
                 })))
@@ -1339,10 +1367,10 @@ if (typeof Navigation === 'undefined')
 
             //get the events objects.
             if (st.events.length > 0) {
-              for (var k = 0; k < st.events.length; k++) {
+              for (var k = 0; k &lt; st.events.length; k++) {
                 var eName = st.events[k];
                 event = this.getEvent(diagram, eName);
-                if (event && (!diagram.EventList.find(function (evt) {
+                if (event &amp;&amp; (!diagram.EventList.find(function (evt) {
                   var found = evt.Event.name == event.Event.name;
                   return found;
                 })))
@@ -1352,13 +1380,13 @@ if (typeof Navigation === 'undefined')
 
             //get the eventActions objects.
             if (st.eventActions) {
-              for (var m = 0; m < st.eventActions.length; m++) {
+              for (var m = 0; m &lt; st.eventActions.length; m++) {
                 var ea = st.eventActions[m];
                 if (ea.actions) {
-                  for (var n = 0; n < ea.actions.length; n++) {
+                  for (var n = 0; n &lt; ea.actions.length; n++) {
                     aName = ea.actions[n];
                     action = this.getAction(diagram, aName);
-                    if (action && (!diagram.ActionList.find(function (act) {
+                    if (action &amp;&amp; (!diagram.ActionList.find(function (act) {
                       var found = (act.Action.name == action.Action.name);
                       return found;
                     })))
@@ -1395,18 +1423,18 @@ if (typeof Navigation === 'undefined')
       };
 
       if (model.DiagramList) {
-        for (var i = 0; i < model.DiagramList.length; i++) {
+        for (var i = 0; i &lt; model.DiagramList.length; i++) {
           var d = model.DiagramList[i];
           if (d.Diagram.name == inData.name) {
             diagram.DiagramList.push(d);
             d = d.Diagram;
             if (d.states) {
-              for (var i = 0; i < d.states.length; i++) {
+              for (var i = 0; i &lt; d.states.length; i++) {
                 var sName = d.states[i];
 
                 //all actions, events and variables belongs to a state are also copied inside this function.
                 var aState = this.getState(diagram, sName);
-                if (aState && !diagram.StateList.find(function (st) { return (st.State.name == aState.State.name) }))
+                if (aState &amp;&amp; !diagram.StateList.find(function (st) { return (st.State.name == aState.State.name) }))
                   diagram.StateList.push(aState);
               }
             }
@@ -1432,39 +1460,39 @@ if (typeof Navigation === 'undefined')
      */
     Sidebar.prototype.forEachItemDo = function (model, itemTypes, doFunc)
     {
-      if (model.DiagramList && itemTypes.includes("Diagram")) {
-        for (var i = 0; i < model.DiagramList.length; i++) {
+      if (model.DiagramList &amp;&amp; itemTypes.includes("Diagram")) {
+        for (var i = 0; i &lt; model.DiagramList.length; i++) {
           doFunc(this, model, model.DiagramList[i].Diagram, "Diagram");
         }
       }
-      if (model.StateList && itemTypes.includes("State")) {
-        for (var i = 0; i < model.StateList.length; i++) {
+      if (model.StateList &amp;&amp; itemTypes.includes("State")) {
+        for (var i = 0; i &lt; model.StateList.length; i++) {
           doFunc(this, model, model.StateList[i].State, "State");
         }
       }
-      if (model.ActionList && itemTypes.includes("Action")) {
-        for (var i = 0; i < model.ActionList.length; i++) {
+      if (model.ActionList &amp;&amp; itemTypes.includes("Action")) {
+        for (var i = 0; i &lt; model.ActionList.length; i++) {
           doFunc(this, model, model.ActionList[i].Action, "Action");
         }
       }
-      if (model.EventList && itemTypes.includes("Event")) {
-        for (var i = 0; i < model.EventList.length; i++) {
+      if (model.EventList &amp;&amp; itemTypes.includes("Event")) {
+        for (var i = 0; i &lt; model.EventList.length; i++) {
           doFunc(this, model, model.EventList[i].Event, "Event");
         }
       }
-      if (model.LogicNodeList && itemTypes.includes("LogicNode")) {
-        for (var i = 0; i < model.LogicNodeList.length; i++) {
+      if (model.LogicNodeList &amp;&amp; itemTypes.includes("LogicNode")) {
+        for (var i = 0; i &lt; model.LogicNodeList.length; i++) {
           doFunc(this, model, model.LogicNodeList[i].LogicNode, "LogicNode");
         }
       }
-      if (model.VariableList && itemTypes.includes("Variable")) {
-        for (var i = 0; i < model.VariableList.length; i++) {
+      if (model.VariableList &amp;&amp; itemTypes.includes("Variable")) {
+        for (var i = 0; i &lt; model.VariableList.length; i++) {
           doFunc(this, model, model.VariableList[i].Variable, "Variable");
         }
       }
-      if (model.VariableList && itemTypes.includes("ExtSim")) {
+      if (model.VariableList &amp;&amp; itemTypes.includes("ExtSim")) {
         if (model.ExtSimList) {
-          for (var i = 0; i < model.ExtSimList.length; i++) {
+          for (var i = 0; i &lt; model.ExtSimList.length; i++) {
             doFunc(this, model, model.ExtSimList[i].ExtSim, "ExtSim");
           }
         }
@@ -1484,10 +1512,10 @@ if (typeof Navigation === 'undefined')
 
       let elem = document.createElement('div');
       elem.style.cssText = "background: #fb8b3b; width: 550px; position: sticky; align-items: center; margin: auto; padding: 5em; z-index: 1000";
-      elem.innerHTML = 'There is a naming conflict with the following objects. Please choose an option to resolve: <br>';
+      elem.innerHTML = 'There is a naming conflict with the following objects. Please choose an option to resolve: &lt;br>';
 
       let conflictTable = document.createElement('table');
-      conflictTable.innerHTML = "<tr><th>Type</th><th>Conflicting Name</th><th>Overwrite</th><th>Ignore</th><th>Rename</th></tr>";
+      conflictTable.innerHTML = "&lt;tr>&lt;th>Type&lt;/th>&lt;th>Conflicting Name&lt;/th>&lt;th>Overwrite&lt;/th>&lt;th>Ignore&lt;/th>&lt;th>Rename&lt;/th>&lt;/tr>";
 
       conflictList.forEach(conflictItem => {
         conflictNumber = conflictNumber + 1;
@@ -1505,20 +1533,20 @@ if (typeof Navigation === 'undefined')
         conflictElemRow.appendChild(conflictElemRowName);
 
         let conflictElemRowOverwrite = document.createElement('td');
-        conflictElemRowOverwrite.innerHTML = '<input type="radio" name="' + conflictName + '" value="Overwrite">';
+        conflictElemRowOverwrite.innerHTML = '&lt;input type="radio" name="' + conflictName + '" value="Overwrite">';
         conflictElemRow.appendChild(conflictElemRowOverwrite);
 
         let conflictElemRowIgnore = document.createElement('td');
-        conflictElemRowIgnore.innerHTML = '<input type="radio" name="' + conflictName + '" value="Ignore" checked>';
+        conflictElemRowIgnore.innerHTML = '&lt;input type="radio" name="' + conflictName + '" value="Ignore" checked>';
         conflictElemRow.appendChild(conflictElemRowIgnore);
 
         let conflictElemRowRename = document.createElement('td');
-        conflictElemRowRename.innerHTML = '<input type="radio" name="' + conflictName + '" value="Rename">';
+        conflictElemRowRename.innerHTML = '&lt;input type="radio" name="' + conflictName + '" value="Rename">';
         conflictElemRow.appendChild(conflictElemRowRename);
 
         let conflictElemRowRenameTextBox = document.createElement('span');
         conflictElemRowRenameTextBox.style.display = 'none';
-        conflictElemRowRenameTextBox.innerHTML = '<input type="text" name="' + conflictName + 'New" value="' + conflictItem.Name + '2">';
+        conflictElemRowRenameTextBox.innerHTML = '&lt;input type="text" name="' + conflictName + 'New" value="' + conflictItem.Name + '2">';
         conflictElemRowRename.appendChild(conflictElemRowRenameTextBox);
 
         conflictElemRowOverwrite.addEventListener('click', () => { conflictElemRowRenameTextBox.style.display = 'none'; conflictElemRowOverwrite.childNodes[0].checked = true; });
@@ -1539,13 +1567,13 @@ if (typeof Navigation === 'undefined')
         var ignoreList = this.initializeConflictList();
         var renameList = this.initializeConflictList();
 
-        for (let k = 1; k <= conflictNumber; k++) {
+        for (let k = 1; k &lt;= conflictNumber; k++) {
           let conflictName = "conflict" + k;
           let resolution = document.querySelector('input[name="' + conflictName + '"]:checked').value;
           let item = conflictList.filter(x => x.RadioName === conflictName)[0];
           if (resolution === "Rename") {
             let newName = document.querySelector('input[name = "' + conflictName + 'New"]').value;
-            if (!this.getByName(item.ItemType, model, newName) && !this.getByName(item.ItemType, addModel, newName)) {
+            if (!this.getByName(item.ItemType, model, newName) &amp;&amp; !this.getByName(item.ItemType, addModel, newName)) {
               renameList[item.ItemType].push({ "oldName": item.Name, "newName": newName });
             }
             else {
@@ -1635,7 +1663,7 @@ if (typeof Navigation === 'undefined')
     Sidebar.prototype.finishMergeModel = function (addModel, overwriteList, ignoreList, renameList) {
       //for each rename change the names in the addDiagram
       for (var type in renameList) {
-        for (var i = 0; i < renameList[type].length; i++) {
+        for (var i = 0; i &lt; renameList[type].length; i++) {
           //replace the names in the importing model, no need to redo side list here, as they will be added later.
           simApp.mainApp.sidebar.replaceNames(renameList[type][i].oldName, renameList[type][i].newName, type, addModel, false) //name:newName pair
         }
@@ -1643,10 +1671,10 @@ if (typeof Navigation === 'undefined')
 
       //for each Overwrite replace the existing in the model
       for (var type in overwriteList) {
-        for (var i = 0; i < overwriteList[type].length; i++) {
+        for (var i = 0; i &lt; overwriteList[type].length; i++) {
           var target = this.getByName(type, simApp.allDataModel, overwriteList[type][i]);
           var source = this.getByName(type, addModel, overwriteList[type][i]);
-          if ((target != null) && (source != null)) {
+          if ((target != null) &amp;&amp; (source != null)) {
             //This does not work, it breakes the link to the ui element. Object.assign(target[type], source[type]);
             var assignString = "Object.assign(target." + type + ", source." + type + " )";
             eval(assignString);
@@ -1839,7 +1867,7 @@ if (typeof Navigation === 'undefined')
       var model = simApp.allDataModel;
       var found = false;
       if (model.StateList) {
-        for (var i = 0; i < model.StateList.length; i++) {
+        for (var i = 0; i &lt; model.StateList.length; i++) {
           var state = model.StateList[i].State;
           if (state.name == aName) {
             found = true;
@@ -1862,7 +1890,7 @@ if (typeof Navigation === 'undefined')
       var model = simApp.allDataModel;
       var found = false;
       if (model.DiagramList) {
-        for (var i = 0; i < model.DiagramList.length; i++) {
+        for (var i = 0; i &lt; model.DiagramList.length; i++) {
           if (model.DiagramList[i].Diagram.name == aName) {
             found = true;
             break;
@@ -1884,7 +1912,7 @@ if (typeof Navigation === 'undefined')
       var model = simApp.allDataModel;
       var found = false;
       if (model.LogicNodeList) {
-        for (var i = 0; i < model.LogicNodeList.length; i++) {
+        for (var i = 0; i &lt; model.LogicNodeList.length; i++) {
           if (model.LogicNodeList[i].LogicNode.name == aName) {
             found = true;
             break;
@@ -1906,7 +1934,7 @@ if (typeof Navigation === 'undefined')
       var model = simApp.allTemplates;
       var found = false;
       if (model.DiagramList) {
-        for (var i = 0; i < model.DiagramList.length; i++) {
+        for (var i = 0; i &lt; model.DiagramList.length; i++) {
           if (model.DiagramList[i].Diagram.name == aName) {
             found = true;
             break;
@@ -1990,7 +2018,7 @@ if (typeof Navigation === 'undefined')
             var templateActionList = JSON.parse(JSON.stringify(templateObj.ActionList));
             var eventList = [];
             var actionList = [];
-            for (var i = 0; i < diagram.Diagram.states.length; i++) {
+            for (var i = 0; i &lt; diagram.Diagram.states.length; i++) {
               //change name and add the new states to the sidebar
               templateStateList.forEach(function (state) {
                 var newState = state;
@@ -2001,7 +2029,7 @@ if (typeof Navigation === 'undefined')
                   newState.State.name = "" + start + diagramInsert + end; //insert diagram name into the *****
                 }
                 //change name and add the events to sidebar
-                for (var k = 0; k < newState.State.events.length; k++) {
+                for (var k = 0; k &lt; newState.State.events.length; k++) {
                   eventList.push(newState.State.events[k]);
                   var eIndx = newState.State.events[k].indexOf("*****");
                   if (eIndx > -1) {
@@ -2031,8 +2059,8 @@ if (typeof Navigation === 'undefined')
                 }.bind(this));
 
                 //change name and add the eventActions to sidebar
-                for (var m = 0; m < newState.State.eventActions.length; m++) {
-                  for (var l = 0; l < newState.State.eventActions[m].actions.length; l++) {
+                for (var m = 0; m &lt; newState.State.eventActions.length; m++) {
+                  for (var l = 0; l &lt; newState.State.eventActions[m].actions.length; l++) {
 
                     var eIndx = newState.State.eventActions[m].actions[l].indexOf("*****");
                     if (eIndx > -1) {
@@ -2046,7 +2074,7 @@ if (typeof Navigation === 'undefined')
                   }
                 }
                 //change name and add the immediateActions to sidebar
-                for (var n = 0; n < newState.State.immediateActions.length; n++) {
+                for (var n = 0; n &lt; newState.State.immediateActions.length; n++) {
                   var imIndx = newState.State.immediateActions[n].indexOf("*****");
                   if (imIndx > -1) {
                     if (actionList.indexOf(newState.State.immediateActions[n]) == -1) {
@@ -2068,7 +2096,7 @@ if (typeof Navigation === 'undefined')
                     }
                     //go through newStates and change any names that need changing
                     if (action.Action.newStates) {
-                      for (var o = 0; o < action.Action.newStates.length; o++) {
+                      for (var o = 0; o &lt; action.Action.newStates.length; o++) {
                         var toState = action.Action.newStates[o].toState;
                         var newStateIndx = toState.indexOf("*****");
                         if (newStateIndx > -1) {
@@ -2104,7 +2132,7 @@ if (typeof Navigation === 'undefined')
             //add the singleStates
             diagram.Diagram.singleStates = template.singleStates;
             //insert diagram name into the *****
-            for (var j = 0; j < diagram.Diagram.singleStates.length; j++) {
+            for (var j = 0; j &lt; diagram.Diagram.singleStates.length; j++) {
               var indx = diagram.Diagram.singleStates[j].stateName.indexOf("*****");
               if (indx > -1) {
                 var start = diagram.Diagram.singleStates[j].stateName.substring(0, indx);
@@ -2137,7 +2165,7 @@ if (typeof Navigation === 'undefined')
       var mainModel = simApp.allDataModel;
       var maxID = 0;
       var ActionList = mainModel.ActionList;
-      for (var i = 0; i < ActionList.length; i++) {
+      for (var i = 0; i &lt; ActionList.length; i++) {
         if (ActionList[i].Action.id > maxID) {
           maxID = ActionList[i].Action.id;
         }
@@ -2156,7 +2184,7 @@ if (typeof Navigation === 'undefined')
       var mainModel = simApp.allDataModel;
       var maxID = 0;
       var EventList = mainModel.EventList;
-      for (var i = 0; i < EventList.length; i++) {
+      for (var i = 0; i &lt; EventList.length; i++) {
         if (EventList[i].Event.id > maxID) {
           maxID = EventList[i].Event.id;
         }
@@ -2175,7 +2203,7 @@ if (typeof Navigation === 'undefined')
       var mainModel = simApp.allDataModel;
       var maxID = 0;
       var StateList = mainModel.StateList;
-      for (var i = 0; i < StateList.length; i++) {
+      for (var i = 0; i &lt; StateList.length; i++) {
         if (StateList[i].State.id > maxID) {
           maxID = StateList[i].State.id;
         }
@@ -2194,7 +2222,7 @@ if (typeof Navigation === 'undefined')
       var mainModel = simApp.allDataModel;
       var maxID = 0;
       var DiagramList = mainModel.DiagramList;
-      for (var i = 0; i < DiagramList.length; i++) {
+      for (var i = 0; i &lt; DiagramList.length; i++) {
         if (DiagramList[i].Diagram.id > maxID) {
           maxID = DiagramList[i].Diagram.id;
         }
@@ -2310,7 +2338,7 @@ if (typeof Navigation === 'undefined')
             sortDOMList(container);
           }
           var globalContainer = document.getElementById("Global_EventsPanel_id");
-          if (globalContainer && newEvent.Event.mainItem) {
+          if (globalContainer &amp;&amp; newEvent.Event.mainItem) {
             newEvent.ui_el = this.addSectionItem(globalContainer, "Events", newEvent.Event.name, newEvent.Event);
             sortDOMList(globalContainer);
           }
@@ -2337,7 +2365,7 @@ if (typeof Navigation === 'undefined')
         if (!evt) {
           var idx = mainModel.EventList.push(newEvent);
           newEvent.Event.id = idx;
-          if (!existingAsNew && parent) { //parent is the state's events array if set. If not set then it exists in parent and is just being saved as a new item.
+          if (!existingAsNew &amp;&amp; parent) { //parent is the state's events array if set. If not set then it exists in parent and is just being saved as a new item.
             parent.push(newEvent.Event.name);
           }
 
@@ -2399,7 +2427,7 @@ if (typeof Navigation === 'undefined')
             sortDOMList(container);
           }
           var globalContainer = document.getElementById("Global_VariablesPanel_id");
-          if (globalContainer && newVariable.Variable.varScope == "gtGlobal") {
+          if (globalContainer &amp;&amp; newVariable.Variable.varScope == "gtGlobal") {
             newVariable.ui_el = this.addSectionItem(globalContainer, "Variables", newVariable.Variable.name, newVariable.Variable);
             sortDOMList(globalContainer);
           }
@@ -2528,7 +2556,7 @@ if (typeof Navigation === 'undefined')
     Sidebar.prototype.cleanDataModel = function (diagram) {
       //these properties are mxGraph's and will be reassigned when re-rendered in Sidebar and StateHandler.
       if (diagram.StateList)
-        for (var i = 0; i < diagram.StateList.length; i++) {
+        for (var i = 0; i &lt; diagram.StateList.length; i++) {
           //simply cannot recreate State, it need to be a reference to the main model.
           if (typeof (diagram.StateList[i]["actionCell"]) !== "undefined") delete diagram.StateList[i]["actionCell"];
           if (typeof (diagram.StateList[i]["dataType"]) !== "undefined") delete diagram.StateList[i]["dataType"];
@@ -2563,7 +2591,7 @@ if (typeof Navigation === 'undefined')
         function (btn, dataObj) {   //callback for the "close" button.
           if (btn.toUpperCase() === 'CLOSE') {
             var dia = this.getDiagramByName(simApp.allDataModel, diagram.name);
-            if (dia && dia.wnd)
+            if (dia &amp;&amp; dia.wnd)
               delete dia.wnd;
           }
           return true;
@@ -2623,13 +2651,13 @@ if (typeof Navigation === 'undefined')
       var dia = null;
       var mainModel = simApp.allDataModel;
       if (mainModel.DiagramList) {
-        for (var i = 0; i < mainModel.DiagramList.length; i++) {
+        for (var i = 0; i &lt; mainModel.DiagramList.length; i++) {
           if (mainModel.DiagramList[i].Diagram.name == inData.name) {
             dia = mainModel.DiagramList[i];
             break;
           }
         }
-        if (dia && dia.wnd) {
+        if (dia &amp;&amp; dia.wnd) {
           dia.wnd.show();
           return;
         }
@@ -2769,40 +2797,40 @@ if (typeof Navigation === 'undefined')
           if (item.State.name.indexOf(name) > -1) {
             //replace the diagram name with ***
 
-            for (var i = 0; i < actionList.length; i++) {
+            for (var i = 0; i &lt; actionList.length; i++) {
               if (item.State.immediateActions.indexOf(actionList[i].Action.name) > -1) {
                 //replace the diagram name with ***
                 var replacedAction = JSON.parse(JSON.stringify(actionList[i]));
                 replacedAction.Action = this.replaceInTemplateObj(replacedAction, name);
-                if (replacedAction.Action.name == actionList[i].Action.name && includeActions.indexOf(replacedAction) < 0) {
+                if (replacedAction.Action.name == actionList[i].Action.name &amp;&amp; includeActions.indexOf(replacedAction) &lt; 0) {
                   includeActions.push(replacedAction);
                 }
-                else if (addActions.indexOf(replacedAction) < 0) {
+                else if (addActions.indexOf(replacedAction) &lt; 0) {
                   addActions.push(replacedAction);
                 }
               }
-              for (var k = 0; k < item.State.eventActions.length; k++) {
+              for (var k = 0; k &lt; item.State.eventActions.length; k++) {
                 if (item.State.eventActions[k].actions.indexOf(actionList[i].Action.name) > -1) {
                   //replace the diagram name with ***
                   var replacedAction = JSON.parse(JSON.stringify(actionList[i]));
                   replacedAction.Action = this.replaceInTemplateObj(replacedAction, name);
-                  if (replacedAction.Action.name == actionList[i].Action.name && includeActions.indexOf(replacedAction) < 0) {
+                  if (replacedAction.Action.name == actionList[i].Action.name &amp;&amp; includeActions.indexOf(replacedAction) &lt; 0) {
                     includeActions.push(replacedAction);
                   }
-                  else if (addActions.indexOf(replacedAction) < 0) {
+                  else if (addActions.indexOf(replacedAction) &lt; 0) {
                     addActions.push(replacedAction);
                   }
                 }
               }
             }
-            for (var j = 0; j < eventList.length; j++) {
+            for (var j = 0; j &lt; eventList.length; j++) {
               if (item.State.events.indexOf(eventList[j].Event.name) > -1) {
                 var replacedEvent = JSON.parse(JSON.stringify(eventList[j]));
                 replacedEvent.Event = this.replaceInTemplateObj(replacedEvent, name);
-                if (replacedEvent.Event.name == eventList[j].Event.name && includeEvents.indexOf(replacedEvent) < 0) {
+                if (replacedEvent.Event.name == eventList[j].Event.name &amp;&amp; includeEvents.indexOf(replacedEvent) &lt; 0) {
                   includeEvents.push(replacedEvent);
                 }
-                else if (addEvents.indexOf(replacedEvent) < 0) {
+                else if (addEvents.indexOf(replacedEvent) &lt; 0) {
                   addEvents.push(replacedEvent);
                 }
               }
@@ -2815,23 +2843,23 @@ if (typeof Navigation === 'undefined')
             //if the diagram name is not in the state name, exclude the state
           else {
             excludeStates.push(item);
-            for (var i = 0; i < actionList.length; i++) {
+            for (var i = 0; i &lt; actionList.length; i++) {
               if (item.State.immediateActions.indexOf(actionList[i].Action.name) > -1) {
-                if (excludeActions.indexOf(actionList[i]) < 0) {
+                if (excludeActions.indexOf(actionList[i]) &lt; 0) {
                   excludeActions.push(actionList[i]);
                 }
               }
-              for (var k = 0; k < item.State.eventActions.length; k++) {
+              for (var k = 0; k &lt; item.State.eventActions.length; k++) {
                 if (item.State.eventActions[k].actions.indexOf(actionList[i].Action.name) > -1) {
-                  if (excludeActions.indexOf(actionList[i]) < 0) {
+                  if (excludeActions.indexOf(actionList[i]) &lt; 0) {
                     excludeActions.push(actionList[i]);
                   }
                 }
               }
             }
-            for (var j = 0; j < eventList.length; j++) {
+            for (var j = 0; j &lt; eventList.length; j++) {
               if (item.State.events.indexOf(eventList[j].Event.name) > -1) {
-                if (excludeEvents.indexOf(eventList[j]) < 0) {
+                if (excludeEvents.indexOf(eventList[j]) &lt; 0) {
                   excludeEvents.push(eventList[j]);
                 }
               }
@@ -2860,7 +2888,7 @@ if (typeof Navigation === 'undefined')
             MessageBox.alert("New Template", "A template with the name '" + outDataObj.name + "' exists, please try a different name.");
             return false;
           }
-          if (outDataObj.name.length < 1) {
+          if (outDataObj.name.length &lt; 1) {
             MessageBox.alert("New Template", "Invalid name.");
             return false;
           }
@@ -2949,7 +2977,7 @@ if (typeof Navigation === 'undefined')
           state.name = "" + start + "*****" + end;
         }
         //replace events in State
-        for (var i = 0; i < state.events.length; i++) {
+        for (var i = 0; i &lt; state.events.length; i++) {
           var eIndx = state.events[i].indexOf(name);
           if (eIndx > -1) {
             var start = state.events[i].substring(0, eIndx);
@@ -2958,8 +2986,8 @@ if (typeof Navigation === 'undefined')
           }
         }
         //replace eventActions in State
-        for (var j = 0; j < state.eventActions.length; j++) {
-          for (var k = 0; k < state.eventActions[j].actions.length; k++) {
+        for (var j = 0; j &lt; state.eventActions.length; j++) {
+          for (var k = 0; k &lt; state.eventActions[j].actions.length; k++) {
             var eaIndx = state.eventActions[j].actions[k].indexOf(name);
             if (eaIndx > -1) {
               var start = state.eventActions[j].actions[k].substring(0, eaIndx);
@@ -2969,7 +2997,7 @@ if (typeof Navigation === 'undefined')
           }
         }
         //change name and add the immediateActions to sidebar
-        for (var l = 0; l < state.immediateActions.length; l++) {
+        for (var l = 0; l &lt; state.immediateActions.length; l++) {
           var imIndx = state.immediateActions[l].indexOf(name);
           if (imIndx > -1) {
             var start = state.immediateActions[l].substring(0, imIndx);
@@ -2992,7 +3020,7 @@ if (typeof Navigation === 'undefined')
 
         //go through newStates and change any names that need changing
         if (action.newStates) {
-          for (var i = 0; i < action.newStates.length; i++) {
+          for (var i = 0; i &lt; action.newStates.length; i++) {
             var toState = action.newStates[i].toState;
             var newStateIndx = toState.indexOf(name);
             if (newStateIndx > -1) {
@@ -3019,7 +3047,7 @@ if (typeof Navigation === 'undefined')
         //if it is diagram obj
       else if (dataObj) {
         var diagram = dataObj;
-        for (var i = 0; i < diagram.states.length; i++) {
+        for (var i = 0; i &lt; diagram.states.length; i++) {
           var sIndx = diagram.states[i].indexOf(name);
           if (sIndx > -1) {
             var start = diagram.states[i].substring(0, sIndx);
@@ -3028,7 +3056,7 @@ if (typeof Navigation === 'undefined')
           }
         }
         if (diagram.singleStates) {
-          for (var j = 0; j < diagram.singleStates.length; j++) {
+          for (var j = 0; j &lt; diagram.singleStates.length; j++) {
             var ssIndx = diagram.singleStates[j].stateName.indexOf(name);
             if (ssIndx > -1) {
               var start = diagram.singleStates[j].stateName.substring(0, ssIndx);
@@ -3104,7 +3132,7 @@ if (typeof Navigation === 'undefined')
         function (btn, outDataObj) {
           if (btn in SetOf(['OK', 'Save As New'])) {
             var asNew = btn === 'Save As New';
-            if (el && !asNew) {
+            if (el &amp;&amp; !asNew) {
               var letters = /^[0-9a-zA-Z-_]+$/;
               if (dataObj.name.match(letters)) {
                 el.innerText = dataObj.name;
@@ -3145,7 +3173,7 @@ if (typeof Navigation === 'undefined')
     Sidebar.prototype.getDefaultGateID = function () {
       var maxID = 0;
       var logicNodeList = this.LogicNodeList;
-      for (var i = 0; i < logicNodeList.length; i++) {
+      for (var i = 0; i &lt; logicNodeList.length; i++) {
         if (logicNodeList[i].LogicNode.id > maxID) {
           maxID = logicNodeList[i].LogicNode.id;
         }
@@ -3268,7 +3296,7 @@ if (typeof Navigation === 'undefined')
         if (btn in SetOf(['OK', 'Save As New'])) {
           var asNew = btn === 'Save As New';
           simApp.modelChanged = true;
-          if (el && !asNew) { // el is not null when editing an existing action.
+          if (el &amp;&amp; !asNew) { // el is not null when editing an existing action.
             var original = el.innerText;
             el.innerText = dataObj.name;
             //change references to this obj elsewhere too
@@ -3311,14 +3339,14 @@ if (typeof Navigation === 'undefined')
       var stateList = mainModel.StateList;
       stateList.forEach(function (item) {
         var state = item.State;
-        for (var i = 0; i < state.immediateActions.length; i++) {
+        for (var i = 0; i &lt; state.immediateActions.length; i++) {
           if (state.immediateActions[i] == oldName) {
             item.State.immediateActions[i] = newName;
           }
 
         }
-        for (var j = 0; j < state.eventActions.length; j++) {
-          for (var k = 0; k < state.eventActions[j].actions.length; k++) {
+        for (var j = 0; j &lt; state.eventActions.length; j++) {
+          for (var k = 0; k &lt; state.eventActions[j].actions.length; k++) {
             if (state.eventActions[j].actions[k] == oldName) {
               item.State.eventActions[j].actions[k] = newName;
             }
@@ -3340,14 +3368,14 @@ if (typeof Navigation === 'undefined')
       var url = 'EditForms/EventEditor.html';
       var vars = simApp.allDataModel.VariableList;
       var varList = [];
-      for (var i = 0; i < vars.length; i++) {
+      for (var i = 0; i &lt; vars.length; i++) {
         varList.push(vars[i].Variable);
       }
       dataObj.tempVariableList = varList;
       var nodeList = simApp.allDataModel.LogicNodeList;
       var logicNodes = [];
       var ln;
-      for (var i = 0; i < nodeList.length; i++) {
+      for (var i = 0; i &lt; nodeList.length; i++) {
         ln = nodeList[i].LogicNode;
         if (ln.rootName === ln.name)
           logicNodes.push(ln);
@@ -3362,7 +3390,7 @@ if (typeof Navigation === 'undefined')
         if (btn in SetOf(['OK', 'Save As New'])) {
           var asNew = btn === 'Save As New';
           simApp.modalChanged = true;
-          if (el && !asNew) { //existing one.
+          if (el &amp;&amp; !asNew) { //existing one.
             var oldName = el.innerText;
             if (oldName != dataObj.name) {
               this.replaceEventName(oldName, dataObj.name);
@@ -3518,7 +3546,7 @@ if (typeof Navigation === 'undefined')
 
       //find in the diagram list and remove
       if (mainModel.DiagramList) {
-        for (var i = 0; i < mainModel.DiagramList.length; i++) {
+        for (var i = 0; i &lt; mainModel.DiagramList.length; i++) {
           if (mainModel.DiagramList[i].Diagram.name == dataObj.name) {
             idx = i;
             break;
@@ -3529,7 +3557,7 @@ if (typeof Navigation === 'undefined')
           el.remove();
           this.notifyDataChanged(true);
           //When a Diagram is deleted, all associated states must be removed as well.
-          for (var i = 0; i < dataObj.states.length; i++) {
+          for (var i = 0; i &lt; dataObj.states.length; i++) {
             var astate = this.getStateByName(mainModel, dataObj.states[i]);
             if (astate) {
               this.deleteState(astate.State);
@@ -3559,7 +3587,7 @@ if (typeof Navigation === 'undefined')
       this.actionsReferencing(mainModel, dataObj.name, "State", true);
 
       if (mainModel.StateList) {
-        for (var i = 0; i < mainModel.StateList.length; i++) {
+        for (var i = 0; i &lt; mainModel.StateList.length; i++) {
           if (mainModel.StateList[i].State.name == dataObj.name) {
             idx = i;
             break;
@@ -3568,24 +3596,24 @@ if (typeof Navigation === 'undefined')
 
         if (idx >= 0) {
           //Delete the items in the state, any child items with this as the only reference will also be deleted.
-          for (var i = 0; i < dataObj.immediateActions.length; i++) {
+          for (var i = 0; i &lt; dataObj.immediateActions.length; i++) {
             var action = this.getAction(mainModel, dataObj.immediateActions[i]);
             this.deleteAction(action.Action, false, dataObj);
             if (action.ui_el)
               action.ui_el.remove();
           }
 
-          for (var i = 0; i < dataObj.events.length; i++) {
+          for (var i = 0; i &lt; dataObj.events.length; i++) {
             var evt = this.getEvent(mainModel, dataObj.events[i]);
             this.deleteEvent(evt.Event, false, dataObj);
             if (evt.ui_el)
               evt.ui_el.remove();
           }
 
-          for (var i = 0; i < dataObj.eventActions.length; i++) {
+          for (var i = 0; i &lt; dataObj.eventActions.length; i++) {
             var ea = dataObj.eventActions[i];
-            if (ea && ea.actions.length > 0)
-              for (var j = 0; j < ea.actions.length; j++) {
+            if (ea &amp;&amp; ea.actions.length > 0)
+              for (var j = 0; j &lt; ea.actions.length; j++) {
                 var action = this.getAction(mainModel, ea.actions[j]);
                 this.deleteAction(action.Action, false, dataObj);
                 if (action.ui_el)
@@ -3616,7 +3644,7 @@ if (typeof Navigation === 'undefined')
       var idx = -1;
       var mainModel = simApp.allDataModel;
       if (mainModel.LogicNodeList) {
-        for (var i = 0; i < mainModel.LogicNodeList.length; i++) {
+        for (var i = 0; i &lt; mainModel.LogicNodeList.length; i++) {
           if (mainModel.LogicNodeList[i].LogicNode.name == dataObj.name) {
             idx = i;
             break;
@@ -3650,11 +3678,11 @@ if (typeof Navigation === 'undefined')
 
       var global = dataObj.mainItem;
 
-      fullDelete = (fullDelete || ((refCnt == 0) && !global));
+      fullDelete = (fullDelete || ((refCnt == 0) &amp;&amp; !global));
       if (fullDelete) {
         //remove from the main action list
         if (mainModel.ActionList) {
-          for (var i = 0; i < mainModel.ActionList.length; i++) {
+          for (var i = 0; i &lt; mainModel.ActionList.length; i++) {
             if (mainModel.ActionList[i].Action.name == dataObj.name) {
               mainModel.ActionList.splice(i, 1);
               break;
@@ -3665,7 +3693,7 @@ if (typeof Navigation === 'undefined')
         this.notifyDataChanged(true);
         this.alterSideBarListsItem(dataObj.name, null, new Set(["All", "Global", "Local"]), "Action");
       }
-      else if ((refCnt == 0) && global) {
+      else if ((refCnt == 0) &amp;&amp; global) {
         this.alterSideBarListsItem(dataObj.name, null, new Set(["All", "Local"]), "Action");
       }
     }
@@ -3686,12 +3714,12 @@ if (typeof Navigation === 'undefined')
       var refCnt = this.statesReferencing(mainModel, dataObj.name, "Event", fullDelete, state).length;      
 
       var global = dataObj.mainItem;
-      fullDelete = (fullDelete || ((refCnt == 0) && !global));
+      fullDelete = (fullDelete || ((refCnt == 0) &amp;&amp; !global));
       if (fullDelete) {
         var mainModel = simApp.allDataModel;
         //remove event from main event list
         if (mainModel.EventList) {
-          for (var i = 0; i < mainModel.EventList.length; i++) {
+          for (var i = 0; i &lt; mainModel.EventList.length; i++) {
             if (mainModel.EventList[i].Event.name == dataObj.name) {
               mainModel.EventList.splice(i, 1);
               break;
@@ -3701,7 +3729,7 @@ if (typeof Navigation === 'undefined')
         this.alterSideBarListsItem(dataObj.name, null, new Set(["All", "Global", "Local"]), "Event");
         this.notifyDataChanged(true);
       }
-      else if ((refCnt == 0) && global) {
+      else if ((refCnt == 0) &amp;&amp; global) {
         this.alterSideBarListsItem(dataObj.name, null, new Set(["All", "Local"]), "Event");
       }
     }
@@ -3723,7 +3751,7 @@ if (typeof Navigation === 'undefined')
 
       //find and remove item in the main list
       if (mainModel.ExtSimList) {
-        for (var i = 0; i < mainModel.ExtSimList.length; i++) {
+        for (var i = 0; i &lt; mainModel.ExtSimList.length; i++) {
           if (mainModel.ExtSimList[i].ExtSim.name == dataObj.name) {
             idx = i;
             break;
@@ -3756,7 +3784,7 @@ if (typeof Navigation === 'undefined')
 
       //find and remove in the main model
       if (mainModel.VariableList) {
-        for (var i = 0; i < mainModel.VariableList.length; i++) {
+        for (var i = 0; i &lt; mainModel.VariableList.length; i++) {
           if (mainModel.VariableList[i].Variable.name == dataObj.name) {
             idx = i;
             break;
@@ -3808,11 +3836,11 @@ if (typeof Navigation === 'undefined')
           newText = text.substring(0, j);
         }
         newText += newName;
-        if ((j + name.length) < text.length) {
+        if ((j + name.length) &lt; text.length) {
           after = "" + text.charAt(j + name.length);
           newText += text.substring(j + name.length, text.length);
         }
-        if (!before.match(letters) && !after.match(letters)) {
+        if (!before.match(letters) &amp;&amp; !after.match(letters)) {
           text = newText;
         }
       }
@@ -3841,13 +3869,13 @@ if (typeof Navigation === 'undefined')
 
       //find and remove applicable references to it first
       if (model.EventList) {
-        for (var i = 0; i < model.EventList.length; i++) {
+        for (var i = 0; i &lt; model.EventList.length; i++) {
           var cur = model.EventList[i].Event;
           //don't worry about the event type just see if the applicable properties exists in the JSON.
           switch (type) {
             case "ExtSim":
               //et3dSimEv
-              if (cur.Variable && cur.Variable == name) {
+              if (cur.Variable &amp;&amp; cur.Variable == name) {
                 if (del) {
                   cur.Variable = "";
                 } else {
@@ -3873,7 +3901,7 @@ if (typeof Navigation === 'undefined')
                 }
               }
               //any user defined code references
-              if (cur.code && replaceName) { 
+              if (cur.code &amp;&amp; replaceName) { 
                 cur.code = this.replaceNamesInText(cur.code, name, replaceName);
               }
               // Timers and Failure Rate Events
@@ -3903,7 +3931,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "LogicTree":
               //etComponentLogic
-              if (cur.logicTop && cur.logicTop == name) {
+              if (cur.logicTop &amp;&amp; cur.logicTop == name) {
                 if (del) {
                   cur.logicTop = "";
                 } else {
@@ -3958,14 +3986,14 @@ if (typeof Navigation === 'undefined')
 
       //find and remove applicable references to it first
       if (model.StateList) {
-        for (var i = 0; i < model.ActionList.length; i++) {
+        for (var i = 0; i &lt; model.ActionList.length; i++) {
           var cur = model.ActionList[i].Action;
           //don't worry about the action type just see if the property exists in the JSON.
           switch (type) {
             case "State":
               //atTransition
               if (cur.newStates) {
-                for (var j = 0; j < cur.newStates.length; j++) {
+                for (var j = 0; j &lt; cur.newStates.length; j++) {
                   if (cur.newStates[j].toState == name) {
                     if (del) {
                       cur.newStates.splice(j, 1);
@@ -3980,7 +4008,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "ExtSim":
               //atRunExtApp
-              if (cur.extSim && cur.extSim == name) {
+              if (cur.extSim &amp;&amp; cur.extSim == name) {
                 if (del) {
                   cur.extSim = "";
                 } else {
@@ -3992,7 +4020,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "Variable":
               //atCngVarVal
-              if (cur.variableName && cur.variableName == name) {
+              if (cur.variableName &amp;&amp; cur.variableName == name) {
                 if (del) {
                   cur.variableName = "";
                 } else {
@@ -4001,11 +4029,11 @@ if (typeof Navigation === 'undefined')
                   refs.push(cur);
                 }
               }
-              if (cur.scriptCode && replaceName) {
+              if (cur.scriptCode &amp;&amp; replaceName) {
                 cur.scriptCode = this.replaceNamesInText(cur.scriptCode, name, replaceName);                
               }
               //at3DSimMsg
-              if (cur.sim3DVariable && cur.sim3DVariable == name) {
+              if (cur.sim3DVariable &amp;&amp; cur.sim3DVariable == name) {
                 if (del) {
                   cur.sim3DVariable = "";
                 } else {
@@ -4077,16 +4105,16 @@ if (typeof Navigation === 'undefined')
 
       //find state references to it the items
       if (model.StateList) {
-        for (var i = 0; i < model.StateList.length; i++) {
+        for (var i = 0; i &lt; model.StateList.length; i++) {
           var cur = model.StateList[i].State;
           //don't worry about the action type just see if the property exists in the JSON.
           switch (type) {
             case "Event":
               //Event Actions
               if (cur.events) {
-                for (var j = 0; j < cur.events.length; j++) {
+                for (var j = 0; j &lt; cur.events.length; j++) {
                   if (cur.events[j] == name) {
-                    if (delAll || (delForState && (delForState.name == cur.name))) {
+                    if (delAll || (delForState &amp;&amp; (delForState.name == cur.name))) {
                       cur.events.splice(j, 1);
                       cur.eventActions.splice(j, 1);
                     }
@@ -4102,9 +4130,9 @@ if (typeof Navigation === 'undefined')
             case "Action":
               //immediate actions
               if (cur.immediateActions) {
-                for (var j = 0; j < cur.immediateActions.length; j++) {
+                for (var j = 0; j &lt; cur.immediateActions.length; j++) {
                   if (cur.immediateActions[j] == name) {
-                    if (delAll || (delForState && (delForState.name == cur.name))) {
+                    if (delAll || (delForState &amp;&amp; (delForState.name == cur.name))) {
                       cur.immediateActions.splice(j, 1);
                     }
                     else {
@@ -4117,10 +4145,10 @@ if (typeof Navigation === 'undefined')
               }
               //Event Actions
               if (cur.eventActions) {
-                for (var k = 0; k < cur.eventActions.length; k++) {
-                  for (var l = 0; l < cur.eventActions[k].actions.length; ++l) {
+                for (var k = 0; k &lt; cur.eventActions.length; k++) {
+                  for (var l = 0; l &lt; cur.eventActions[k].actions.length; ++l) {
                     if (cur.eventActions[k].actions[l] == name) {
-                      if (delAll || (delForState && (delForState.name == cur.name) && (!delForEv || delForEv == cur.events[k]))) {
+                      if (delAll || (delForState &amp;&amp; (delForState.name == cur.name) &amp;&amp; (!delForEv || delForEv == cur.events[k]))) {
                         cur.eventActions[k].actions.splice(l, 1);
                       }
                       else {
@@ -4135,7 +4163,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "Diagram":
               //Event Actions
-              if (cur.diagramName && (cur.diagramName === name)) {
+              if (cur.diagramName &amp;&amp; (cur.diagramName === name)) {
                 if (replaceName != null)
                   cur.diagramName = replaceName;
                 refs.push(cur);
@@ -4190,14 +4218,14 @@ if (typeof Navigation === 'undefined')
 
       //find diagram references to it the items
       if (model.DiagramList) {
-        for (var i = 0; i < model.DiagramList.length; i++) {
+        for (var i = 0; i &lt; model.DiagramList.length; i++) {
           var cur = model.DiagramList[i].Diagram;
           //don't worry about the action type just see if the property exists in the JSON.
           switch (type) {
             case "State":
               //values for states in single state diagrams
               if (cur.singleStates) {
-                for (var j = 0; j < cur.singleStates.length; j++) {
+                for (var j = 0; j &lt; cur.singleStates.length; j++) {
                   if (cur.singleStates[j].stateName == name) {
                     if (del) {
                       cur.singleStates.splice(j, 1);
@@ -4280,7 +4308,7 @@ if (typeof Navigation === 'undefined')
 
       //find logic tree references to it the items
       if (model.LogicNodeList) {
-        for (var i = 0; i < model.LogicNodeList.length; i++) {
+        for (var i = 0; i &lt; model.LogicNodeList.length; i++) {
           var cur = model.LogicNodeList[i].LogicNode;
           //don't worry about the action type just see if the property exists in the JSON.
           switch (type) {
@@ -4356,7 +4384,7 @@ if (typeof Navigation === 'undefined')
 
       //find variable references to it the items
       if (model.VariableList) {
-        for (var i = 0; i < model.VariableList.length; i++) {
+        for (var i = 0; i &lt; model.VariableList.length; i++) {
           var cur = model.VariableList[i].Variable;
           //don't worry about the action type just see if the property exists in the JSON.
           switch (type) {
@@ -4377,7 +4405,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "Variable":
               //only reference is itself, so replace name if given
-              if ((cur.name == name) && (replaceName != null)) {
+              if ((cur.name == name) &amp;&amp; (replaceName != null)) {
                 cur.name = replaceName;
                 if (model.VariableList[i].ui_el) {
                   model.VariableList[i].ui_el.innerText = replaceName;
@@ -4387,7 +4415,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "State":
               if (cur.accrualStatesData) {
-                for (var j = 0; j < cur.accrualStatesData.length; j++) {
+                for (var j = 0; j &lt; cur.accrualStatesData.length; j++) {
                   if (cur.accrualStatesData[j].stateName === name) {
                     if (replaceName !== null) {
                       cur.accrualStatesData[j].stateName = replaceName;
@@ -4427,7 +4455,7 @@ if (typeof Navigation === 'undefined')
 
       //find variable references to it the items
       if (model.ExtSimList) {
-        for (var i = 0; i < model.ExtSimList.length; i++) {
+        for (var i = 0; i &lt; model.ExtSimList.length; i++) {
           var cur = model.ExtSimList[i].ExtSim;
           //don't worry about the action type just see if the property exists in the JSON.
           switch (type) {
@@ -4448,7 +4476,7 @@ if (typeof Navigation === 'undefined')
               break;
             case "ExtSim":
               //only reference is itself, so replace name if given
-              if ((cur.name == name) && (replaceName != null)) {
+              if ((cur.name == name) &amp;&amp; (replaceName != null)) {
                 cur.name = replaceName;
                 if (model.ExtSimList[i].ui_el) {
                   model.ExtSimList[i].ui_el.innerText = replaceName;
@@ -4553,7 +4581,7 @@ if (typeof Navigation === 'undefined')
 
       var ls = ol.querySelectorAll('label');
       var l = Array.from(ls).filter(el => el.innerText == item.Diagram.diagramLabel)[0]; //search for parent node.
-      if (l && l.parentElement) {
+      if (l &amp;&amp; l.parentElement) {
         //sol is the diagram section element
         sol = l.parentElement.querySelector('ul');
       }
@@ -4587,9 +4615,9 @@ if (typeof Navigation === 'undefined')
       sli.onmouseup = function (evt) {
         var target = evt.currentTarget;
         var sibs = target.parentElement.children;
-        for (var i = 0; i < sibs.length; i++) {
+        for (var i = 0; i &lt; sibs.length; i++) {
           var u = sibs[i];
-          if ((u.nodeName == 'LI') && (u.className == "ItemSelected")) {
+          if ((u.nodeName == 'LI') &amp;&amp; (u.className == "ItemSelected")) {
             u.className = "ItemCleared";
           }
         };
@@ -4688,7 +4716,7 @@ if (typeof Navigation === 'undefined')
 
 
       //Populate inner Ul with states
-      for (var s = 0; s < item.Diagram.states.length; s++) {
+      for (var s = 0; s &lt; item.Diagram.states.length; s++) {
         var mainModel = simApp.allDataModel;
         var state = this.getStateByName(mainModel, item.Diagram.states[s]);
         //var container = document.getElementById("ActionsPanel_id")
@@ -4756,9 +4784,9 @@ if (typeof Navigation === 'undefined')
       li.onmouseup = function (evt) {
         var target = evt.currentTarget;
         var sibs = target.parentElement.children;
-        for (var i = 0; i < sibs.length; i++) {
+        for (var i = 0; i &lt; sibs.length; i++) {
           var u = sibs[i];
-          if ((u.nodeName == 'LI') && (u.className == "ItemSelected")) {
+          if ((u.nodeName == 'LI') &amp;&amp; (u.className == "ItemSelected")) {
             u.className = "ItemCleared";
           }
         }
@@ -4797,7 +4825,7 @@ if (typeof Navigation === 'undefined')
                 case "Delete":
                   if (ui.target.context.dataObject) {
                     var actionList = getActionsUsingVariable(this, ui.target.context.dataObject.name);
-                    if (actionList.length < 1) {
+                    if (actionList.length &lt; 1) {
                       MessageBox.confirm("Deleting a variable", "Are you sure you want to delete the highlighted Variable?", ["Yes", "Cancel"],
                           function (btn, evt) {
                             if (btn == "Yes")
@@ -4807,7 +4835,7 @@ if (typeof Navigation === 'undefined')
                     }
                     else {
                       var message = "The variable " + ui.target.context.dataObject.name + " is used in the following actions: ";
-                      for (var i = 0; i < actionList.length; i++) {
+                      for (var i = 0; i &lt; actionList.length; i++) {
                         message += actionList[i].name + ", ";
                       }
                       message += "You can not delete a used variable.";
@@ -5032,7 +5060,7 @@ if (typeof Navigation === 'undefined')
     var getActionsUsingVariable = function (sidebar, varName) {
       var result = [];
       var actionsList = sidebar.ActionList;
-      for (var i = 0; i < actionsList.length; i++) {
+      for (var i = 0; i &lt; actionsList.length; i++) {
         if (actionsList[i].Action.variableName == varName) {
           result.push((actionsList[i].Action));
         }
@@ -5046,12 +5074,12 @@ if (typeof Navigation === 'undefined')
      * 
      * @name Navigation#Sidebar#checkSideBarNodes
      * @function
-     * @param {NodeListOf<HTMLElement>} childNodes The nodes to search through.
+     * @param {NodeListOf&lt;HTMLElement>} childNodes The nodes to search through.
      * @param {string} value The text value to find.
      * @returns {boolean} If the value appears in the nodes.
      */
     Sidebar.prototype.checkSideBarNodes = function (childNodes, value) {
-      for (var i = 0; i < childNodes.length; i++) {
+      for (var i = 0; i &lt; childNodes.length; i++) {
         if (childNodes[i].innerText == value) {
           return false;
         }
@@ -5065,13 +5093,13 @@ if (typeof Navigation === 'undefined')
      * 
      * @name Navigation#Sidebar#indexOfSideBarNode
      * @function
-     * @param {NodeListOf<HTMLElement>} childNodes The nodes to search through.
+     * @param {NodeListOf&lt;HTMLElement>} childNodes The nodes to search through.
      * @param {string} value The text value to find.
      * @returns {number} The index of the node where the text first occurs.
      */
     Sidebar.prototype.indexOfSideBarNode = function (childNodes, value) {
       var returnArray = childNodes;
-      for (var i = 0; i < childNodes.length; i++) {
+      for (var i = 0; i &lt; childNodes.length; i++) {
         if (childNodes[i].innerText == value || childNodes[i].innerHTML == value) {
           return i;
         }
@@ -5226,7 +5254,7 @@ if (typeof Navigation === 'undefined')
       if (eventContainer) {
         eventContainer.innerHTML = "";
         var events = this.getEventListWithoutRepeats(stateArray);
-        for (var i = 0; i < events.length ; i++) {
+        for (var i = 0; i &lt; events.length ; i++) {
           if (!events[i].Event.mainItem) {
             events[i].ui_el = this.addSectionItem(eventContainer, "Events", events[i].Event.name, events[i].Event);
           }
@@ -5237,7 +5265,7 @@ if (typeof Navigation === 'undefined')
       if (actionContainer) {
         actionContainer.innerHTML = "";
         var actions = this.getActionListWithoutRepeats(stateArray);
-        for (var i = 0; i < actions.length; i++) {
+        for (var i = 0; i &lt; actions.length; i++) {
           if (!actions[i].Action.mainItem) {
             actions[i].ui_el = this.addSectionItem(actionContainer, "Actions", actions[i].Action.name, actions[i].Action);
           }
@@ -5251,14 +5279,14 @@ if (typeof Navigation === 'undefined')
        if (variableContainer) {
            var localVarList = [];
            var actionsList = this.getActionListWithoutRepeats(stateArray);
-           for (var i = 0; i < actionsList.length; i++) {
+           for (var i = 0; i &lt; actionsList.length; i++) {
                if (actionsList[i].Action.variableName) {
                    localVarList.push((actionsList[i].Action.variableName));
                }
            }
             variableContainer.innerHTML = "";
             var varList = simApp.allDataModel.VariableList;
-            for (var i = 0; i< varList.length ;i++){
+            for (var i = 0; i&lt; varList.length ;i++){
                 if (localVarList.indexOf(varList[i].Variable.name) > -1) {
                     this.addSectionItem(variableContainer, "Variables", varList[i].Variable.name, varList[i].Variable);
                 }
@@ -5295,7 +5323,7 @@ if (typeof Navigation === 'undefined')
       if (eventContainer) {
         eventContainer.innerHTML = "";
         var events = this.getEventListWithoutRepeats(stateArray);
-        for (var i = 0; i < events.length; i++) {
+        for (var i = 0; i &lt; events.length; i++) {
           this.addSectionItem(eventContainer, "Events", events[i].Event.name, events[i].Event);
         }
 
@@ -5304,7 +5332,7 @@ if (typeof Navigation === 'undefined')
       if (actionContainer) {
         actionContainer.innerHTML = "";
         var actions = this.getActionListWithoutRepeats(stateArray);
-        for (var i = 0; i < actions.length; i++) {
+        for (var i = 0; i &lt; actions.length; i++) {
           this.addSectionItem(actionContainer, "Actions", actions[i].Action.name, actions[i].Action);
         }
       }
@@ -5315,7 +5343,7 @@ if (typeof Navigation === 'undefined')
       if (variableContainer) {
         variableContainer.innerHTML = "";
         var varList = simApp.allDataModel.VariableList;
-        for (var i = 0; i < varList.length; i++) {
+        for (var i = 0; i &lt; varList.length; i++) {
           if (varList[i].Variable.varScope == "gtLocal")
             this.addSectionItem(variableContainer, "Variables", varList[i].Variable.name, varList[i].Variable);
         }
@@ -5397,3 +5425,26 @@ if (typeof Navigation === 'undefined')
   })(Object);
   Navigation.Sidebar = Sidebar;
 })(Navigation || (Navigation = {}));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Navigation.html">Navigation</a></li></ul><h3>Classes</h3><ul><li><a href="Navigation_Sidebar.html">Sidebar</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 14:28:22 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
