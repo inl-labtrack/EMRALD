@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Interface: ExtSim</title>
+    <title>JSDoc: Source: UI/CustomWindowHandler.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,97 +17,101 @@
 
 <div id="main">
 
-    <h1 class="page-title">Interface: ExtSim</h1>
+    <h1 class="page-title">Source: UI/CustomWindowHandler.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>ExtSim</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
+ * @file Custom window event handlers.
+ * @copyright 2021 Battelle Energy Alliance
+ */
 
-<article>
-    <div class="container-overview">
-    
-        
+"use strict";
 
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc-types.js.html">jsdoc-types.js</a>, <a href="jsdoc-types.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
+/**
+ * Programically triggers a DOM event.
+ * 
+ * @param {HTMLElement} el The element to trigger the event on.
+ * @param {string} eventName The name of the event to trigger.
+ */
+function triggerEvent(el, eventName) {
+  var evt;
+  if (document.createEvent) {
+    evt = document.createEvent('HTMLEvents');
+    evt.initEvent(eventName, true, true);
+  } else if (document.createEventObject) {// IE &lt; 9
+    evt = document.createEventObject();
+    evt.eventType = eventName;
+  }
+  evt.eventName = eventName;
+  evt.simulated = true;
+  if (el.dispatchEvent) {
+    el.dispatchEvent(evt);
+  } else if (el.fireEvent &amp;&amp; htmlEvents['on' + eventName]) {// IE &lt; 9
+    el.fireEvent('on' + evt.eventType, evt);// can trigger only real event (e.g. 'click')
+  } else if (el[eventName]) {
+    el[eventName]();
+  } else if (el['on' + eventName]) {
+    el['on' + eventName]();
+  }
+}
 
 
-        
-    
-    </div>
 
-    
 
-    
 
-    
+//overwritten to prompt user on close for okay to close.
+mxWindow.prototype.installCloseHandler = function () {
+  this.closeImg = document.createElement('img');
 
-    
+  this.closeImg.setAttribute('src', this.closeImage);
+ // this.closeImg.setAttribute('align', 'right');
+  this.closeImg.setAttribute('title', 'Close');
+  this.closeImg.style.marginLeft = '2px';
+  this.closeImg.style.cursor = 'pointer';
+  this.closeImg.style.display = 'none';
 
-    
+  this.buttons.appendChild(this.closeImg);
 
-    
+  var onCloseForm = function (evt) {
+    //add to query caller for it is okay to close the window.
+    var okToClose = true;
+    if (this.onClosing != null) {
+      if (!evt.simulated) {
+        this.closeStatus = 'Close';
+      }
+      okToClose = this.onClosing(evt);
+    }
+    if (!okToClose) {
+      mxEvent.consume(evt);
+      return;
+    }
 
-    
+    this.fireEvent(new mxEventObject(mxEvent.CLOSE, 'event', evt));
 
-    
+    if (this.destroyOnClose) {
+      this.destroy();
+    }
+    else {
+      this.setVisible(false);
+    }
 
-    
+    mxEvent.consume(evt);
+  }.bind(this);
 
-    
-</article>
-
-</section>
+  //IE doesn't like just the 'mousedown' event on an image.
+  mxEvent.addGestureListeners(this.closeImg, mxUtils.bind(this, onCloseForm));
+  //With 'click' it works for all IE, Chrome and SF.
+  this.closeImg.addEventListener('click', mxUtils.bind(this, onCloseForm), true);
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

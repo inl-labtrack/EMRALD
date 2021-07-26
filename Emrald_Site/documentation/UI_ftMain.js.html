@@ -1,4 +1,32 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/ftMain.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/ftMain.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
  * @file Logic tree functions.
  * @copyright 2021 Battelle Energy Alliance
  */
@@ -141,9 +169,9 @@ function main(container, outline) {
           return null;
         }
 
-        for (var i = 0; i < cell.children.length; i++) {
+        for (var i = 0; i &lt; cell.children.length; i++) {
           var cellVal = cell.children[i].value;
-          if ((cellVal != null) && (cellVal instanceof FTItem)) {
+          if ((cellVal != null) &amp;&amp; (cellVal instanceof FTItem)) {
             return cellVal;
           }
         }
@@ -160,7 +188,7 @@ function main(container, outline) {
     graph.labelChanged = function (cell, newValue, trigger) {
       cell.value = newValue;
 
-      if ((cell.parent != null) && (cell.parent.value instanceof FTItem)) {
+      if ((cell.parent != null) &amp;&amp; (cell.parent.value instanceof FTItem)) {
         var nodePart = cell.id.split('~');
         nodePart = nodePart[nodePart.length - 1];
         switch (nodePart) {
@@ -190,14 +218,14 @@ function main(container, outline) {
     }
     //-------------------------------------------------------------
     graph.isCellEditable = function (cell) {
-      return ((cell.parent != null) && (cell.parent.value instanceof FTItem));
+      return ((cell.parent != null) &amp;&amp; (cell.parent.value instanceof FTItem));
     };
     //-------------------------------------------------------------
     graph.getLabel = function (cell) {
       var tmp = '';
-      if (cell && cell.isEdge() == true) return '';
+      if (cell &amp;&amp; cell.isEdge() == true) return '';
 
-      if (cell && cell.value) {
+      if (cell &amp;&amp; cell.value) {
         if (cell.value instanceof FTItem) {
 						if (!cell.collapsed) {  
 								if (cell.id.indexOf("~Desc") > 0)
@@ -224,7 +252,7 @@ function main(container, outline) {
     };
 
 
-    //overwritten cellRenderer.redrawLabel to install drag/drop.  We can only do D&D on DOME element.
+    //overwritten cellRenderer.redrawLabel to install drag/drop.  We can only do D&amp;D on DOME element.
     var oldRedrawLabel = graph.cellRenderer.redrawLabel;
     graph.cellRenderer.redrawLabel = function (state) {
 
@@ -237,7 +265,7 @@ function main(container, outline) {
         //mxEvent.addListener(watchEl, 'dragover', function (evt) {
           var isDiagram = false;
 						var isGate = false;
-          if (evt.dataTransfer.types.indexOf('diagrams') >= 0 && evt.dataTransfer.types.indexOf('dtcomponent') >= 0) {
+          if (evt.dataTransfer.types.indexOf('diagrams') >= 0 &amp;&amp; evt.dataTransfer.types.indexOf('dtcomponent') >= 0) {
             //TODO: if the diagram can only be drop to specific type of shape, the evt.target is the pdiv.  
             //When construct the shape, the mxCell.shate can be link to the div so we can get back to the object that containing the div.
             isDiagram = true;
@@ -277,7 +305,7 @@ function main(container, outline) {
 										var alreadyExist = false;
 										var compChildren;
 										var index = -1;
-										for (var i = 0; i < graph.sidebar.LogicNodeList.length; i++) {
+										for (var i = 0; i &lt; graph.sidebar.LogicNodeList.length; i++) {
 												if (graph.sidebar.LogicNodeList[i].LogicNode.name == cell.value.name) {
 														compChildren = graph.sidebar.LogicNodeList[i].LogicNode.compChildren;
 														index = i;
@@ -286,7 +314,7 @@ function main(container, outline) {
 										if (!compChildren) {
 												graph.sidebar.LogicNodeList[index].LogicNode.compChildren = [];
 										}
-										for (var i = 0; i < compChildren.length; i++) {
+										for (var i = 0; i &lt; compChildren.length; i++) {
 												if (compChildren[i] == newDiagram.name) {
 														alreadyExist = true;
 												}
@@ -333,7 +361,7 @@ function main(container, outline) {
 										}
 
 										graph.setSelectionCell(vertex);
-										if (cell.value.gateChildren.indexOf("gate_" + newID) < 0)
+										if (cell.value.gateChildren.indexOf("gate_" + newID) &lt; 0)
 												cell.value.gateChildren.add("gate_" + newID);
 										var newLogicNode = {
 												LogicNode: {
@@ -366,9 +394,9 @@ function main(container, outline) {
       var graph = state.view.graph;
       //var s = graph.view.scale;
      
-      if (graph.getModel().isVertex(state.cell) && state.text != null) {
+      if (graph.getModel().isVertex(state.cell) &amp;&amp; state.text != null) {
         if (((state.shape instanceof mxLabel) || (state.shape instanceof mxImageShape))
-          && (typeof (state.cell.value) !== 'string')) {
+          &amp;&amp; (typeof (state.cell.value) !== 'string')) {
           if (!state.cell.value) return;
           if (state.cell.value.diagramType) return;  //don't need to drop on leave node.
 
@@ -643,13 +671,13 @@ var createPopupMenu = function (graph, menu, cell, evt) {
       graph.startEditingAtCell(cell);
     });
 
-    if (cell.id != 'treeRoot' && model.isVertex(cell)) {
+    if (cell.id != 'treeRoot' &amp;&amp; model.isVertex(cell)) {
       menu.addItem('Delete', 'images/delete.gif', function () {
         deleteSubtree(graph, cell);
       });
     }
 
-		if (cell.id != 'treeRoot' &&
+		if (cell.id != 'treeRoot' &amp;&amp;
             model.isVertex(cell)) {
       menu.addItem('add', 'images/add.png', function () {
 					alert("TODO");
@@ -695,7 +723,7 @@ var createPopupMenu = function (graph, menu, cell, evt) {
 function getDefaultGateID(graph) {
 		var maxID = 0;
 		var logicNodeList = graph.sidebar.LogicNodeList;
-		for (var i = 0; i < logicNodeList.length; i++) {
+		for (var i = 0; i &lt; logicNodeList.length; i++) {
 				if (logicNodeList[i].LogicNode.id > maxID) {
 						maxID = logicNodeList[i].LogicNode.id;
 				}
@@ -736,7 +764,7 @@ function addOverlays(graph, cell, isEditable) {
           else if (cell.value.gateType)
               editNode(graph, cell);
       }
-      else if (cell.nameItem && cell.nameItem.value.diagramType)
+      else if (cell.nameItem &amp;&amp; cell.nameItem.value.diagramType)
         editDiagramNode(graph, cell.nameItem);
     });
 
@@ -791,9 +819,9 @@ function updateCell(graph, cell) {
                 return null;
             }
 
-            for (var i = 0; i < cell.children.length; i++) {
+            for (var i = 0; i &lt; cell.children.length; i++) {
                 var cellVal = cell.children[i].value;
-                if ((cellVal != null) && (cellVal instanceof FTItem)) {
+                if ((cellVal != null) &amp;&amp; (cellVal instanceof FTItem)) {
                     return cellVal;
                 }
             }
@@ -829,13 +857,13 @@ function BuildTreeRec(graph, parentCell, node) {
 
         //addedChild.value = node.LogicNode;
         if (node.gateChildren != undefined) {
-            for (var i = 0; i < node.gateChildren.length; i++) {
+            for (var i = 0; i &lt; node.gateChildren.length; i++) {
                 BuildTreeRec(addedChild, node.gateChildren[i].LogicNode);
             }
         }
 
         if (node.compChildren != undefined) {
-            for (var i = 0; i < node.compChildren.length; i++) {
+            for (var i = 0; i &lt; node.compChildren.length; i++) {
                 AddChildComp(graph, addedChild, node.compChildren[i]);
             }
         }
@@ -853,7 +881,7 @@ function editDiagramNode(graph, cell) {
   //var ds = graph.DiagramList;
 
   var diagram = cell.value;
-  //for (var i = 0; i < ds.length; i++) {
+  //for (var i = 0; i &lt; ds.length; i++) {
   //  if (ds[i].Diagram.name == cell.id) {
   //    diagram = ds[i].Diagram;
   //    break;
@@ -910,14 +938,14 @@ function editNode (graph, stateCell) {
         function (btn, retObj) {
             if (btn === 'OK') {
 								var logicNodeList = graph.sidebar.LogicNodeList;
-								for (var i = 0; i < logicNodeList.length; i++) {
+								for (var i = 0; i &lt; logicNodeList.length; i++) {
 										if (logicNodeList[i].LogicNode.name == oldName) {
                       graph.sidebar.LogicNodeList[i].LogicNode.desc = retObj.desc;
                       graph.sidebar.LogicNodeList[i].LogicNode.gateType = retObj.gateType;
 										}
 										var gateChildren = logicNodeList[i].LogicNode.gateChildren;
 										if (gateChildren) {
-												for (var j = 0; j < gateChildren.length; j++) {
+												for (var j = 0; j &lt; gateChildren.length; j++) {
 														if (gateChildren[j] == oldName) {
 																graph.sidebar.LogicNodeList[i].LogicNode.gateChildren[j] = retObj.name;
 														}
@@ -949,7 +977,7 @@ function addNode(graph, stateCell) {
 		var url = "EditForms/GateAdder.html";
 		var componentDiagrams = [];
 		var diagramList = graph.sidebar.DiagramList;
-		for (var i = 0; i < diagramList.length; i++) {
+		for (var i = 0; i &lt; diagramList.length; i++) {
 				if (diagramList[i].Diagram.diagramType == "dtComponent") {
 						var obj = diagramList[i].Diagram;
 						componentDiagrams.add(obj);
@@ -962,7 +990,7 @@ function addNode(graph, stateCell) {
 				'minimize, maximize, close', //top buttons
 				function (btn, retObj) {
 						if (btn === 'OK') {
-								if (retObj.addType == "diagram" && retObj.newDiagram ) {
+								if (retObj.addType == "diagram" &amp;&amp; retObj.newDiagram ) {
 										var state = graph.getView().getState(stateCell);
 										var cell = state.cell;
 										if (cell.parentCell)
@@ -971,13 +999,13 @@ function addNode(graph, stateCell) {
 										var alreadyExist = false;
 										var compChildren;
 										var index = -1;
-										for (var i = 0; i < graph.sidebar.LogicNodeList.length; i++) {
+										for (var i = 0; i &lt; graph.sidebar.LogicNodeList.length; i++) {
 												if (graph.sidebar.LogicNodeList[i].LogicNode.name == cell.value.name) {
 														compChildren = graph.sidebar.LogicNodeList[i].LogicNode.compChildren;
 														index = i;
 												}
 										}
-										for (var i = 0; i < compChildren.length; i++) {
+										for (var i = 0; i &lt; compChildren.length; i++) {
 												if (compChildren[i] == retObj.newDiagram.name) {
 														alreadyExist = true;
 												}
@@ -997,7 +1025,7 @@ function addNode(graph, stateCell) {
 										var state = graph.getView().getState(stateCell);
 										var cell = state.cell;
 										var newID = getDefaultGateID(graph);
-										for (var i = 0; i < graph.sidebar.LogicNodeList.length; i++) {
+										for (var i = 0; i &lt; graph.sidebar.LogicNodeList.length; i++) {
 												if (graph.sidebar.LogicNodeList[i].LogicNode.name == retObj.newName) {
 														alreadyExist = true;
 												}
@@ -1014,9 +1042,9 @@ function addNode(graph, stateCell) {
 												}
 
 												graph.setSelectionCell(vertex);
-												for (var i = 0; i < graph.sidebar.LogicNodeList.length; i++) {
+												for (var i = 0; i &lt; graph.sidebar.LogicNodeList.length; i++) {
 														if (graph.sidebar.LogicNodeList[i].LogicNode.name == cell.value.name) {
-																if (graph.sidebar.LogicNodeList[i].LogicNode.gateChildren.indexOf(retObj.newName) < 0)
+																if (graph.sidebar.LogicNodeList[i].LogicNode.gateChildren.indexOf(retObj.newName) &lt; 0)
 																		graph.sidebar.LogicNodeList[i].LogicNode.gateChildren.add(retObj.newName);
 														}
 												}
@@ -1066,7 +1094,7 @@ function addBE(graph, cell) {
 		var url = "EditForms/CompAdder.html";
 		var componentDiagrams = [];
 		var diagramList = graph.sidebar.DiagramList;
-		for (var i = 0; i < diagramList.length; i++) {
+		for (var i = 0; i &lt; diagramList.length; i++) {
 				if (diagramList[i].Diagram.diagramType == "dtComponent") {
 						var obj = diagramList[i].Diagram;
 						componentDiagrams.add(obj);
@@ -1084,7 +1112,7 @@ function addBE(graph, cell) {
 								var compChildren;
 								var newDiagram = retObj.element;
 								var index = -1;
-								for (var i = 0; i < graph.sidebar.LogicNodeList.length; i++) {
+								for (var i = 0; i &lt; graph.sidebar.LogicNodeList.length; i++) {
 										if (graph.sidebar.LogicNodeList[i].LogicNode.name == cell.value.name) {
 												compChildren = graph.sidebar.LogicNodeList[i].LogicNode.compChildren;
 												index = i;
@@ -1093,7 +1121,7 @@ function addBE(graph, cell) {
 								if (!compChildren) {
 										graph.sidebar.LogicNodeList[index].LogicNode.compChildren = [];
 								}
-								for (var i = 0; i < compChildren.length; i++) {
+								for (var i = 0; i &lt; compChildren.length; i++) {
 										if (compChildren[i] == newDiagram.name) {
 												alreadyExist = true;
 										}
@@ -1164,9 +1192,9 @@ mxGraph.prototype.removeCells = function (cells, includeEdges) {
   }
 
   var i = 0;
-  while (i < cells.length) {
+  while (i &lt; cells.length) {
     var cell = cells[i];
-    if (!(cell.value instanceof FTItem) && (!cell.forceDelete)) {
+    if (!(cell.value instanceof FTItem) &amp;&amp; (!cell.forceDelete)) {
       cells.splice(i, 1);
     }
     else
@@ -1182,3 +1210,26 @@ mxGraph.prototype.isCellSelectable = function (cell) {
   else
     return this.isCellsSelectable();
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="FaultTree.html">FaultTree</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="RiskSim.html">RiskSim</a></li><li><a href="simApp.html">simApp</a></li></ul><h3>Classes</h3><ul><li><a href="Enum.html">Enum</a></li><li><a href="FaultTree_Toolbar.html">Toolbar</a></li><li><a href="Navigation_Menu.html">Menu</a></li><li><a href="Navigation_Sidebar.html">Sidebar</a></li><li><a href="RiskSim_CommonDialog.html">CommonDialog</a></li><li><a href="RiskSim_Window.html">Window</a></li><li><a href="simApp_SimApp.html">SimApp</a></li><li><a href="StateApp.html">StateApp</a></li><li><a href="StateShape.html">StateShape</a></li><li><a href="TableShape.html">TableShape</a></li><li><a href="WcfService.html">WcfService</a></li><li><a href="WindowFrame.html">WindowFrame</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="MenuItem.html">MenuItem</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBE">addBE</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#addOverlays">addOverlays</a></li><li><a href="global.html#adjustWindowPos">adjustWindowPos</a></li><li><a href="global.html#BuildTreeRec">BuildTreeRec</a></li><li><a href="global.html#classNameOf">classNameOf</a></li><li><a href="global.html#clearAllCookies">clearAllCookies</a></li><li><a href="global.html#createDemo">createDemo</a></li><li><a href="global.html#createPopupMenu">createPopupMenu</a></li><li><a href="global.html#createTestProject">createTestProject</a></li><li><a href="global.html#createTestProject2">createTestProject2</a></li><li><a href="global.html#DataChanged">DataChanged</a></li><li><a href="global.html#DataType">DataType</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#deleteSimulation">deleteSimulation</a></li><li><a href="global.html#downloadClientTester">downloadClientTester</a></li><li><a href="global.html#downloadClientTesterSource">downloadClientTesterSource</a></li><li><a href="global.html#downloadSolver">downloadSolver</a></li><li><a href="global.html#editDiagramNode">editDiagramNode</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#extractSubStr">extractSubStr</a></li><li><a href="global.html#GetDataObject">GetDataObject</a></li><li><a href="global.html#getDefaultGateID">getDefaultGateID</a></li><li><a href="global.html#getMainApp">getMainApp</a></li><li><a href="global.html#getRowY">getRowY</a></li><li><a href="global.html#getServerFile">getServerFile</a></li><li><a href="global.html#getSidebar">getSidebar</a></li><li><a href="global.html#isIENavigator">isIENavigator</a></li><li><a href="global.html#isModified">isModified</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#makeTransparent">makeTransparent</a></li><li><a href="global.html#mergeFTData">mergeFTData</a></li><li><a href="global.html#mergeIntoCurrentProject">mergeIntoCurrentProject</a></li><li><a href="global.html#MessageBox">MessageBox</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#newSimulation">newSimulation</a></li><li><a href="global.html#noSpaces">noSpaces</a></li><li><a href="global.html#OnLoad">OnLoad</a></li><li><a href="global.html#OnSave">OnSave</a></li><li><a href="global.html#openAbout">openAbout</a></li><li><a href="global.html#openCSharpTool">openCSharpTool</a></li><li><a href="global.html#openFaultTree">openFaultTree</a></li><li><a href="global.html#openHelp">openHelp</a></li><li><a href="global.html#openProject">openProject</a></li><li><a href="global.html#openPythonTool">openPythonTool</a></li><li><a href="global.html#rgba">rgba</a></li><li><a href="global.html#saveDiagramProperties">saveDiagramProperties</a></li><li><a href="global.html#saveProject">saveProject</a></li><li><a href="global.html#saveTemplate">saveTemplate</a></li><li><a href="global.html#sequence">sequence</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setModified">setModified</a></li><li><a href="global.html#SetOf">SetOf</a></li><li><a href="global.html#somethingChanged">somethingChanged</a></li><li><a href="global.html#sortDOMList">sortDOMList</a></li><li><a href="global.html#testMakeCompDiagram">testMakeCompDiagram</a></li><li><a href="global.html#triggerEvent">triggerEvent</a></li><li><a href="global.html#updateCell">updateCell</a></li><li><a href="global.html#ValidateData">ValidateData</a></li><li><a href="global.html#waitToSync">waitToSync</a></li><li><a href="global.html#windowClosing">windowClosing</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 18:40:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

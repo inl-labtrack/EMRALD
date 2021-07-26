@@ -1,4 +1,32 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/TableShape.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/TableShape.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
  * @file The GUI of everything within a state object in a diagram editor.
  * @copyright 2021 Battelle Energy Alliance
  */
@@ -62,20 +90,20 @@ function TableShape(bounds, fill, stroke, strokewidth) {
     var content = "";
     if (section.dataType == "actions" || section.dataType == "events") {
       if (graph.isCellCollapsed(cell)) {
-        content += '<table style="overflow:hidden;" width="100%" cellpadding="4" class="title" style="height:100%;">' +
-          '<tr><th colspan="2">' + section.name + '</th></tr>' +
-          '</table>';
+        content += '&lt;table style="overflow:hidden;" width="100%" cellpadding="4" class="title" style="height:100%;">' +
+          '&lt;tr>&lt;th colspan="2">' + section.name + '&lt;/th>&lt;/tr>' +
+          '&lt;/table>';
       }
       else {
 
         // To allow scrollbar, the header is in a separate table.  Scrollbar is 
         // on the div.
         content +=
-          '<table cellpadding="4" class="title" datatype="' + section.dataType + '"> ' +
-          '<tr><th colspan="2" row-type="' + section.dataType + 'Header" dataType="' + section.dataType + '">' + section.name + '</th></tr>' +
-          '</table>' +
-          '<div section = "top" class="cellPanel" dataType="' + section.dataType + '" >' +
-          '<table width="100%" cellpadding="4" class="erd">';
+          '&lt;table cellpadding="4" class="title" datatype="' + section.dataType + '"> ' +
+          '&lt;tr>&lt;th colspan="2" row-type="' + section.dataType + 'Header" dataType="' + section.dataType + '">' + section.name + '&lt;/th>&lt;/tr>' +
+          '&lt;/table>' +
+          '&lt;div section = "top" class="cellPanel" dataType="' + section.dataType + '" >' +
+          '&lt;table width="100%" cellpadding="4" class="erd">';
 
 
         /////////////////////////////////////////////////////////////////
@@ -85,12 +113,12 @@ function TableShape(bounds, fill, stroke, strokewidth) {
           //First check how many items in section have prob -1
           var pCounter = 0;
           var pSum = 0;
-          for (var j = 0; j < section.items.length; j++) {
+          for (var j = 0; j &lt; section.items.length; j++) {
             var newStates = null;
             if (section.items[j].value) {
               newStates = section.items[j].value.newStates;
             }
-            if (newStates && newStates.length > 0) {
+            if (newStates &amp;&amp; newStates.length > 0) {
               var prob = newStates[0].prob;
               if (prob == -1) {
                 pCounter += 1;
@@ -101,7 +129,7 @@ function TableShape(bounds, fill, stroke, strokewidth) {
             }
           }
 
-          for (var i = 0; i < section.items.length; i++) {
+          for (var i = 0; i &lt; section.items.length; i++) {
             var item = section.items[i];
             item.itemId = i;
             var isValid = "True";
@@ -110,18 +138,18 @@ function TableShape(bounds, fill, stroke, strokewidth) {
             if (item.value) {
               newStates = item.value.newStates;
             }
-            if (newStates && newStates.length > 0) {
-              if ((newStates[0].prob == -1 && pCounter > 1) || (!newStates[0].prob)) {
+            if (newStates &amp;&amp; newStates.length > 0) {
+              if ((newStates[0].prob == -1 &amp;&amp; pCounter > 1) || (!newStates[0].prob)) {
                 isValid = "False";
               }
-              if (newStates[0].prob != -1 && pSum > 1) {
+              if (newStates[0].prob != -1 &amp;&amp; pSum > 1) {
                 overOne = "True";
               }
             }
 
             content +=
-              '<tr row-type="ImmediateAction"  dataType="' + item.dataType + '">' +
-              '<td datatype="' + item.dataType + '" width="20" style="text-align:center;" >';
+              '&lt;tr row-type="ImmediateAction"  dataType="' + item.dataType + '">' +
+              '&lt;td datatype="' + item.dataType + '" width="20" style="text-align:center;" >';
 
             if (section.dataType == "actions") {
               if (item.Action) {
@@ -129,36 +157,36 @@ function TableShape(bounds, fill, stroke, strokewidth) {
               }
               switch (item.value.actType) {
                 case "atTransition":
-                  content +='<img style="width:12px;height:12px;" src="images/TransitionArrow.png"/>';
+                  content +='&lt;img style="width:12px;height:12px;" src="images/TransitionArrow.png"/>';
                   break;
                 case "atCngVarVal":
-                  content += '<img style="width:12px;height:12px;" src="images/varCond.png"/>';
+                  content += '&lt;img style="width:12px;height:12px;" src="images/varCond.png"/>';
                   break;
                 case "at3DSimMsg":
-                  content += '<img style="width:12px;height:12px;" src="images/extSim.png"/>';
+                  content += '&lt;img style="width:12px;height:12px;" src="images/extSim.png"/>';
                   break;
                 case "atRunExtApp":
-                  content += '<img style="width:12px;height:12px;" src="images/cogwheel.png"/>';
+                  content += '&lt;img style="width:12px;height:12px;" src="images/cogwheel.png"/>';
                   break;
                 default:
-                  content += '<img style="width:12px;height:12px;" src="images/cogwheel.png"/>';
+                  content += '&lt;img style="width:12px;height:12px;" src="images/cogwheel.png"/>';
               }
 
               
-              if (item.value.actType == "atTransition" && item.value.newStates.length == 0) {
-                content += "<img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
-                tips += "Warning: " + "This transition does not go to any state" + '&#13';
+              if (item.value.actType == "atTransition" &amp;&amp; item.value.newStates.length == 0) {
+                content += "&lt;img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
+                tips += "Warning: " + "This transition does not go to any state" + '&amp;#13';
               }
-              else if (overOne == "True" && item.value.mutExcl) {
-                content += "<img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
-                tips += "Error: " + "The sum of all the immediate action probability is greater than one" + '&#13';
+              else if (overOne == "True" &amp;&amp; item.value.mutExcl) {
+                content += "&lt;img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
+                tips += "Error: " + "The sum of all the immediate action probability is greater than one" + '&amp;#13';
               }
               /*else if (isValid == "True") {
-                  content += "<img src='images/check.png' style='width:12px;margin-right:5px;' />";         
+                  content += "&lt;img src='images/check.png' style='width:12px;margin-right:5px;' />";         
               }*/
               else if (isValid == "False") {
-                content += "<img src='images/delete2.png' style='width:12px;margin-right:5px;' />";
-                tips += "Error: " + "There are more then one immediate actions that has REMAINDER probability" + '&#13';
+                content += "&lt;img src='images/delete2.png' style='width:12px;margin-right:5px;' />";
+                tips += "Error: " + "There are more then one immediate actions that has REMAINDER probability" + '&amp;#13';
               }
 
             }
@@ -172,56 +200,56 @@ function TableShape(bounds, fill, stroke, strokewidth) {
                 switch (evType) {
                   case "etTimer":
                     content +=
-                      '<img style="width:12px;height:12px;" dataType="' + item.dataType +
+                      '&lt;img style="width:12px;height:12px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/alarm.png"/>';
                     break;
                   case "etFailRate":
                     content +=
-                      '<img style="width:16px;height:16px;" dataType="' + item.dataType +
+                      '&lt;img style="width:16px;height:16px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/dice.png"/>';
                     break;
                   case "et3dSimEv":
                     content +=
-                      '<img style="width:12px;height:12px;" dataType="' + item.dataType +
+                      '&lt;img style="width:12px;height:12px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/extInput.png"/>';
                     break;
                   case "etVarCond":
                     content +=
-                      '<img style="width:18px;height:16px;" dataType="' + item.dataType +
+                      '&lt;img style="width:18px;height:16px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/varCond.png"/>';
                     break;
                   case "etStateCng":
                     content +=
-                      '<img style="width:16px;height:16px;" dataType="' + item.dataType +
+                      '&lt;img style="width:16px;height:16px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/stateChange.png"/>';
                     break;
                   case "etComponentLogic":
                     content +=
-                      '<img style="width:18px;height:18px;" dataType="' + item.dataType +
+                      '&lt;img style="width:18px;height:18px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/compLogic.png"/>';
                     break;
                   case "etNormalDist":
                   case "etLogNormalDist":
                     content +=
-                      '<img style="width:18px;height:18px;" dataType="' + item.dataType +
+                      '&lt;img style="width:18px;height:18px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/dist.png"/>';
                     break;
                   case "etWeibullDist":
                     content +=
-                      '<img style="width:18px;height:18px;" dataType="' + item.dataType +
+                      '&lt;img style="width:18px;height:18px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/dist.png"/>';
                     break;
                   case "etExponentialDist":
                     content +=
-                      '<img style="width:18px;height:18px;" dataType="' + item.dataType +
+                      '&lt;img style="width:18px;height:18px;" dataType="' + item.dataType +
                       '" cellId="' + cell.getId() +
                       '" src="images/dist.png"/>';
                     break;
@@ -232,14 +260,14 @@ function TableShape(bounds, fill, stroke, strokewidth) {
               }
               else {
                 content +=
-                  '<img style="width:12px;height:12px;" dataType="' + item.dataType +
+                  '&lt;img style="width:12px;height:12px;" dataType="' + item.dataType +
                   '" cellId="' + cell.getId() +
                   '" src="images/alarm.png"/>';
               }
 
             }
             content +=
-              '</td>';
+              '&lt;/td>';
 
             //Building the tooltips for the section.
 
@@ -248,7 +276,7 @@ function TableShape(bounds, fill, stroke, strokewidth) {
                 (typeof item.value[prop] == 'boolean') ||
                 (typeof item.value[prop] == 'number')) {
                 if (prop == "name" || prop == "desc")
-                  tips += prop + ': ' + (item.value[prop]).toString().replace('<br/>', '&#13') + '&#13';
+                  tips += prop + ': ' + (item.value[prop]).toString().replace('&lt;br/>', '&amp;#13') + '&amp;#13';
               }
             }
 
@@ -260,13 +288,13 @@ function TableShape(bounds, fill, stroke, strokewidth) {
             if (item.dataType == 'actions') {
               //an immediate action second
               content +=
-                '<td colspan="2" title="' + tips +
+                '&lt;td colspan="2" title="' + tips +
                 '" datatype="' + item.dataType + '" cellid="' + cell.getId() + '" itemid="'
                 + item.itemId + '" actionid="-1">' + item.name;
 
               if (item.value.newStates) {
                 var any = false;
-                for (var k = 0; k < item.value.newStates.length; k++) {
+                for (var k = 0; k &lt; item.value.newStates.length; k++) {
                   if (!mainApp.getStateByName(item.value.newStates[k].toState)) {
                     item.actionId = k;
                     any = true;
@@ -275,9 +303,9 @@ function TableShape(bounds, fill, stroke, strokewidth) {
                 }
 
                 if (any) {
-                  content += '<td dataType ="StateLink" title = "To state on other Diagram." ' +
+                  content += '&lt;td dataType ="StateLink" title = "To state on other Diagram." ' +
                     ' width="10" style="text-align:right;">' +
-                    ' <img style="width:12px;height:12px;" src="images/link.png" ' +
+                    ' &lt;img style="width:12px;height:12px;" src="images/link.png" ' +
                     'dataType= "toStateAction" ' +
                     'cellid= "' + cell.getId() + '" ' +
                     'itemid= "' + item.itemId + '" ' +
@@ -287,36 +315,36 @@ function TableShape(bounds, fill, stroke, strokewidth) {
                 }
               }
 
-              content += '</td>';
+              content += '&lt;/td>';
             } else {
               //event action header.
               content +=
-                '<td datatype="' + item.dataType + '" cellid="' + cell.getId() + '" itemId="' + item.itemId + '" >' +
-                '<div section="actions" class="cellPanel" datatype="' + item.dataType + '">' +
-                '<table style="overflow:auto;" width="100%" cellpadding="4" class="title" datatype="' + item.dataType + '"> ' +
-                '<tr row-type="immediateAction" datatype="' + item.dataType + '">' +
-                '<th colspan="2" row-type="eventActionHeader" title ="' + tips +
+                '&lt;td datatype="' + item.dataType + '" cellid="' + cell.getId() + '" itemId="' + item.itemId + '" >' +
+                '&lt;div section="actions" class="cellPanel" datatype="' + item.dataType + '">' +
+                '&lt;table style="overflow:auto;" width="100%" cellpadding="4" class="title" datatype="' + item.dataType + '"> ' +
+                '&lt;tr row-type="immediateAction" datatype="' + item.dataType + '">' +
+                '&lt;th colspan="2" row-type="eventActionHeader" title ="' + tips +
                 '" datatype="' + item.dataType +
                 '" cellId ="' + cell.getId() +
                 '" itemId ="' + item.itemId + '">' + item.name;
               var indx = parentState.events.indexOf(item.name);
-              if (indx > -1 && parentState.eventActions[indx] && parentState.eventActions[indx].moveFromCurrent) {
-                content += "<img src='images/exit-icon.png' style='width:20px;position: absolute;right:10px;' />" + '</th>';
+              if (indx > -1 &amp;&amp; parentState.eventActions[indx] &amp;&amp; parentState.eventActions[indx].moveFromCurrent) {
+                content += "&lt;img src='images/exit-icon.png' style='width:20px;position: absolute;right:10px;' />" + '&lt;/th>';
               }
               else {
-                content += '</th>';
+                content += '&lt;/th>';
               }
-              content += '</tr>' + '</table>';
+              content += '&lt;/tr>' + '&lt;/table>';
               tips = "";
 
               //The Event Actions section host another table, which divided further into Event and Action called EventAction.
 
               if (item.dataType == "events"
-                && item.eActions && item.eActions.length > 0) {
+                &amp;&amp; item.eActions &amp;&amp; item.eActions.length > 0) {
                 pCounter = 0;
                 pSum = 0;
                 isValid = "True";
-                for (var k = 0; k < item.eActions.length; k++) {
+                for (var k = 0; k &lt; item.eActions.length; k++) {
                   if (!item.eActions[k].value) {
                     var a = item.eActions[k];
                   }
@@ -334,23 +362,23 @@ function TableShape(bounds, fill, stroke, strokewidth) {
 
 
                 content +=
-                  '<div section = "events" style="overflow:auto;" datatype="' + item.dataType + '">' +
-                  '<table width="100%"  class="erd" cellpadding="3">';
-                for (var j = 0; j < item.eActions.length; j++) {
+                  '&lt;div section = "events" style="overflow:auto;" datatype="' + item.dataType + '">' +
+                  '&lt;table width="100%"  class="erd" cellpadding="3">';
+                for (var j = 0; j &lt; item.eActions.length; j++) {
                   var act = item.eActions[j];
                   if (!act.value) {
                     var a = act;
                   }
                   var newStates = act.value.newStates;
                   if (newStates.length > 0) {
-                    if ((newStates[0].prob == -1 && pCounter > 1) || (!newStates[0].prob)) {
+                    if ((newStates[0].prob == -1 &amp;&amp; pCounter > 1) || (!newStates[0].prob)) {
                       isValid = "False";
                     }
-                    if (newStates[0].prob != -1 && pSum > 1) {
+                    if (newStates[0].prob != -1 &amp;&amp; pSum > 1) {
                       overOne = "True";
                     }
                   }
-                  if (act.value && act.name !== act.value.name)
+                  if (act.value &amp;&amp; act.name !== act.value.name)
                     act.name = act.value.name;
                   //The tooltips for EventAction.
                   var tips = "";
@@ -359,101 +387,101 @@ function TableShape(bounds, fill, stroke, strokewidth) {
                       (typeof act.value[prop] == 'boolean') ||
                       (typeof act.value[prop] == 'number')) {
                       if (prop == "name" || prop == "desc")
-                        tips += prop + ': ' + (act.value[prop]).toString().replace('<br/>', '&#13') + '&#13';
+                        tips += prop + ': ' + (act.value[prop]).toString().replace('&lt;br/>', '&amp;#13') + '&amp;#13';
                     }
                   }
                   content +=
-                    '<tr row-type="eventAction" datatype="' + act.dataType + '">' +
-                    '<td width="35" style="text-align:center;">';
+                    '&lt;tr row-type="eventAction" datatype="' + act.dataType + '">' +
+                    '&lt;td width="35" style="text-align:center;">';
 
                   switch (act.value.actType) {
                     case "atTransition":
-                      content += '<img style="width:12px;height:12px;" src="images/TransitionArrow.png"';
+                      content += '&lt;img style="width:12px;height:12px;" src="images/TransitionArrow.png"';
                       break;
                     case "atCngVarVal":
-                      content += '<img style="width:12px;height:12px;" src="images/varCond.png"';
+                      content += '&lt;img style="width:12px;height:12px;" src="images/varCond.png"';
                       break;
                     case "at3DSimMsg":
-                      content += '<img style="width:12px;height:12px;" src="images/ExtInput.png"';
+                      content += '&lt;img style="width:12px;height:12px;" src="images/ExtInput.png"';
                       break;
                     case "atRunExtApp":
-                      content += '<img style="width:12px;height:12px;" src="images/cogwheel.png"';
+                      content += '&lt;img style="width:12px;height:12px;" src="images/cogwheel.png"';
                       break;
                     default:
-                      content += '<img style="width:12px;height:12px;" src="images/cogwheel.png"';
+                      content += '&lt;img style="width:12px;height:12px;" src="images/cogwheel.png"';
                   }
                   
                   content +=  ' dataType="' + act.dataType +
                     '" cellId="' + cell.getId() +
                     '" itemId="' + act.itemId +
                     '" actionId="' + act.actionId + '" />';
-                  if (act.value.actType == "atTransition" && act.value.newStates.length == 0) {
-                    content += "<img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
-                    tips += "Warning: " + "This transition does not go to any state" + '&#13';
+                  if (act.value.actType == "atTransition" &amp;&amp; act.value.newStates.length == 0) {
+                    content += "&lt;img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
+                    tips += "Warning: " + "This transition does not go to any state" + '&amp;#13';
                   }
-                  else if (overOne == "True" && act.value.mutExcl) {
-                    content += "<img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
-                    tips += "Error: " + "The sum of all the event action probability is greater than one" + '&#13';
+                  else if (overOne == "True" &amp;&amp; act.value.mutExcl) {
+                    content += "&lt;img src='images/questionOrange.png' style='width:12px;margin-right:5px;' />";
+                    tips += "Error: " + "The sum of all the event action probability is greater than one" + '&amp;#13';
                   }
                   /*else if (isValid == "True") {
-                      content += "<img src='images/check.png' style='width:12px;margin-right:5px;' />";
+                      content += "&lt;img src='images/check.png' style='width:12px;margin-right:5px;' />";
                   }*/
                   else if (isValid == "False") {
-                    content += "<img src='images/delete2.png' style='width:12px;margin-right:5px;' />";
-                    tips = "Error: " + "There are more then one event actions that has REMAINDER probability" + '&#13' + tips;
+                    content += "&lt;img src='images/delete2.png' style='width:12px;margin-right:5px;' />";
+                    tips = "Error: " + "There are more then one event actions that has REMAINDER probability" + '&amp;#13' + tips;
                   }
                   content +=
-                    '</td>' +
-                    '<td datatype= "' + act.dataType +
+                    '&lt;/td>' +
+                    '&lt;td datatype= "' + act.dataType +
                     '" title = "' + tips +
                     '" cellid = "' + cell.getId() +
                     '" itemid = "' + act.itemId +
                     '" actionid= "' + act.actionId + '" >' + act.name +
-                    '</td>';
+                    '&lt;/td>';
                   if (act.value.newStates) {
                     var any = false;
-                    for (var k = 0; k < act.value.newStates.length; k++) {
+                    for (var k = 0; k &lt; act.value.newStates.length; k++) {
                       if (!mainApp.getStateByName(act.value.newStates[k].toState)) {
                         any = true;
                         break;
                       }
                     }
                     if (any) {
-                      content += '<td dataType ="StateLink" title = "To state on other view (Right click to show list)." ' +
+                      content += '&lt;td dataType ="StateLink" title = "To state on other view (Right click to show list)." ' +
                         ' width="10" style="text-align:center;">' +
-                        ' <img style="width:12px;height:12px;" src="images/link.png" ' +
+                        ' &lt;img style="width:12px;height:12px;" src="images/link.png" ' +
                         'dataType= "toStateAction" ' +
                         'cellid= "' + cell.getId() + '" ' +
                         'itemid= "' + act.itemId + '" ' +
                         'actionid= "' + act.actionId + '" ' +
                         '/>' +
-                        ' </td><td width="12" ' +
+                        ' &lt;/td>&lt;td width="12" ' +
                         'dataType= "' + act.dataType + '" ' +
                         'cellid= "' + cell.getId() + '" ' +
                         'itemid= "' + act.itemId + '" ' +
                         'actionid= "' + act.actionId + '" ' +
-                        '></td>';
+                        '>&lt;/td>';
                     }
                   }
                   content +=
-                    '</tr>';
+                    '&lt;/tr>';
                 }
                 content +=
-                  '</table>' +
-                  '</div>';
+                  '&lt;/table>' +
+                  '&lt;/div>';
               }
               content +=
-                '</div>' +
-                '</td>';
+                '&lt;/div>' +
+                '&lt;/td>';
             }
             content +=
-              '</tr>';
+              '&lt;/tr>';
             tips = "";
           }
         }
         content +=
-          '</table>' +
-          '</div>';
+          '&lt;/table>' +
+          '&lt;/div>';
       }
     }
     return content;
@@ -475,7 +503,7 @@ mxCellRenderer.registerShape("TableShape", TableShape);
  * @returns {boolean} If HTML is allowed.
  */
 TableShape.prototype.isHtmlAllowed = function () {
-  return !this.isRounded && !this.glass && this.rotation == 0;
+  return !this.isRounded &amp;&amp; !this.glass &amp;&amp; this.rotation == 0;
 };
 
 /**
@@ -566,7 +594,7 @@ TableShape.prototype.updateHtmlBounds = function (node) {
 TableShape.prototype.updateHtmlColors = function (node) {
   var color = this.stroke;
 
-  if (color != null && color != mxConstants.NONE) {
+  if (color != null &amp;&amp; color != mxConstants.NONE) {
     node.style.borderColor = color;
 
     if (this.isDashed) {
@@ -584,7 +612,7 @@ TableShape.prototype.updateHtmlColors = function (node) {
 
   color = this.fill;
 
-  if (color != null && color != mxConstants.NONE) {
+  if (color != null &amp;&amp; color != mxConstants.NONE) {
     node.style.backgroundColor = color;
     node.style.backgroundImage = 'none';
   }
@@ -609,7 +637,7 @@ TableShape.prototype.updateHtmlColors = function (node) {
 TableShape.prototype.updateHtmlFilters = function (node) {
   var f = '';
 
-  if (this.opacity < 100) {
+  if (this.opacity &lt; 100) {
     f += 'alpha(opacity=' + (this.opacity) + ')';
   }
 
@@ -655,3 +683,26 @@ TableShape.prototype.updateHtmlFilters = function (node) {
 
   node.style.filter = f;
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="FaultTree.html">FaultTree</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="RiskSim.html">RiskSim</a></li><li><a href="simApp.html">simApp</a></li></ul><h3>Classes</h3><ul><li><a href="Enum.html">Enum</a></li><li><a href="FaultTree_Toolbar.html">Toolbar</a></li><li><a href="Navigation_Menu.html">Menu</a></li><li><a href="Navigation_Sidebar.html">Sidebar</a></li><li><a href="RiskSim_CommonDialog.html">CommonDialog</a></li><li><a href="RiskSim_Window.html">Window</a></li><li><a href="simApp_SimApp.html">SimApp</a></li><li><a href="StateApp.html">StateApp</a></li><li><a href="StateShape.html">StateShape</a></li><li><a href="TableShape.html">TableShape</a></li><li><a href="WcfService.html">WcfService</a></li><li><a href="WindowFrame.html">WindowFrame</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="MenuItem.html">MenuItem</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBE">addBE</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#addOverlays">addOverlays</a></li><li><a href="global.html#adjustWindowPos">adjustWindowPos</a></li><li><a href="global.html#BuildTreeRec">BuildTreeRec</a></li><li><a href="global.html#classNameOf">classNameOf</a></li><li><a href="global.html#clearAllCookies">clearAllCookies</a></li><li><a href="global.html#createDemo">createDemo</a></li><li><a href="global.html#createPopupMenu">createPopupMenu</a></li><li><a href="global.html#createTestProject">createTestProject</a></li><li><a href="global.html#createTestProject2">createTestProject2</a></li><li><a href="global.html#DataChanged">DataChanged</a></li><li><a href="global.html#DataType">DataType</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#deleteSimulation">deleteSimulation</a></li><li><a href="global.html#downloadClientTester">downloadClientTester</a></li><li><a href="global.html#downloadClientTesterSource">downloadClientTesterSource</a></li><li><a href="global.html#downloadSolver">downloadSolver</a></li><li><a href="global.html#editDiagramNode">editDiagramNode</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#extractSubStr">extractSubStr</a></li><li><a href="global.html#GetDataObject">GetDataObject</a></li><li><a href="global.html#getDefaultGateID">getDefaultGateID</a></li><li><a href="global.html#getMainApp">getMainApp</a></li><li><a href="global.html#getRowY">getRowY</a></li><li><a href="global.html#getServerFile">getServerFile</a></li><li><a href="global.html#getSidebar">getSidebar</a></li><li><a href="global.html#isIENavigator">isIENavigator</a></li><li><a href="global.html#isModified">isModified</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#makeTransparent">makeTransparent</a></li><li><a href="global.html#mergeFTData">mergeFTData</a></li><li><a href="global.html#mergeIntoCurrentProject">mergeIntoCurrentProject</a></li><li><a href="global.html#MessageBox">MessageBox</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#newSimulation">newSimulation</a></li><li><a href="global.html#noSpaces">noSpaces</a></li><li><a href="global.html#OnLoad">OnLoad</a></li><li><a href="global.html#OnSave">OnSave</a></li><li><a href="global.html#openAbout">openAbout</a></li><li><a href="global.html#openCSharpTool">openCSharpTool</a></li><li><a href="global.html#openFaultTree">openFaultTree</a></li><li><a href="global.html#openHelp">openHelp</a></li><li><a href="global.html#openProject">openProject</a></li><li><a href="global.html#openPythonTool">openPythonTool</a></li><li><a href="global.html#rgba">rgba</a></li><li><a href="global.html#saveDiagramProperties">saveDiagramProperties</a></li><li><a href="global.html#saveProject">saveProject</a></li><li><a href="global.html#saveTemplate">saveTemplate</a></li><li><a href="global.html#sequence">sequence</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setModified">setModified</a></li><li><a href="global.html#SetOf">SetOf</a></li><li><a href="global.html#somethingChanged">somethingChanged</a></li><li><a href="global.html#sortDOMList">sortDOMList</a></li><li><a href="global.html#testMakeCompDiagram">testMakeCompDiagram</a></li><li><a href="global.html#triggerEvent">triggerEvent</a></li><li><a href="global.html#updateCell">updateCell</a></li><li><a href="global.html#ValidateData">ValidateData</a></li><li><a href="global.html#waitToSync">waitToSync</a></li><li><a href="global.html#windowClosing">windowClosing</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 18:40:51 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

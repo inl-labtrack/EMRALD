@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/Common.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/Common.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file Common utility functions.
  * @copyright 2021 Battelle Energy Alliance
  */
@@ -24,7 +52,7 @@ if (!this.__extends) {
 //===================================================
 //Remap the default 'this' to a specified 'scope'.
 //Call function 'funct' within 'scope' scope.
-if (!Function.prototype.bind) {  //only if not natively supported, < IE9. < FF 4.0, < Chrome 7, < Opera 11.60 < Safari 5.1.4
+if (!Function.prototype.bind) {  //only if not natively supported, &lt; IE9. &lt; FF 4.0, &lt; Chrome 7, &lt; Opera 11.60 &lt; Safari 5.1.4
   Function.prototype.bind = function (oThis) {
     if (typeof this !== "function") {
       // closest thing possible to the ECMAScript 5 internal IsCallable function
@@ -35,7 +63,7 @@ if (!Function.prototype.bind) {  //only if not natively supported, < IE9. < FF 4
         fToBind = this,
         fNOP = function () { },
         fBound = function () {
-          return fToBind.apply(this instanceof fNOP && oThis
+          return fToBind.apply(this instanceof fNOP &amp;&amp; oThis
                                  ? this
                                  : oThis,
                                aArgs.concat(Array.prototype.slice.call(arguments)));
@@ -53,7 +81,7 @@ if (!Function.prototype.bind) {  //only if not natively supported, < IE9. < FF 4
 if (typeof String.prototype.repeat !== 'function') {
   String.prototype.repeat = function (cnt) {
     var aVal = "";
-    for (var i = 0; i < cnt; i++) {
+    for (var i = 0; i &lt; cnt; i++) {
       aVal += this;
     }
     return aVal;
@@ -69,7 +97,7 @@ if (typeof String.prototype.repeat !== 'function') {
  * @param {string} [caller] Optional name of the caller for monitoring purposes.
  */
 function waitToSync(funct, done, timeout, caller) {
-  //This is  a hack synchronize to wait until funct() returns true or timeout becomes < 0.
+  //This is  a hack synchronize to wait until funct() returns true or timeout becomes &lt; 0.
   caller = caller || '';
   if ((funct === undefined) || typeof (funct) != 'function') return;
   function waiting() {
@@ -86,7 +114,7 @@ function waitToSync(funct, done, timeout, caller) {
       timeout -= 1000;
     }
     else {
-      if (done !== undefined && (typeof done === 'function'))
+      if (done !== undefined &amp;&amp; (typeof done === 'function'))
         done();
     }
   }
@@ -111,7 +139,7 @@ if (!Object.extend) {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !jQuery.isFunction(target)) {
+    if (typeof target !== "object" &amp;&amp; !jQuery.isFunction(target)) {
       target = {};
     }
 
@@ -121,7 +149,7 @@ if (!Object.extend) {
       --i;
     }
 
-    for (; i < length; i++) {
+    for (; i &lt; length; i++) {
       // Only deal with non-null/undefined values
       if ((options = arguments[i]) != null) {
         // Extend the base object
@@ -135,13 +163,13 @@ if (!Object.extend) {
           }
 
           // Recurse if we're merging plain objects or arrays
-          if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) {
+          if (deep &amp;&amp; copy &amp;&amp; (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) {
             if (copyIsArray) {
               copyIsArray = false;
-              clone = src && jQuery.isArray(src) ? src : [];
+              clone = src &amp;&amp; jQuery.isArray(src) ? src : [];
 
             } else {
-              clone = src && jQuery.isPlainObject(src) ? src : {};
+              clone = src &amp;&amp; jQuery.isPlainObject(src) ? src : {};
             }
 
             // Never move original objects, clone them
@@ -168,16 +196,16 @@ if (!Object.extend) {
  */
 function sequence(start, end) {
   var seq = {};
-  if ((arguments.length === 2) && start && end) {
+  if ((arguments.length === 2) &amp;&amp; start &amp;&amp; end) {
     seq[start] = start;
-    while (start < end) {
+    while (start &lt; end) {
       start = String.fromCharCode(start.charCodeAt(0) + 1);
       seq[start] = start;
     }
   }
   else {
     //case where arguments is a list.
-    for (var i = 0; i < arguments.length; i++) {
+    for (var i = 0; i &lt; arguments.length; i++) {
       seq[arguments[i]] = arguments[i];
     }
   }
@@ -207,7 +235,7 @@ if (!Array.prototype.removeItem) {
 
 if (!Array.prototype.getItemAt) {
   Array.prototype.getItemAt = function (idx) {
-    if ((idx >= 0) && (idx < this.length)) {
+    if ((idx >= 0) &amp;&amp; (idx &lt; this.length)) {
       return this[idx];
     }
     return null;
@@ -216,7 +244,7 @@ if (!Array.prototype.getItemAt) {
 if (!Array.prototype.find) {
   Array.prototype.find = function (fn) {
     if (fn) {
-      for (var i = 0; i < this.length; i++) {
+      for (var i = 0; i &lt; this.length; i++) {
         if (fn(this[i]))
           return this[i];
       }
@@ -248,7 +276,7 @@ if (!Array.prototype.get) {
       this.currentIndex = idx;
     }
 
-    if ((this.currentIndex >= 0) && (this.currentIndex < this.length))
+    if ((this.currentIndex >= 0) &amp;&amp; (this.currentIndex &lt; this.length))
       return this[this.currentIndex];
     else
       return null;
@@ -257,7 +285,7 @@ if (!Array.prototype.get) {
 
 if (!Array.prototype.next) {
   Array.prototype.next = function () {
-    if (this.currentIndex < this.length - 1) {
+    if (this.currentIndex &lt; this.length - 1) {
       ++this.currentIndex;
       return this[this.currentIndex];
     }
@@ -315,7 +343,7 @@ if (!Array.prototype.delete) {
     }
     else {
       if (typeof (idx) === "number") {
-        if (idx < 0) return null;
+        if (idx &lt; 0) return null;
         if (idx >= this.length) return null;
         val = this.splice(idx, 1)[0];
         if (idx == this.currentIndex)
@@ -340,7 +368,7 @@ if (!Array.prototype.insert) {
       this.currentIndex = this.push(val);
       return this.currentIndex;
     }
-    if (idx < 0) idx = 0;
+    if (idx &lt; 0) idx = 0;
     if (idx >= this.length) idx = this.length;
     this.splice(idx, 0, val);
     this.currentIndex = idx;
@@ -356,7 +384,7 @@ if (!Array.prototype.insert) {
  */
 function SetOf(arr) {
   var obj = {};
-  for (var i = 0; i < arr.length; i++) {
+  for (var i = 0; i &lt; arr.length; i++) {
     obj[arr[i]] = arr[i];
   }
   return obj;
@@ -460,7 +488,7 @@ function getServerFile(url, callbackFn) {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      if (xmlhttp.readyState == 4 &amp;&amp; xmlhttp.status == 200) {
         callbackFn(xmlhttp.responseText);
       }
     }
@@ -496,7 +524,7 @@ function deepClone(item) {
       });
     } else if (typeof item == "object") {
       // testing that this is DOM
-      if (item.nodeType && typeof item.cloneNode == "function") {
+      if (item.nodeType &amp;&amp; typeof item.cloneNode == "function") {
         result = item.cloneNode(true);
       } else if (!item.prototype) { // check that this is a literal
         if (item instanceof Date) {
@@ -511,7 +539,7 @@ function deepClone(item) {
       } else {
         // depending what you would like here,
         // just keep the reference, or create new object
-        if (false && item.constructor) {
+        if (false &amp;&amp; item.constructor) {
           // would not advice to do that, reason? Read below
           result = new item.constructor();
         } else {
@@ -549,7 +577,7 @@ function extractSubStr(origStr, delimiter, inclDel) {
 /**
  * Sorts a list of li elements.
  * 
- * @param {NodeListOf<HTMLUListElement>} list The list element to sort.
+ * @param {NodeListOf&lt;HTMLUListElement>} list The list element to sort.
  */
 function sortDOMList(list) {
   var i, switching, b, shouldSwitch;
@@ -561,7 +589,7 @@ function sortDOMList(list) {
     switching = false;
     b = list.getElementsByTagName("LI");
     // Loop through all list items:
-    for (i = 0; i < (b.length - 1) ; i++) {
+    for (i = 0; i &lt; (b.length - 1) ; i++) {
       // Start by saying there should be no switching:
       shouldSwitch = false;
       /* Check if the next item should
@@ -657,7 +685,7 @@ bar();
 
 waitSync(15000, //willing to wait up to 15 seconds.
   function testing(){
-    return fooFlag && barFlag; //must wait for both to finish or times up.
+    return fooFlag &amp;&amp; barFlag; //must wait for both to finish or times up.
   },
   function after_foobar() {
     //do something after
@@ -667,4 +695,26 @@ waitSync(15000, //willing to wait up to 15 seconds.
   }, "call from testing."
 );
 
-*/
+*/</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="FaultTree.html">FaultTree</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="RiskSim.html">RiskSim</a></li><li><a href="simApp.html">simApp</a></li></ul><h3>Classes</h3><ul><li><a href="Enum.html">Enum</a></li><li><a href="FaultTree_Toolbar.html">Toolbar</a></li><li><a href="Navigation_Menu.html">Menu</a></li><li><a href="Navigation_Sidebar.html">Sidebar</a></li><li><a href="RiskSim_CommonDialog.html">CommonDialog</a></li><li><a href="RiskSim_Window.html">Window</a></li><li><a href="simApp_SimApp.html">SimApp</a></li><li><a href="StateApp.html">StateApp</a></li><li><a href="StateShape.html">StateShape</a></li><li><a href="TableShape.html">TableShape</a></li><li><a href="WcfService.html">WcfService</a></li><li><a href="WindowFrame.html">WindowFrame</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="MenuItem.html">MenuItem</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBE">addBE</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#addOverlays">addOverlays</a></li><li><a href="global.html#adjustWindowPos">adjustWindowPos</a></li><li><a href="global.html#BuildTreeRec">BuildTreeRec</a></li><li><a href="global.html#classNameOf">classNameOf</a></li><li><a href="global.html#clearAllCookies">clearAllCookies</a></li><li><a href="global.html#createDemo">createDemo</a></li><li><a href="global.html#createPopupMenu">createPopupMenu</a></li><li><a href="global.html#createTestProject">createTestProject</a></li><li><a href="global.html#createTestProject2">createTestProject2</a></li><li><a href="global.html#DataChanged">DataChanged</a></li><li><a href="global.html#DataType">DataType</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#deleteSimulation">deleteSimulation</a></li><li><a href="global.html#downloadClientTester">downloadClientTester</a></li><li><a href="global.html#downloadClientTesterSource">downloadClientTesterSource</a></li><li><a href="global.html#downloadSolver">downloadSolver</a></li><li><a href="global.html#editDiagramNode">editDiagramNode</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#extractSubStr">extractSubStr</a></li><li><a href="global.html#GetDataObject">GetDataObject</a></li><li><a href="global.html#getDefaultGateID">getDefaultGateID</a></li><li><a href="global.html#getMainApp">getMainApp</a></li><li><a href="global.html#getRowY">getRowY</a></li><li><a href="global.html#getServerFile">getServerFile</a></li><li><a href="global.html#getSidebar">getSidebar</a></li><li><a href="global.html#isIENavigator">isIENavigator</a></li><li><a href="global.html#isModified">isModified</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#makeTransparent">makeTransparent</a></li><li><a href="global.html#mergeFTData">mergeFTData</a></li><li><a href="global.html#mergeIntoCurrentProject">mergeIntoCurrentProject</a></li><li><a href="global.html#MessageBox">MessageBox</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#newSimulation">newSimulation</a></li><li><a href="global.html#noSpaces">noSpaces</a></li><li><a href="global.html#OnLoad">OnLoad</a></li><li><a href="global.html#OnSave">OnSave</a></li><li><a href="global.html#openAbout">openAbout</a></li><li><a href="global.html#openCSharpTool">openCSharpTool</a></li><li><a href="global.html#openFaultTree">openFaultTree</a></li><li><a href="global.html#openHelp">openHelp</a></li><li><a href="global.html#openProject">openProject</a></li><li><a href="global.html#openPythonTool">openPythonTool</a></li><li><a href="global.html#rgba">rgba</a></li><li><a href="global.html#saveDiagramProperties">saveDiagramProperties</a></li><li><a href="global.html#saveProject">saveProject</a></li><li><a href="global.html#saveTemplate">saveTemplate</a></li><li><a href="global.html#sequence">sequence</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setModified">setModified</a></li><li><a href="global.html#SetOf">SetOf</a></li><li><a href="global.html#somethingChanged">somethingChanged</a></li><li><a href="global.html#sortDOMList">sortDOMList</a></li><li><a href="global.html#testMakeCompDiagram">testMakeCompDiagram</a></li><li><a href="global.html#triggerEvent">triggerEvent</a></li><li><a href="global.html#updateCell">updateCell</a></li><li><a href="global.html#ValidateData">ValidateData</a></li><li><a href="global.html#waitToSync">waitToSync</a></li><li><a href="global.html#windowClosing">windowClosing</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 18:40:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

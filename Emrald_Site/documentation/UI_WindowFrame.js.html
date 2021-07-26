@@ -1,16 +1,44 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/WindowFrame.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/WindowFrame.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
  * @file Custom WindowFrame functionality.
  * @copyright 2021 Battelle Energy Alliance
  */
 
 
-/// <reference path="Common.js" />
-/// <reference path="../mxGraph/js/util/mxWindow.js" />
-/// <reference path="CustomEvent.js" />
-/// <reference path="../mxGraph/js/util/mxEventSource.js" />
-/// <reference path="../mxGraph/js/util/mxEventObject.js" />
-/// <reference path="../mxGraph/js/util/mxUtils.js" />
-/// <reference path="CustomWindowHandler.js" />
+/// &lt;reference path="Common.js" />
+/// &lt;reference path="../mxGraph/js/util/mxWindow.js" />
+/// &lt;reference path="CustomEvent.js" />
+/// &lt;reference path="../mxGraph/js/util/mxEventSource.js" />
+/// &lt;reference path="../mxGraph/js/util/mxEventObject.js" />
+/// &lt;reference path="../mxGraph/js/util/mxUtils.js" />
+/// &lt;reference path="CustomWindowHandler.js" />
 
 'use strict';
 
@@ -47,7 +75,7 @@ var WindowFrame = (function (_super) {
      * @name WindowFrame#z_index
      * @type {number}
      */
-    this.z_index = z_index ? z_index : (mxWindow.activeWindow && mxWindow.activeWindow.div) ? parseInt(mxWindow.activeWindow.div.style.zIndex) + 1 : 1;
+    this.z_index = z_index ? z_index : (mxWindow.activeWindow &amp;&amp; mxWindow.activeWindow.div) ? parseInt(mxWindow.activeWindow.div.style.zIndex) + 1 : 1;
     
     /**
      * If the window frame is a modal.
@@ -109,7 +137,7 @@ var WindowFrame = (function (_super) {
           this.installMoveHandler();
         }
 
-        if (replaceNode != null && replaceNode.parentNode != null) {
+        if (replaceNode != null &amp;&amp; replaceNode.parentNode != null) {
           replaceNode.parentNode.replaceChild(this.div, replaceNode);
         }
         else {
@@ -134,7 +162,7 @@ var WindowFrame = (function (_super) {
       this.destroy = function () {
         this.iframe.url = "about:blank";  //this to make it to remove the iframe content completely.
         baseWindowDestroy.apply(this, arguments);
-        if (typeof (this.modaldiv) !== 'undefined' && (this.modaldiv != null)) {
+        if (typeof (this.modaldiv) !== 'undefined' &amp;&amp; (this.modaldiv != null)) {
           this.modaldiv.parentNode.removeChild(this.modaldiv);
           this.modaldiv = null;
         }
@@ -277,7 +305,7 @@ var WindowFrame = (function (_super) {
         if (mxWindow.activeWindow) {
           var elt = mxWindow.activeWindow.getElement();
 
-          if (elt != null && elt.style != null) {
+          if (elt != null &amp;&amp; elt.style != null) {
             elt.style.zIndex = index;
           }
         }
@@ -291,7 +319,7 @@ var WindowFrame = (function (_super) {
         //           contentWindow.getSidebar
         //var sidebar = myWin.contentWindow.getSidebar();
         //if window has already been created
-        if (myWin && myWin.contentWindow.mainApp) {
+        if (myWin &amp;&amp; myWin.contentWindow.mainApp) {
           var rootModel = myWin.contentWindow.mainApp.graph.getDefaultParent().value;
           var sb = rootModel.sidebar;
           sb.loadLocalFromwindow(rootModel);
@@ -324,22 +352,22 @@ mxWindow.createFrame = function (bottomButtons, headButtons, dataObj, isModal, x
 
   if (!x) {
     var x = (window.innerWidth || document.body.clientWidth) / 2 - 200;
-    x = x < 0 ? 0 : x;
+    x = x &lt; 0 ? 0 : x;
   }
   if (!y) {
     var y = (window.innerHeight || document.body.clientHeight) / 2 - 150;
-    y = y < 0 ? 0 : y;
+    y = y &lt; 0 ? 0 : y;
   }
 
   var zindex = 1;
-  if (mxWindow.activeWindow && mxWindow.activeWindow.div) {
+  if (mxWindow.activeWindow &amp;&amp; mxWindow.activeWindow.div) {
     var zindex = parseInt(mxWindow.activeWindow.div.style.zIndex) + 5;
   }
 
   var dataChangedHandler = function (sender, evt) {
 
     //'this' is referencing 'frame'
-    if (this !== sender && this.contentWindow && this.contentWindow.DataChanged) {//invoke data change for other windows only.  
+    if (this !== sender &amp;&amp; this.contentWindow &amp;&amp; this.contentWindow.DataChanged) {//invoke data change for other windows only.  
       this.contentWindow.DataChanged(evt.properties.dataObj);
     }
 
@@ -371,12 +399,12 @@ mxWindow.createFrame = function (bottomButtons, headButtons, dataObj, isModal, x
   cmdcontent.style.height = '2.5em';
   wincontent.appendChild(cmdcontent);
 
-  if (bottomButtons && bottomButtons.length > 0) {
+  if (bottomButtons &amp;&amp; bottomButtons.length > 0) {
     cmdcontent.style.height = '3.5em';
     cmdcontent.style.textAlign = 'center';
 
     var firstBtn = null;
-    for (var i = 0; i < bottomButtons.length; i++) {
+    for (var i = 0; i &lt; bottomButtons.length; i++) {
       var btn = document.createElement('button');
       btn.style.width = '7em';
       btn.style.cssFloat = 'none';
@@ -389,7 +417,7 @@ mxWindow.createFrame = function (bottomButtons, headButtons, dataObj, isModal, x
       }
       wf.addListener('UpdateButton', function (sender, evt) {
         var isModified = evt.getProperties().isModified;
-        if (!isModified && (this.textContent in SetOf(['Save', 'OK', 'Ok']))) {
+        if (!isModified &amp;&amp; (this.textContent in SetOf(['Save', 'OK', 'Ok']))) {
           //this.disabled = true;
           this.disabled = false; //Steve: Enable "OK" button for all the screens, it is to hard to capture all the changes. 
         }
@@ -427,7 +455,7 @@ mxWindow.createFrame = function (bottomButtons, headButtons, dataObj, isModal, x
   wf.addListener(mxEvent.RESIZE, function (evt) {
     recalculateSize();
     //notify frame content that parent window has been resized.
-    if (frame.contentWindow && frame.contentWindow.onWindowResize) {
+    if (frame.contentWindow &amp;&amp; frame.contentWindow.onWindowResize) {
       frame.contentWindow.onWindowResize();
     }
   });
@@ -437,7 +465,7 @@ mxWindow.createFrame = function (bottomButtons, headButtons, dataObj, isModal, x
     recalculateSize();
   });
 
-  for (var i = 0; i < headButtons.length; i++) headButtons[i] = headButtons[i].toLowerCase();
+  for (var i = 0; i &lt; headButtons.length; i++) headButtons[i] = headButtons[i].toLowerCase();
 
   wf.setMinimizable(false);
   if (headButtons.indexOf('minimize') > -1) {
@@ -531,7 +559,7 @@ function windowClosing(btnStatus, callHomeFn, evt) {
   if (btnStatus in SetOf(['Save', 'OK', 'Ok', 'Save As New'])) {
     if (evt.frame.contentWindow.ValidateData) {
       var msg = evt.frame.contentWindow.ValidateData();
-      if (typeof msg === 'string' && msg) {
+      if (typeof msg === 'string' &amp;&amp; msg) {
         alert('Validation failed, cause: ' + msg);
         return false;
       }
@@ -558,7 +586,7 @@ function windowClosing(btnStatus, callHomeFn, evt) {
       }
     }
     if (status) {
-      if (evt.frame.contentWindow.GetDataObject && btnStatus == "Close")
+      if (evt.frame.contentWindow.GetDataObject &amp;&amp; btnStatus == "Close")
         dataObj = evt.frame.contentWindow.GetDataObject();
       if (callHomeFn) status = callHomeFn(btnStatus, dataObj);
     }
@@ -579,7 +607,7 @@ Array.prototype.trimAll = function () {
   return this;
 }
 //this function create the FrameWindow with the default command buttons behavior.  If you rather handle those command buttons yourself, 
-//use the <mxWindow.createFrame> and pass in a function to the callbackFn (last parameter).  
+//use the &lt;mxWindow.createFrame> and pass in a function to the callbackFn (last parameter).  
 mxWindow.createFrameWindow = function (url, cmdButtons, titleButtons, callbackFn, dataObj, isModal, x, y, width, height) {
   return mxWindow.createFrame(cmdButtons ? cmdButtons.split(',').trimAll() : null, titleButtons ? titleButtons.split(',').trimAll() : null,
     dataObj, isModal, x, y, width, height, url, windowClosing, callbackFn);
@@ -610,7 +638,7 @@ function triggerEvent(el, eventName) {
   if (document.createEvent) {
     evt = document.createEvent('HTMLEvents');
     evt.initEvent(eventName, true, true);
-  } else if (document.createEventObject) {// IE < 9
+  } else if (document.createEventObject) {// IE &lt; 9
     evt = document.createEventObject();
     evt.eventType = eventName;
   }
@@ -618,7 +646,7 @@ function triggerEvent(el, eventName) {
   evt.simulated = true;
   if (el.dispatchEvent) {
     el.dispatchEvent(evt);
-  } else if (el.fireEvent && htmlEvents['on' + eventName]) {// IE < 9
+  } else if (el.fireEvent &amp;&amp; htmlEvents['on' + eventName]) {// IE &lt; 9
     el.fireEvent('on' + evt.eventType, evt);// can trigger only real event (e.g. 'click')
   } else if (el[eventName]) {
     el[eventName]();
@@ -688,7 +716,7 @@ mxWindow.prototype.installCloseHandler = function () {
 //    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 //  }
 //  xmlhttp.onreadystatechange = function () {
-//    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+//    if (xmlhttp.readyState == 4 &amp;&amp; xmlhttp.status == 200) {
 //      callbackFn(xmlhttp.responseXML);
 //    }
 //  }
@@ -703,7 +731,7 @@ mxWindow.prototype.installCloseHandler = function () {
 //  var xml = getServerFile(xmlConfig, function (xmlDoc) {
 //    var aNode;
 //    winNode = xmlDoc.documentElement.getElementsByTagName('window');
-//    if (winNode && winNode.length > 0) {
+//    if (winNode &amp;&amp; winNode.length > 0) {
 //      winNode = winNode[0];
 //      var width = winNode.getAttribute('width') + 'px';
 //      var height = winNode.getAttribute('height') + 'px';
@@ -713,26 +741,26 @@ mxWindow.prototype.installCloseHandler = function () {
 //      var title = winNode.getAttribute('title') || xmlConfig;
 
 //      aNode = winNode.getElementsByTagName('source');
-//      if (aNode && aNode.length > 0) {
+//      if (aNode &amp;&amp; aNode.length > 0) {
 //        var srcUrl = aNode[0].getAttribute('value');
 //      }
 //      aNode = winNode.getElementsByTagName('alternative');
-//      if (aNode && aNode.length > 0) {
+//      if (aNode &amp;&amp; aNode.length > 0) {
 //        var alternateUrl = aNode[0].getAttribute('value');
 //      }
 //      aNode = winNode.getElementsByTagName('buttons');
-//      if (aNode && aNode.length > 0) {
+//      if (aNode &amp;&amp; aNode.length > 0) {
 //        var titleButtons = aNode[0].getAttribute('value');
 //        titleButtons = titleButtons.split(',');
 //      }
 //    }
-//    if (!srcUrl && !alternateUrl) {
+//    if (!srcUrl &amp;&amp; !alternateUrl) {
 //      mxUtils.alert('The config file "' + xmlConfig + '" does not specific the target URL source.');
 //      return;
 //    }
 
 //    var menuNode = xmlDoc.documentElement.getElementsByTagName('menu');
-//    if (menuNode && menuNode.length) {
+//    if (menuNode &amp;&amp; menuNode.length) {
 //      menuNode = menuNode[0];
 
 //    }
@@ -740,9 +768,9 @@ mxWindow.prototype.installCloseHandler = function () {
 //    var cmdButtons = [];
 //    var commandButtons = "";
 //    var comNode = xmlDoc.documentElement.getElementsByTagName('commandButtons');
-//    if (comNode && comNode.length > 0) {
+//    if (comNode &amp;&amp; comNode.length > 0) {
 //      comNode = comNode[0];
-//      for (var i = 0; i < comNode.childElementCount; i++) {
+//      for (var i = 0; i &lt; comNode.childElementCount; i++) {
 //        aNode = comNode.children[i];
 //        if (aNode.nodeName === 'button') {
 //          if (commandButtons.length == 0)
@@ -768,3 +796,26 @@ mxWindow.prototype.installCloseHandler = function () {
 //}
 //-----------------------------------------------------------
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="FaultTree.html">FaultTree</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="RiskSim.html">RiskSim</a></li><li><a href="simApp.html">simApp</a></li></ul><h3>Classes</h3><ul><li><a href="Enum.html">Enum</a></li><li><a href="FaultTree_Toolbar.html">Toolbar</a></li><li><a href="Navigation_Menu.html">Menu</a></li><li><a href="Navigation_Sidebar.html">Sidebar</a></li><li><a href="RiskSim_CommonDialog.html">CommonDialog</a></li><li><a href="RiskSim_Window.html">Window</a></li><li><a href="simApp_SimApp.html">SimApp</a></li><li><a href="StateApp.html">StateApp</a></li><li><a href="StateShape.html">StateShape</a></li><li><a href="TableShape.html">TableShape</a></li><li><a href="WcfService.html">WcfService</a></li><li><a href="WindowFrame.html">WindowFrame</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="MenuItem.html">MenuItem</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBE">addBE</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#addOverlays">addOverlays</a></li><li><a href="global.html#adjustWindowPos">adjustWindowPos</a></li><li><a href="global.html#BuildTreeRec">BuildTreeRec</a></li><li><a href="global.html#classNameOf">classNameOf</a></li><li><a href="global.html#clearAllCookies">clearAllCookies</a></li><li><a href="global.html#createDemo">createDemo</a></li><li><a href="global.html#createPopupMenu">createPopupMenu</a></li><li><a href="global.html#createTestProject">createTestProject</a></li><li><a href="global.html#createTestProject2">createTestProject2</a></li><li><a href="global.html#DataChanged">DataChanged</a></li><li><a href="global.html#DataType">DataType</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#deleteSimulation">deleteSimulation</a></li><li><a href="global.html#downloadClientTester">downloadClientTester</a></li><li><a href="global.html#downloadClientTesterSource">downloadClientTesterSource</a></li><li><a href="global.html#downloadSolver">downloadSolver</a></li><li><a href="global.html#editDiagramNode">editDiagramNode</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#extractSubStr">extractSubStr</a></li><li><a href="global.html#GetDataObject">GetDataObject</a></li><li><a href="global.html#getDefaultGateID">getDefaultGateID</a></li><li><a href="global.html#getMainApp">getMainApp</a></li><li><a href="global.html#getRowY">getRowY</a></li><li><a href="global.html#getServerFile">getServerFile</a></li><li><a href="global.html#getSidebar">getSidebar</a></li><li><a href="global.html#isIENavigator">isIENavigator</a></li><li><a href="global.html#isModified">isModified</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#makeTransparent">makeTransparent</a></li><li><a href="global.html#mergeFTData">mergeFTData</a></li><li><a href="global.html#mergeIntoCurrentProject">mergeIntoCurrentProject</a></li><li><a href="global.html#MessageBox">MessageBox</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#newSimulation">newSimulation</a></li><li><a href="global.html#noSpaces">noSpaces</a></li><li><a href="global.html#OnLoad">OnLoad</a></li><li><a href="global.html#OnSave">OnSave</a></li><li><a href="global.html#openAbout">openAbout</a></li><li><a href="global.html#openCSharpTool">openCSharpTool</a></li><li><a href="global.html#openFaultTree">openFaultTree</a></li><li><a href="global.html#openHelp">openHelp</a></li><li><a href="global.html#openProject">openProject</a></li><li><a href="global.html#openPythonTool">openPythonTool</a></li><li><a href="global.html#rgba">rgba</a></li><li><a href="global.html#saveDiagramProperties">saveDiagramProperties</a></li><li><a href="global.html#saveProject">saveProject</a></li><li><a href="global.html#saveTemplate">saveTemplate</a></li><li><a href="global.html#sequence">sequence</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setModified">setModified</a></li><li><a href="global.html#SetOf">SetOf</a></li><li><a href="global.html#somethingChanged">somethingChanged</a></li><li><a href="global.html#sortDOMList">sortDOMList</a></li><li><a href="global.html#testMakeCompDiagram">testMakeCompDiagram</a></li><li><a href="global.html#triggerEvent">triggerEvent</a></li><li><a href="global.html#updateCell">updateCell</a></li><li><a href="global.html#ValidateData">ValidateData</a></li><li><a href="global.html#waitToSync">waitToSync</a></li><li><a href="global.html#windowClosing">windowClosing</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 18:40:51 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

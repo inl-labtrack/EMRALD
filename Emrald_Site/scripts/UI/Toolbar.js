@@ -1,15 +1,40 @@
-﻿// Copyright 2021 Battelle Energy Alliance
+﻿/**
+ * @file The logic tree editor toolbar.
+ * @copyright 2021 Battelle Energy Alliance
+ */
 
 /// <reference path="Common.js" />
 /// <reference path="../mxGraph/js/util/mxToolbar.js" />
 /// <reference path="../mxGraph/js/util/mxDragSource.js" />
 'use strict';
+
+/**
+ * @namespace FaultTree
+ */
 var FaultTree;
 (function (FaultTree) {
   var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
+    
+    /**
+     * Constructs Toolbar.
+     * 
+     * @class FaultTree#Toolbar
+     * @classdesc The logic tree editor toolbar.
+     * @augments mxToolbar
+     * @constructs
+     * @param {HTMLElement} content The toolbar content.
+     * @param {mxGraph} graph The main mxGraph.
+     */
     function Toolbar(content, graph) {
       _super.apply(this, arguments);
+
+      /**
+       * The graph the toolbar belongs to.
+       * 
+       * @name FaultTree#Toolbar#graph
+       * @type {mxGraph}
+       */
       this.graph = graph;
 
       var dragOverFnc = function (graph, x, y) {
@@ -24,13 +49,37 @@ var FaultTree;
       }
 
       var superAddItem = this.addItem;
-      this.addItem = function (title, icon, funct, pressedIcon, style, factoryMethod) {
+
+      /**
+       * Adds an item to the toolbar.
+       * 
+       * @name FaultTree#Toolbar#addItem
+       * @function
+       * @param {string} title The item title.
+       * @param {string} icon Path to the item icon.
+       * @param {Function} funct Function to call when the item is clicked.
+       * @param {string} pressedIcon Path to the item pressed icon.
+       * @param {string} style CSS class name to apply to the toolbar.
+       * @returns {HTMLButtonElement} The item element.
+       */
+      this.addItem = function (title, icon, funct, pressedIcon, style) {
         var elt = superAddItem.apply(this, arguments);
         elt.style.width = "32px";
         elt.style.height = "32px";
         return elt;
 				}
 
+        /**
+         * Creates & adds a draggable item to the toolbar.
+         * 
+         * @name FaultTree#Toolbar#addNewDraggableItem
+         * @function
+         * @param {string} title The item title.
+         * @param {string} icon Path to the item icon.
+         * @param {string} style CSS class name to apply to the item.
+         * @param {boolean} [isDraggable] If the item is draggable
+         * @returns {HTMLButtonElement} The item element.
+         */
 				this.addNewDraggableItem = function (title, icon, style, isDraggable) {
 						var elt = this.addItem(title, icon, function (evt) { }, icon, null, null);
 						var cloneElt = elt.cloneNode(true);
@@ -59,6 +108,15 @@ var FaultTree;
 				}
 
       var superAddSeparator = this.addSeparator;
+
+      /**
+       * Adds a separator to the toolbar.
+       * 
+       * @name FaultTree#Toolbar#addSeparator
+       * @function
+       * @param {string} icon The separator icon.
+       * @returns {HTMLButtonElement} The separator element.
+       */
       this.addSeparator = function (icon) {
         var elt = document.createElement('img');
         elt.src = icon;
@@ -69,6 +127,18 @@ var FaultTree;
       }
 
       //this.addItem(title, icon, funct, pressedIcon, style, factoryMethod) =>elt
+      /**
+       * Adds an existing draggable item to the toolbar.
+       * 
+       * @name FaultTree#Toolbar#addDraggableItem
+       * @function
+       * @param {string} title The item title.
+       * @param {string} icon Path to the item icon.
+       * @param {string} style CSS class name to apply to the item.
+       * @param {boolean} isDraggable If the item is draggable.
+       * @param {Function} dropHandler Function to call when the user releases dragging the item.
+       * @returns {HTMLButtonElement} The item element.
+       */
       this.addDraggableItem = function (title, icon, style, isDraggable, dropHandler) {
         var elt = this.addItem(title, icon, function (evt) { }, icon, null, null);
         if (isDraggable && dropHandler && (typeof dropHandler === 'function')) {

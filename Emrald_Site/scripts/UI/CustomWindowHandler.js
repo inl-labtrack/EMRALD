@@ -1,8 +1,16 @@
-﻿// Copyright 2021 Battelle Energy Alliance
+﻿/**
+ * @file Custom window event handlers.
+ * @copyright 2021 Battelle Energy Alliance
+ */
 
 "use strict";
 
-
+/**
+ * Programically triggers a DOM event.
+ * 
+ * @param {HTMLElement} el The element to trigger the event on.
+ * @param {string} eventName The name of the event to trigger.
+ */
 function triggerEvent(el, eventName) {
   var evt;
   if (document.createEvent) {

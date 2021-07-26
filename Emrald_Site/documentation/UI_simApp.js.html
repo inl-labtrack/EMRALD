@@ -1,4 +1,32 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/simApp.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/simApp.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
  * @file Functionality for the upper menu bar.
  * @copyright 2021 Battelle Energy Alliance
  */
@@ -54,8 +82,8 @@ function downloadClientTesterSource() {
 }
 
 //------------------
-/// <reference path="../../About.html" />
-/// <reference path="WindowFrame.js" />
+/// &lt;reference path="../../About.html" />
+/// &lt;reference path="WindowFrame.js" />
 /**
  * Opens a fault tree editor window.
  */
@@ -207,7 +235,7 @@ function openProject() {
     if (el)
       el.innerText = aname;
     var ext = /\.[0-9a-z]+$/.exec(afile.name);
-    ext = ext && ext.length > 0 ? ext[0] : "";
+    ext = ext &amp;&amp; ext.length > 0 ? ext[0] : "";
     switch (ext) {
       case '.json':
         var reader = new FileReader();
@@ -246,7 +274,7 @@ function mergeIntoCurrentProject() {
     var aname = afile.name.substring(0, afile.name.indexOf('.'));
     if (aname == "") aname = afile.name;
     var ext = /\.[0-9a-z]+$/.exec(afile.name);
-    ext = ext && ext.length > 0 ? ext[0] : "";
+    ext = ext &amp;&amp; ext.length > 0 ? ext[0] : "";
     switch (ext) {
       case '.json':
         var reader = new FileReader();
@@ -273,7 +301,7 @@ function testMakeCompDiagram() {
 
   var modelJson = JSON.stringify(diagramData);
   var ws = new WcfService(appConfig.apiUrl);
-  ws.post("MakeCompDiagram?name=CompDiagram1&desc=Make+new+diagram&failsToStartRate=0.2&failsToRunRate=0.1&startEvent=Start&resetEvent=Reset", modelJson).then(
+  ws.post("MakeCompDiagram?name=CompDiagram1&amp;desc=Make+new+diagram&amp;failsToStartRate=0.2&amp;failsToRunRate=0.1&amp;startEvent=Start&amp;resetEvent=Reset", modelJson).then(
     function onSuccess(data) {
       var retData = JSON.parse(data);
       if (retData.error == 0) {
@@ -525,9 +553,9 @@ function makeTransparent(img) {
       var tol = (255 * 3) * 0.2; //within 20% of alpha tollerange.
       var color = rgba(data[5], data[6], data[7], data[8]);
       var cnt = 0;
-      for (var i = 0; i < data.length; i += 4) {
+      for (var i = 0; i &lt; data.length; i += 4) {
         var c = rgba(data[i], data[i + 1], data[i + 2], data[i + 3]);
-        if (Math.abs(c - color) < tol)
+        if (Math.abs(c - color) &lt; tol)
           data[i + 3] = 0; // making it transparent;
         cnt++;
       }
@@ -681,7 +709,7 @@ var simApp;
           }.bind(this));
         } else if (typeof item == "object") {
           // testing that this is DOM
-          if (item.nodeType && typeof item.cloneNode == "function") {
+          if (item.nodeType &amp;&amp; typeof item.cloneNode == "function") {
             //var result = item.cloneNode(true);
           } else if (!item.prototype) { // check that this is a literal
             if (item instanceof Date) {
@@ -715,7 +743,7 @@ var simApp;
      * @returns {Model} An empty data model.
      */
     SimApp.prototype.getCleanDataModel = function () {
-      var model = simApp.allDataModel; //NOTE: 'this' <> simApp.
+      var model = simApp.allDataModel; //NOTE: 'this' &lt;> simApp.
       var diagramData = {
         id: model.id,
         name: model.name,
@@ -742,7 +770,7 @@ var simApp;
      * @returns {Model} An empty template model.
      */
     SimApp.prototype.getCleanAllTemplateModel = function () {
-      var model = simApp.allTemplates; //NOTE: 'this' <> simApp.
+      var model = simApp.allTemplates; //NOTE: 'this' &lt;> simApp.
       var diagramData = {};
       diagramData.DiagramList = this.cloneDataModel(model.DiagramList);
       diagramData.StateList = this.cloneDataModel(model.StateList);
@@ -760,7 +788,7 @@ var simApp;
      * @returns {Model} An empty global template model.
      */
     SimApp.prototype.getCleanGlobalTemplateModel = function () {
-      var model = simApp.globalTemplates; //NOTE: 'this' <> simApp.
+      var model = simApp.globalTemplates; //NOTE: 'this' &lt;> simApp.
       var diagramData = {};
       diagramData.DiagramList = this.cloneDataModel(model.DiagramList);
       diagramData.StateList = this.cloneDataModel(model.StateList);
@@ -778,7 +806,7 @@ var simApp;
      * @returns {Model} An empty user template model.
      */
     SimApp.prototype.getCleanUserTemplateModel = function () {
-      var model = simApp.userTemplates; //NOTE: 'this' <> simApp.
+      var model = simApp.userTemplates; //NOTE: 'this' &lt;> simApp.
       var diagramData = {};
       diagramData.DiagramList = this.cloneDataModel(model.DiagramList);
       diagramData.StateList = this.cloneDataModel(model.StateList);
@@ -804,13 +832,13 @@ var simApp;
           function (btn, retObj) {
             if (btn === 'OK') {
               var diagram = this.getCleanAllTemplateModel();
-              if (!retObj.userCheck && !retObj.globalCheck) {
+              if (!retObj.userCheck &amp;&amp; !retObj.globalCheck) {
                 return true;
               }
-              else if (retObj.userCheck && !retObj.globalCheck) {
+              else if (retObj.userCheck &amp;&amp; !retObj.globalCheck) {
                 diagram = this.getCleanUserTemplateModel();
               }
-              else if (!retObj.userCheck && retObj.globalCheck) {
+              else if (!retObj.userCheck &amp;&amp; retObj.globalCheck) {
                 diagram = this.getCleanGlobalTemplateModel();
               }
               var jsonStr = JSON.stringify(diagram, null, 2);
@@ -898,3 +926,26 @@ window.onbeforeunload = function () {
     return null;
 }
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="FaultTree.html">FaultTree</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="RiskSim.html">RiskSim</a></li><li><a href="simApp.html">simApp</a></li></ul><h3>Classes</h3><ul><li><a href="Enum.html">Enum</a></li><li><a href="FaultTree_Toolbar.html">Toolbar</a></li><li><a href="Navigation_Menu.html">Menu</a></li><li><a href="Navigation_Sidebar.html">Sidebar</a></li><li><a href="RiskSim_CommonDialog.html">CommonDialog</a></li><li><a href="RiskSim_Window.html">Window</a></li><li><a href="simApp_SimApp.html">SimApp</a></li><li><a href="StateApp.html">StateApp</a></li><li><a href="StateShape.html">StateShape</a></li><li><a href="TableShape.html">TableShape</a></li><li><a href="WcfService.html">WcfService</a></li><li><a href="WindowFrame.html">WindowFrame</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="MenuItem.html">MenuItem</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBE">addBE</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#addOverlays">addOverlays</a></li><li><a href="global.html#adjustWindowPos">adjustWindowPos</a></li><li><a href="global.html#BuildTreeRec">BuildTreeRec</a></li><li><a href="global.html#classNameOf">classNameOf</a></li><li><a href="global.html#clearAllCookies">clearAllCookies</a></li><li><a href="global.html#createDemo">createDemo</a></li><li><a href="global.html#createPopupMenu">createPopupMenu</a></li><li><a href="global.html#createTestProject">createTestProject</a></li><li><a href="global.html#createTestProject2">createTestProject2</a></li><li><a href="global.html#DataChanged">DataChanged</a></li><li><a href="global.html#DataType">DataType</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#deleteSimulation">deleteSimulation</a></li><li><a href="global.html#downloadClientTester">downloadClientTester</a></li><li><a href="global.html#downloadClientTesterSource">downloadClientTesterSource</a></li><li><a href="global.html#downloadSolver">downloadSolver</a></li><li><a href="global.html#editDiagramNode">editDiagramNode</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#extractSubStr">extractSubStr</a></li><li><a href="global.html#GetDataObject">GetDataObject</a></li><li><a href="global.html#getDefaultGateID">getDefaultGateID</a></li><li><a href="global.html#getMainApp">getMainApp</a></li><li><a href="global.html#getRowY">getRowY</a></li><li><a href="global.html#getServerFile">getServerFile</a></li><li><a href="global.html#getSidebar">getSidebar</a></li><li><a href="global.html#isIENavigator">isIENavigator</a></li><li><a href="global.html#isModified">isModified</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#makeTransparent">makeTransparent</a></li><li><a href="global.html#mergeFTData">mergeFTData</a></li><li><a href="global.html#mergeIntoCurrentProject">mergeIntoCurrentProject</a></li><li><a href="global.html#MessageBox">MessageBox</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#newSimulation">newSimulation</a></li><li><a href="global.html#noSpaces">noSpaces</a></li><li><a href="global.html#OnLoad">OnLoad</a></li><li><a href="global.html#OnSave">OnSave</a></li><li><a href="global.html#openAbout">openAbout</a></li><li><a href="global.html#openCSharpTool">openCSharpTool</a></li><li><a href="global.html#openFaultTree">openFaultTree</a></li><li><a href="global.html#openHelp">openHelp</a></li><li><a href="global.html#openProject">openProject</a></li><li><a href="global.html#openPythonTool">openPythonTool</a></li><li><a href="global.html#rgba">rgba</a></li><li><a href="global.html#saveDiagramProperties">saveDiagramProperties</a></li><li><a href="global.html#saveProject">saveProject</a></li><li><a href="global.html#saveTemplate">saveTemplate</a></li><li><a href="global.html#sequence">sequence</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setModified">setModified</a></li><li><a href="global.html#SetOf">SetOf</a></li><li><a href="global.html#somethingChanged">somethingChanged</a></li><li><a href="global.html#sortDOMList">sortDOMList</a></li><li><a href="global.html#testMakeCompDiagram">testMakeCompDiagram</a></li><li><a href="global.html#triggerEvent">triggerEvent</a></li><li><a href="global.html#updateCell">updateCell</a></li><li><a href="global.html#ValidateData">ValidateData</a></li><li><a href="global.html#waitToSync">waitToSync</a></li><li><a href="global.html#windowClosing">windowClosing</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 18:40:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

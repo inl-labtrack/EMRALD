@@ -1,9 +1,37 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: UI/StateHandler.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: UI/StateHandler.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
  * @file Custom mxGraph overrides to handle edges between shapes.
  * @copyright 2021 Battelle Energy Alliance
  */
 
-/// <reference path="Window.js" />
+/// &lt;reference path="Window.js" />
 
 'use strict';
 //This file contains overrides or extended functions for mxGraph to support the StateShape and TableShape.  
@@ -41,17 +69,17 @@ mxConnectionHandler.prototype.connectImage = new mxImage('images/connector.gif',
 
 //This overrides the check to see if the edge is valid (when you first hover it will be red or green)
 mxGraph.prototype.getEdgeValidationError = function (edge, source, target) {
-  if (edge != null && !this.isAllowDanglingEdges() && (source == null || target == null)) {
+  if (edge != null &amp;&amp; !this.isAllowDanglingEdges() &amp;&amp; (source == null || target == null)) {
     return '';
   }
 
-  if (edge != null && this.model.getTerminal(edge, true) == null &&
+  if (edge != null &amp;&amp; this.model.getTerminal(edge, true) == null &amp;&amp;
     this.model.getTerminal(edge, false) == null) {
     return null;
   }
 
   // Checks if we're dealing with a loop
-  if (!this.allowLoops && source == target && source != null) {
+  if (!this.allowLoops &amp;&amp; source == target &amp;&amp; source != null) {
     return '';
   }
 
@@ -60,7 +88,7 @@ mxGraph.prototype.getEdgeValidationError = function (edge, source, target) {
     return '';
   }
 
-  if (source != null && target != null) {
+  if (source != null &amp;&amp; target != null) {
     var error = '';
 
     // Checks if the cells are already connected
@@ -69,7 +97,7 @@ mxGraph.prototype.getEdgeValidationError = function (edge, source, target) {
       var tmp = this.model.getEdgesBetween(source, target, true);
 
       // Checks if the source and target are not connected by another edge
-      if (tmp.length > 1 || (tmp.length == 1 && tmp[0] != edge)) {
+      if (tmp.length > 1 || (tmp.length == 1 &amp;&amp; tmp[0] != edge)) {
         if (source.value.dataType != "events") {
           error += (mxResources.get(this.alreadyConnectedResource) ||
             this.alreadyConnectedResource) + '\n';
@@ -80,8 +108,8 @@ mxGraph.prototype.getEdgeValidationError = function (edge, source, target) {
             var sourceEvent = source.value.items[eventIndex];
             var sourceEActions = sourceEvent.eActions;
             var eventEdges = [];
-            for (var i = 0; i < tmp[0].source.edges.length; i++) {
-              for (var j = 0; j < sourceEActions.length; j++) {
+            for (var i = 0; i &lt; tmp[0].source.edges.length; i++) {
+              for (var j = 0; j &lt; sourceEActions.length; j++) {
                 //collect all the edges within the event
                 if (tmp[0].source.edges[i].value.name.indexOf(sourceEActions[j].name + " ->") > -1) {
                   /*eventEdges.push(tmp[0].source.edges[i]); */
@@ -90,7 +118,7 @@ mxGraph.prototype.getEdgeValidationError = function (edge, source, target) {
                 }
               }
             }
-            /*for (var k = 0; k < eventEdges.length; k++) {
+            /*for (var k = 0; k &lt; eventEdges.length; k++) {
                 if (target.value.State.name == eventEdges[k].value.toState) {
                     error += (mxResources.get(this.alreadyConnectedResource) ||
                         this.alreadyConnectedResource) + '\n';
@@ -112,7 +140,7 @@ mxGraph.prototype.getEdgeValidationError = function (edge, source, target) {
 
     // Checks the change against each multiplicity rule
     if (this.multiplicities != null) {
-      for (var i = 0; i < this.multiplicities.length; i++) {
+      for (var i = 0; i &lt; this.multiplicities.length; i++) {
         var err = this.multiplicities[i].check(this, edge, source,
           target, sourceOut, targetIn);
 
@@ -141,7 +169,7 @@ mxConnectionHandler.prototype.mouseUp = function (sender, me) {
 
   var getActionData = function (state, iid) {
     var foundData = null;
-    for (var i = 0; i < state.items.length; i++) {
+    for (var i = 0; i &lt; state.items.length; i++) {
       if (state.items[i].itemId == iid) {
         foundData = state.items[i].value;
         break;
@@ -152,11 +180,11 @@ mxConnectionHandler.prototype.mouseUp = function (sender, me) {
 
   var getEventActionData = function (state, iid, aid) {
     var foundData = null;
-    for (var i = 0; i < state.items.length; i++) {
+    for (var i = 0; i &lt; state.items.length; i++) {
       if (state.items[i].eActions) {
         var eActs = state.items[i].eActions;
-        for (var j = 0; j < eActs.length; j++) {
-          if (eActs[j].itemId == iid && eActs[j].actionId == aid) {
+        for (var j = 0; j &lt; eActs.length; j++) {
+          if (eActs[j].itemId == iid &amp;&amp; eActs[j].actionId == aid) {
             foundData = eActs[j].value;
             break;
           }
@@ -169,7 +197,7 @@ mxConnectionHandler.prototype.mouseUp = function (sender, me) {
   }
 
   var isConnectedState = function (newStates, sname) {
-    for (var i = 0; i < newStates.length; i++) {
+    for (var i = 0; i &lt; newStates.length; i++) {
       if (newStates[i].toState == sname) {
         return true;
       }
@@ -186,17 +214,17 @@ mxConnectionHandler.prototype.mouseUp = function (sender, me) {
       var source = (this.previous != null) ? this.previous.cell : null;
       var target = null;
 
-      if (source && (source.value.dataType == "events" || source.value.dataType == "actions")) {
-        if (this.constraintHandler.currentConstraint != null &&
+      if (source &amp;&amp; (source.value.dataType == "events" || source.value.dataType == "actions")) {
+        if (this.constraintHandler.currentConstraint != null &amp;&amp;
           this.constraintHandler.currentFocus != null) {
           target = this.constraintHandler.currentFocus.cell;
         }
 
-        if (target == null && this.marker.hasValidState()) {
+        if (target == null &amp;&amp; this.marker.hasValidState()) {
           target = this.marker.validState.cell;
         }
 
-        if (target && target.value.dataType == "state") {
+        if (target &amp;&amp; target.value.dataType == "state") {
           var tState = sender.getView().getState(target);
           var sState = sender.getView().getState(source);
           target.value.ownerID = target.getId();
@@ -208,26 +236,26 @@ mxConnectionHandler.prototype.mouseUp = function (sender, me) {
 
           var actionId = -1;
           if (tr) {
-            if (source && source.value.dataType == "events") {
+            if (source &amp;&amp; source.value.dataType == "events") {
               var td = tr.querySelector("td[actionid]");
               var itemId = td.getAttribute("itemid");
-              if (itemId && itemId !== "")
+              if (itemId &amp;&amp; itemId !== "")
                 itemId = +itemId; //convert to integer
               else
                 itemId = -1;
               var actionId = td.getAttribute("actionid");
-              if (actionId && actionId !== "")
+              if (actionId &amp;&amp; actionId !== "")
                 actionId = +actionId;
               else
                 actionId = -1;
 
-              if (actionId >= 0 && itemId >= 0) {
+              if (actionId >= 0 &amp;&amp; itemId >= 0) {
                 //var eventData = getActionData(source.value, itemId);
                 //if (eventData) {
                 //  eventData.eventId = itemId;
                 //}
                 var actionData = getEventActionData(source.value, itemId, actionId);
-                if (actionData) { // && actionData.newStates) {
+                if (actionData) { // &amp;&amp; actionData.newStates) {
                   var newState = {
                     toState: target.value.State.name,
                     prob: -1,
@@ -261,13 +289,13 @@ mxConnectionHandler.prototype.mouseUp = function (sender, me) {
                   allowConnection = false;
               }
             }
-            else if (source && source.value.dataType == "actions") {
+            else if (source &amp;&amp; source.value.dataType == "actions") {
               var th = tr.querySelector("td[itemid]");
               var itemId = th.getAttribute("itemid");
-              itemId = (itemId && itemId !== "") ? +itemId : -1;
+              itemId = (itemId &amp;&amp; itemId !== "") ? +itemId : -1;
               if (itemId >= 0) {
                 var actionData = getActionData(source.value, itemId);
-                if (actionData) {// && actionData.newStates) {
+                if (actionData) {// &amp;&amp; actionData.newStates) {
                   var newState = {
                     toState: target.value.State.name,
                     prob: -1,
@@ -354,7 +382,7 @@ mxConnectionHandler.prototype.getSourcePerimeterPoint = function (state, next, m
 
 // Disables connections to invalid rows
 mxConnectionHandler.prototype.isValidTarget = function (cell) {
-  return (cell.value && cell.value.dataType == "state");
+  return (cell.value &amp;&amp; cell.value.dataType == "state");
   //return this.currentRowNode != null;  // to allow connect to individual table row.
 };
 
@@ -363,7 +391,7 @@ mxGraph.prototype.updateOwnership = function (cells) {
   if (!cells) {
     for (var c in this.model.cells) {
       var cell = this.model.cells[c];
-      if (cell.value && cell.value.dataType == "state") {
+      if (cell.value &amp;&amp; cell.value.dataType == "state") {
         cell.value.ownerID = cell.getId();
       }
       if (cell.children) {
@@ -371,9 +399,9 @@ mxGraph.prototype.updateOwnership = function (cells) {
       }
     }
   } else {
-    for (var i = 0; i < cells.length; i++) {
+    for (var i = 0; i &lt; cells.length; i++) {
       var cell = cells[i];
-      if (cell.value && cell.value.dataType == "state") {
+      if (cell.value &amp;&amp; cell.value.dataType == "state") {
         cell.value.ownerID = cell.getId();
       }
       if (cell.children) {
@@ -390,7 +418,7 @@ when an edge (link) is reconnect to another diagram, this handle of updating the
 */
 var mxEdgeHandlerMouseUp = mxEdgeHandler.prototype.mouseUp;
 mxEdgeHandler.prototype.mouseUp = function (sender, me) {
-  if (this.index != null && this.marker != null) {
+  if (this.index != null &amp;&amp; this.marker != null) {
     var edge = this.state.cell;
 
     // Ignores event if mouse has not been moved
@@ -438,7 +466,7 @@ mxGraphView.prototype.updateFloatingTerminalPoint = function (edge, start, end, 
   var next = this.getNextPoint(edge, end, isSource);
 
   //an edge must be connected from a State cell.
-  if (start.text && start.text.node) {
+  if (start.text &amp;&amp; start.text.node) {
     var div = start.text.node.getElementsByTagName('div')[0];
 
   }
@@ -459,12 +487,12 @@ mxGraphView.prototype.updateFloatingTerminalPoint = function (edge, start, end, 
   if (div != null) {
     y = start.getCenterY() - div.scrollTop;
     var clientRect = null;
-    if (edge.cell.value && !this.graph.isCellCollapsed(start.cell)) {
+    if (edge.cell.value &amp;&amp; !this.graph.isCellCollapsed(start.cell)) {
       var row = edge.cell.value.sourceRow;
       var tr = null;
       //sourceRowNode is set and available only during the preview edge being connected.
       tr = this.graph.connectionHandler.sourceRowNode;
-      if (tr && isSource && (start.cell.value.dataType == "events" || start.cell.value.dataType == "actions")) {
+      if (tr &amp;&amp; isSource &amp;&amp; (start.cell.value.dataType == "events" || start.cell.value.dataType == "actions")) {
 
         start.sourceElement = tr;
         clientRect = tr.getClientRects()[0];
@@ -493,7 +521,7 @@ mxGraphView.prototype.updateFloatingTerminalPoint = function (edge, start, end, 
         //This part is use for drawing during loading of the diagram only.
 
         //determine where the edge is connecting from which area with the source state.
-        if (isSource && edge.cell.value) {
+        if (isSource &amp;&amp; edge.cell.value) {
           if (edge.cell.value.dataType == "NewStates") {
             // true only when diagram was loaded and not during interactively creation.
             var iId = edge.cell.value.itemId;  //the eventAction's event row number.
@@ -536,13 +564,13 @@ mxGraphView.prototype.updateFloatingTerminalPoint = function (edge, start, end, 
     // Updates the vertical position of the nearest point if we're not
     // dealing with a connection preview, in which case either the
     // edgeState or the absolutePoints are null
-    if (edge != null && edge.absolutePoints != null) {
+    if (edge != null &amp;&amp; edge.absolutePoints != null) {
       next.y = y;
     }
   }
 
   //set the end point of the polyline connection edge to the top of the target state, only if the edge has a target already.
-  if (!isSource && edge.cell.target) {
+  if (!isSource &amp;&amp; edge.cell.target) {
     y = edge.cell.target.geometry.y + 10;
     next.y = y;  //also the edge's last bend to the same.
   }
@@ -582,15 +610,15 @@ StateApp.prototype.Initialize = function (graph) {
       if (target.nodeName == 'TD') {
         var cellId = target.getAttribute('cellid');
         var itemId = target.getAttribute('itemid');
-        if (cellId !== null && itemId !== null) {
+        if (cellId !== null &amp;&amp; itemId !== null) {
           itemId = +itemId;
           cellId = +cellId;
           var cell = mainApp.graph.getModel().getCell(cellId);
           var dataObj = cell.value.items[itemId];
           if (!dataObj) {
-            for (var i = 0; i < cell.value.items.length; i++) {
+            for (var i = 0; i &lt; cell.value.items.length; i++) {
               if (cell.value.items[i].eActions) {
-                for (var j = 0; j < cell.value.items[i].eActions.length; j++) {
+                for (var j = 0; j &lt; cell.value.items[i].eActions.length; j++) {
                   if (cell.value.items[i].eActions[j].itemId == itemId) {
                     dataObj = cell.value.items[i].eActions[j];
                   }
@@ -606,7 +634,7 @@ StateApp.prototype.Initialize = function (graph) {
           }
           var actionId = target.getAttribute("actionid");
           actionId = actionId ? +actionId : actionId;
-          if (target.nodeName == 'TD' && dataType == 'actions') {
+          if (target.nodeName == 'TD' &amp;&amp; dataType == 'actions') {
             if (actionId >= 0) { //event Action's Action
               var dataObj = this.getEventActionData(cell.value, itemId, actionId);
               if (dataObj) {
@@ -619,7 +647,7 @@ StateApp.prototype.Initialize = function (graph) {
               foundCell = true;
             }
           }
-          else if (target.tagName == "TD" && dataType == 'events') {    //event Action's action
+          else if (target.tagName == "TD" &amp;&amp; dataType == 'events') {    //event Action's action
             var dataObj = this.getEventActionData(cell.value, itemId, actionId);
             if (dataObj) {
               this.editActionProperties(cell, dataObj);
@@ -628,14 +656,14 @@ StateApp.prototype.Initialize = function (graph) {
           }
         }
       }
-      else if (target.nodeName == 'TH' && dataType == 'events') {
+      else if (target.nodeName == 'TH' &amp;&amp; dataType == 'events') {
         var cellId = target.getAttribute('cellId');
         cellId = cellId ? +cellId : cellId;
         if (cellId) {
           var cell = mainApp.graph.getModel().getCell(cellId);
           var itemId = target.getAttribute('itemId');
           itemId = itemId ? +itemId : itemId;
-          if (cell && itemId >= 0) {
+          if (cell &amp;&amp; itemId >= 0) {
             var dataObj = cell.value.items[itemId];
             this.editEventProperties(cell, dataObj.value);
             foundCell = true;
@@ -645,11 +673,11 @@ StateApp.prototype.Initialize = function (graph) {
     }
     else {
       var cell = mainApp.graph.getSelectionCell();
-      if (cell && cell.isEdge()) {
+      if (cell &amp;&amp; cell.isEdge()) {
         this.editLinkProperties(cell, cell.value.linkState);
         foundCell = true;
       }
-      else if (cell && cell.value.State) {
+      else if (cell &amp;&amp; cell.value.State) {
         this.editStateProperties(cell, mainApp.graph);
         foundCell = true;
       }
@@ -657,7 +685,7 @@ StateApp.prototype.Initialize = function (graph) {
     //if everything is checked out and not found one, it must be a state.
     if (!foundCell) {
       var cell = mainApp.graph.getSelectionCell();
-      if (cell && cell.value.State) {
+      if (cell &amp;&amp; cell.value.State) {
         this.editStateProperties(cell, mainApp.graph);
       }
 
@@ -685,7 +713,7 @@ StateApp.prototype.Initialize = function (graph) {
   //------------------------------------------
   var graphstartEditingAtCell = this.graph.startEditingAtCell;
   graph.startEditingAtCell = function (cell, evt) {
-    if (cell.value && (typeof cell.value !== "String") && !cell.edge) {
+    if (cell.value &amp;&amp; (typeof cell.value !== "String") &amp;&amp; !cell.edge) {
       //user the override editor window.
       //this.editor.editUserObject(this.graph, cell, evt);
 
@@ -744,7 +772,7 @@ StateApp.prototype.Initialize = function (graph) {
   graph.isCellFoldable = function (cell, collapse) {
     // return this.getModel().isVertex(cell);
     var state = this.getView().getState(cell);
-    if (state && state.shape && ((state.shape instanceof TableShape) || (state.shape instanceof StateShape)))
+    if (state &amp;&amp; state.shape &amp;&amp; ((state.shape instanceof TableShape) || (state.shape instanceof StateShape)))
       return true;
     return graphIsCellFoldable.apply(this, arguments);
   };
@@ -752,12 +780,12 @@ StateApp.prototype.Initialize = function (graph) {
   var graphIsCellSelectable = graph.isCellSelectable;
   graph.isCellSelectable = function (cell) {
     var state = this.getView().getState(cell);
-    if (state && state.shape && (state.shape instanceof StateShape))
+    if (state &amp;&amp; state.shape &amp;&amp; (state.shape instanceof StateShape))
       return true;
-    if (state && state.shape instanceof mxConnector)
+    if (state &amp;&amp; state.shape instanceof mxConnector)
       return true;
 
-    if (state && state.shape && (state.shape instanceof TableShape))
+    if (state &amp;&amp; state.shape &amp;&amp; (state.shape instanceof TableShape))
       return true;
 
     return graphIsCellSelectable.apply(this, arguments);
@@ -769,9 +797,9 @@ StateApp.prototype.Initialize = function (graph) {
   var graphIsHtmlLabel = graph.isHtmlLabel;
   graph.isHtmlLabel = function (cell) {
     var state = this.getView().getState(cell);
-    if (state && state.shape && ((state.shape instanceof TableShape)))// || (state.shape instanceof StateShape)))
+    if (state &amp;&amp; state.shape &amp;&amp; ((state.shape instanceof TableShape)))// || (state.shape instanceof StateShape)))
       return true;
-    else if (state && state.shape && state.shape instanceof StateShape)
+    else if (state &amp;&amp; state.shape &amp;&amp; state.shape instanceof StateShape)
       return true;
 
     return graphIsHtmlLabel.apply(this, arguments);
@@ -789,12 +817,12 @@ StateApp.prototype.Initialize = function (graph) {
   //------------------------------------------
   // Scroll events should not start moving the vertex
   graph.cellRenderer.isLabelEvent = function (state, evt) {
-    if (state && state.shape && state.shape instanceof TableShape) {
+    if (state &amp;&amp; state.shape &amp;&amp; state.shape instanceof TableShape) {
       var source = mxEvent.getSource(evt);
 
       // FIXME: No scroll events in GC
-      return state.text != null &&
-        source != state.text.node &&
+      return state.text != null &amp;&amp;
+        source != state.text.node &amp;&amp;
         source != state.text.node.getElementsByTagName('div')[0];
     }
   };
@@ -809,7 +837,7 @@ StateApp.prototype.Initialize = function (graph) {
       // handler for item drag over response
       pdiv.ondragover = function (evt) {
         var isActionEvent = false;
-        for (var i = 0; i < evt.dataTransfer.types.length; i++) {
+        for (var i = 0; i &lt; evt.dataTransfer.types.length; i++) {
           var type = evt.dataTransfer.types[i].toLowerCase();
           if (type == div.getAttribute('datatype').toLowerCase()) {
             isActionEvent = true;
@@ -817,7 +845,7 @@ StateApp.prototype.Initialize = function (graph) {
           }
 
           //actions can be dropped onto an event but has to be on a row.
-          if (type == 'actions' && div.getAttribute('datatype').toLowerCase() == 'events') {
+          if (type == 'actions' &amp;&amp; div.getAttribute('datatype').toLowerCase() == 'events') {
             //actions can be dropped onto an event but has to be on a row.
             if (evt.target.tagName == 'TD' || evt.target.tagName == 'IMG') {
               isActionEvent = true;
@@ -835,7 +863,7 @@ StateApp.prototype.Initialize = function (graph) {
                 break;
               }
 
-              if (target.children.length > 0 && target.children[0].tagName == "IMG") {
+              if (target.children.length > 0 &amp;&amp; target.children[0].tagName == "IMG") {
                 //allow drop on the image icon TD, get the sibling TD
                 isActionEvent = true;
                 break;
@@ -843,14 +871,14 @@ StateApp.prototype.Initialize = function (graph) {
               else {
                 //dropped on the incorrect TD, walk up to DOM tree to find the next TD.
                 var el = target.parentNode;
-                while (el && el.tagName != 'TD') {
+                while (el &amp;&amp; el.tagName != 'TD') {
                   el = el.parentNode;
                 }
                 if (!el) {  //if no TD up, not allow drop.
                   isActionEvent = false;
                   break;
                 }
-                else if (el && el.tagName == 'TD') {
+                else if (el &amp;&amp; el.tagName == 'TD') {
                   isActionEvent = true;
                   break;
                 }
@@ -883,9 +911,9 @@ StateApp.prototype.Initialize = function (graph) {
           newAction = JSON.parse(newAction);
           newAction.dataType = atype;
 
-          if ((atype == 'actions') &&
+          if ((atype == 'actions') &amp;&amp;
             (target.tagName == 'TD' || evt.target.tagName == 'TH' || evt.target.tagName == "IMG")
-            && (div.getAttribute('datatype').toLowerCase() == 'events')) {
+            &amp;&amp; (div.getAttribute('datatype').toLowerCase() == 'events')) {
 
             //Add as Event Actions item
             //if (!target.getAttribute('cellid')) {
@@ -895,14 +923,14 @@ StateApp.prototype.Initialize = function (graph) {
               target = target.parentNode;
             }
 
-            if (target.children.length > 1 && target.children[0].tagName == "IMG") {
+            if (target.children.length > 1 &amp;&amp; target.children[0].tagName == "IMG") {
               //drop on the image icon TD, get the sibling TD
               target = target.parentNode.children[1];
             }
             else {
               //dropped on the incorrect TD, walk up to DOM tree to find the next TD.
               var el = target.parentNode;
-              while (el && el.tagName != 'TD') {
+              while (el &amp;&amp; el.tagName != 'TD') {
                 el = el.parentNode;
               }
               target = el;
@@ -924,7 +952,7 @@ StateApp.prototype.Initialize = function (graph) {
               itemId = itemId ? +itemId : -1;
               actionId = actionId ? +actionId : -1;
 
-              if (cellId >= 0 && itemId >= 0) {
+              if (cellId >= 0 &amp;&amp; itemId >= 0) {
                 var cell = mainApp.graph.getModel().getCell(cellId);
                 var item = cell.value.items[itemId];
                 if (actionId >= 0) {
@@ -937,7 +965,7 @@ StateApp.prototype.Initialize = function (graph) {
                 else {
                   //Action item was dropped on the EventAction header, insert a new action.
                   var stateName = state.cell.parent.value.State.name;
-                  for (var j = 0; j < sb.StateList.length; j++) {
+                  for (var j = 0; j &lt; sb.StateList.length; j++) {
                     var sbState = sb.StateList[j];
                     if (sbState.State.name == stateName) {
                       if (sbState.State.eventActions == null
@@ -945,7 +973,7 @@ StateApp.prototype.Initialize = function (graph) {
                         sbState.State.eventActions = [{ moveFromCurrent: true, actions: [] }]
                         itemId = 0;
                       }
-                      else if (sbState.State.eventActions.length <= itemId) {
+                      else if (sbState.State.eventActions.length &lt;= itemId) {
                         sbState.State.eventActions[itemId] = { moveFromCurrent: true, actions: [] };
                       }
                       sbState.State.eventActions[itemId].actions.push(newAction.name);
@@ -967,7 +995,7 @@ StateApp.prototype.Initialize = function (graph) {
                         var actCell = sbState.actionCell;
                         var evtCell = sbState.eventCell;
 
-                        for (var p = 0; p < newAction.newStates.length; p++) {
+                        for (var p = 0; p &lt; newAction.newStates.length; p++) {
                           var ns = deepClone(newAction.newStates[p]);
                           ns.linkState = newAction.newStates[p];
                           ns.dataType = "NewStates";
@@ -1007,7 +1035,7 @@ StateApp.prototype.Initialize = function (graph) {
               state.cell.value.items.push({ itemId: itemId, dataType: atype, Action: newAction });
               //add to immediate action
               var stateName = state.cell.parent.value.State.name;
-              for (var j = 0; j < sb.StateList.length; j++) {
+              for (var j = 0; j &lt; sb.StateList.length; j++) {
                 if (sb.StateList[j].State.name == stateName) {
                   sb.StateList[j].State.immediateActions.push(newAction.name);
                 }
@@ -1019,7 +1047,7 @@ StateApp.prototype.Initialize = function (graph) {
               //add to immediate action
               var stateName = state.cell.parent.value.State.name;
 
-              for (var j = 0; j < sb.StateList.length; j++) {
+              for (var j = 0; j &lt; sb.StateList.length; j++) {
                 if (sb.StateList[j].State.name == stateName) {
                   sb.StateList[j].State.events.push(newAction.name);
                   var evAct = {
@@ -1042,7 +1070,7 @@ StateApp.prototype.Initialize = function (graph) {
     oldRedrawLabel.apply(this, arguments); // "supercall"
     var graph = state.view.graph;
     //var s = graph.view.scale;
-    if (graph.getModel().isVertex(state.cell) && state.text != null) {
+    if (graph.getModel().isVertex(state.cell) &amp;&amp; state.text != null) {
       if (state.shape instanceof TableShape) {                                                             
         // Scrollbars are on the div
         state.text.node.style.overflow = 'hidden';
@@ -1100,7 +1128,7 @@ StateApp.prototype.Initialize = function (graph) {
 
     var target = aTarget;
     //walk up the DOM tree to find a TR parent (table row).
-    while (target != null && target.nodeName != 'TR') {
+    while (target != null &amp;&amp; target.nodeName != 'TR') {
       target = target.parentNode;
     }
 
@@ -1108,11 +1136,11 @@ StateApp.prototype.Initialize = function (graph) {
 
     // Stores the current row number in a property so that it can
     // be retrieved to create the preview and final edge
-    if (target && target.parentNode) {
+    if (target &amp;&amp; target.parentNode) {
       var rowNumber = 0;
       var current = target.parentNode.firstChild;
 
-      while (target != current && current != null) {
+      while (target != current &amp;&amp; current != null) {
         current = current.nextSibling;
         rowNumber++;
       }
@@ -1128,8 +1156,8 @@ StateApp.prototype.Initialize = function (graph) {
     icons[0].node.style.visibility = 'hidden';
 
     if ((target.nodeName == 'TD' || target.nodeName == 'IMG')
-      && target.getAttribute('dataType') == 'actions'
-      && target.getAttribute("itemId")) {
+      &amp;&amp; target.getAttribute('dataType') == 'actions'
+      &amp;&amp; target.getAttribute("itemId")) {
       target = this.updateRow(target);
 
       if (target != null) {
@@ -1201,7 +1229,7 @@ StateApp.prototype.Initialize = function (graph) {
   graph.getLabel = function (cell) {
     var content = "";
     var state = this.getView().getState(cell);
-    if (state && state.shape) {
+    if (state &amp;&amp; state.shape) {
       if (state.shape instanceof TableShape) {
         content = state.shape.getLabel(cell);
       }
@@ -1209,11 +1237,11 @@ StateApp.prototype.Initialize = function (graph) {
         content = cell.value.State.name;
         var rootPath = document.baseURI.substring(0, document.baseURI.lastIndexOf("/")+1);
         if (cell.value.State.stateType == "stStart")
-          content = "<img src='" + rootPath + "images/green-dot.gif' style='width:15px;height:15px;margin-right:5px;' />" + content;
+          content = "&lt;img src='" + rootPath + "images/green-dot.gif' style='width:15px;height:15px;margin-right:5px;' />" + content;
         if (cell.value.State.stateType == "stTerminal")
-          content = "<img src='" + rootPath + "images/red-dot.png' style='width:10px;height:10px;margin-right:5px;' />" + content;
+          content = "&lt;img src='" + rootPath + "images/red-dot.png' style='width:10px;height:10px;margin-right:5px;' />" + content;
         if (cell.value.State.stateType == "stKeyState")
-          content = content + "<img src='" + rootPath + "images/key.png' style='width:15px;height:15px;margin-left:5px;' />";
+          content = content + "&lt;img src='" + rootPath + "images/key.png' style='width:15px;height:15px;margin-left:5px;' />";
 
       }
       else if (state.shape instanceof mxConnector) {
@@ -1240,7 +1268,7 @@ StateApp.prototype.Initialize = function (graph) {
     var cells = graph.getModel().cells;
     for (var i in cells) {
       var cell = cells[i];
-      if (cell.value && cell.value.dataType == "state") {
+      if (cell.value &amp;&amp; cell.value.dataType == "state") {
         if (cell.value.State.name == name) {
           foundCell = cell;
           break;
@@ -1256,7 +1284,7 @@ StateApp.prototype.Initialize = function (graph) {
     var cells = graph.getModel().cells;
     for (var i in cells) {
       var cell = cells[i];
-      if (cell.value && cell.value.dataType == "state") {
+      if (cell.value &amp;&amp; cell.value.dataType == "state") {
         if (cell.value.State.id == id) {
           foundCell = cell;
           break;
@@ -1272,7 +1300,7 @@ StateApp.prototype.Initialize = function (graph) {
     var parent = graph.getDefaultParent();
     var actions = parent.value.ActionList;
     if (actions) {
-      for (var i = 0; i < actions.length; i++) {
+      for (var i = 0; i &lt; actions.length; i++) {
         var act = actions[i];
         if (act.Action.name == actName) {
           foundNode = act;
@@ -1289,7 +1317,7 @@ StateApp.prototype.Initialize = function (graph) {
     var parent = graph.getDefaultParent();
     var events = parent.value.EventList;
     if (events) {
-      for (var i = 0; i < events.length; i++) {
+      for (var i = 0; i &lt; events.length; i++) {
         var evt = events[i];
         if (evt.Event.name == evtName) {
           foundNode = evt;
@@ -1305,7 +1333,7 @@ StateApp.prototype.Initialize = function (graph) {
     var parent = graph.getDefaultParent();
     var states = parent.value.StateList;
     if (states) {
-      for (var i = 0; i < states.length; i++) {
+      for (var i = 0; i &lt; states.length; i++) {
         if (states[i].State.name == stName) {
           foundNode = states[i];
           break;
@@ -1412,7 +1440,7 @@ mxGraph.prototype.getStateDiagram = function () {
         });
       } else if (typeof item == "object") {
         // testing that this is DOM
-        if (item.nodeType && typeof item.cloneNode == "function") {
+        if (item.nodeType &amp;&amp; typeof item.cloneNode == "function") {
           var result = item.cloneNode(true);
         } else if (!item.prototype) { // check that this is a literal
           if (item instanceof Date) {
@@ -1431,7 +1459,7 @@ mxGraph.prototype.getStateDiagram = function () {
         } else {
           // depending what you would like here,
           // just keep the reference, or create new object
-          if (false && item.constructor) {
+          if (false &amp;&amp; item.constructor) {
             // would not advice to do that, reason? Read below
             result = new item.constructor();
           } else {
@@ -1452,7 +1480,7 @@ mxGraph.prototype.getStateDiagram = function () {
   //copy the diagram object from the root cell, if exists.
   for (var i in cells) {
     var cell = cells[i];
-    if (cell.value && cell.value.dataType == "diagram") {
+    if (cell.value &amp;&amp; cell.value.dataType == "diagram") {
       diagramData = {
         id: cell.value.id,
         name: cell.value.name,
@@ -1471,7 +1499,7 @@ mxGraph.prototype.getStateDiagram = function () {
   //copy each State from all cells.
   for (var i in cells) {
     var cell = cells[i];
-    if (cell.value && cell.value.dataType == "state") {
+    if (cell.value &amp;&amp; cell.value.dataType == "state") {
       var state = specialClone(cell.value.State);
       state.geometry = "{ x: " + cell.geometry.x +
         ", y: " + cell.geometry.y +
@@ -1492,3 +1520,26 @@ mxGraph.prototype.clearNew = function () {
 }
 
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="FaultTree.html">FaultTree</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="RiskSim.html">RiskSim</a></li><li><a href="simApp.html">simApp</a></li></ul><h3>Classes</h3><ul><li><a href="Enum.html">Enum</a></li><li><a href="FaultTree_Toolbar.html">Toolbar</a></li><li><a href="Navigation_Menu.html">Menu</a></li><li><a href="Navigation_Sidebar.html">Sidebar</a></li><li><a href="RiskSim_CommonDialog.html">CommonDialog</a></li><li><a href="RiskSim_Window.html">Window</a></li><li><a href="simApp_SimApp.html">SimApp</a></li><li><a href="StateApp.html">StateApp</a></li><li><a href="StateShape.html">StateShape</a></li><li><a href="TableShape.html">TableShape</a></li><li><a href="WcfService.html">WcfService</a></li><li><a href="WindowFrame.html">WindowFrame</a></li></ul><h3>Interfaces</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Diagram.html">Diagram</a></li><li><a href="Event.html">Event</a></li><li><a href="ExtSim.html">ExtSim</a></li><li><a href="LogicNode.html">LogicNode</a></li><li><a href="MenuItem.html">MenuItem</a></li><li><a href="Model.html">Model</a></li><li><a href="State.html">State</a></li><li><a href="Variable.html">Variable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBE">addBE</a></li><li><a href="global.html#addNode">addNode</a></li><li><a href="global.html#addOverlays">addOverlays</a></li><li><a href="global.html#adjustWindowPos">adjustWindowPos</a></li><li><a href="global.html#BuildTreeRec">BuildTreeRec</a></li><li><a href="global.html#classNameOf">classNameOf</a></li><li><a href="global.html#clearAllCookies">clearAllCookies</a></li><li><a href="global.html#createDemo">createDemo</a></li><li><a href="global.html#createPopupMenu">createPopupMenu</a></li><li><a href="global.html#createTestProject">createTestProject</a></li><li><a href="global.html#createTestProject2">createTestProject2</a></li><li><a href="global.html#DataChanged">DataChanged</a></li><li><a href="global.html#DataType">DataType</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#deleteSimulation">deleteSimulation</a></li><li><a href="global.html#downloadClientTester">downloadClientTester</a></li><li><a href="global.html#downloadClientTesterSource">downloadClientTesterSource</a></li><li><a href="global.html#downloadSolver">downloadSolver</a></li><li><a href="global.html#editDiagramNode">editDiagramNode</a></li><li><a href="global.html#editNode">editNode</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#extractSubStr">extractSubStr</a></li><li><a href="global.html#GetDataObject">GetDataObject</a></li><li><a href="global.html#getDefaultGateID">getDefaultGateID</a></li><li><a href="global.html#getMainApp">getMainApp</a></li><li><a href="global.html#getRowY">getRowY</a></li><li><a href="global.html#getServerFile">getServerFile</a></li><li><a href="global.html#getSidebar">getSidebar</a></li><li><a href="global.html#isIENavigator">isIENavigator</a></li><li><a href="global.html#isModified">isModified</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#makeTransparent">makeTransparent</a></li><li><a href="global.html#mergeFTData">mergeFTData</a></li><li><a href="global.html#mergeIntoCurrentProject">mergeIntoCurrentProject</a></li><li><a href="global.html#MessageBox">MessageBox</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#newSimulation">newSimulation</a></li><li><a href="global.html#noSpaces">noSpaces</a></li><li><a href="global.html#OnLoad">OnLoad</a></li><li><a href="global.html#OnSave">OnSave</a></li><li><a href="global.html#openAbout">openAbout</a></li><li><a href="global.html#openCSharpTool">openCSharpTool</a></li><li><a href="global.html#openFaultTree">openFaultTree</a></li><li><a href="global.html#openHelp">openHelp</a></li><li><a href="global.html#openProject">openProject</a></li><li><a href="global.html#openPythonTool">openPythonTool</a></li><li><a href="global.html#rgba">rgba</a></li><li><a href="global.html#saveDiagramProperties">saveDiagramProperties</a></li><li><a href="global.html#saveProject">saveProject</a></li><li><a href="global.html#saveTemplate">saveTemplate</a></li><li><a href="global.html#sequence">sequence</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setModified">setModified</a></li><li><a href="global.html#SetOf">SetOf</a></li><li><a href="global.html#somethingChanged">somethingChanged</a></li><li><a href="global.html#sortDOMList">sortDOMList</a></li><li><a href="global.html#testMakeCompDiagram">testMakeCompDiagram</a></li><li><a href="global.html#triggerEvent">triggerEvent</a></li><li><a href="global.html#updateCell">updateCell</a></li><li><a href="global.html#ValidateData">ValidateData</a></li><li><a href="global.html#waitToSync">waitToSync</a></li><li><a href="global.html#windowClosing">windowClosing</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 26 2021 18:40:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

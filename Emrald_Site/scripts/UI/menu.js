@@ -1,11 +1,20 @@
-﻿// Copyright 2021 Battelle Energy Alliance
+﻿/**
+ * @file Creates the top menu bar.
+ * @copyright 2021 Battelle Energy Alliance
+ */
 
 "use strict";
 
+/**
+ * Handles opening a C# tool.
+ */
 function openCSharpTool() {
   alert("Hey!!! C# here.");
 }
 
+/**
+ * Handles opening a python tool.
+ */
 function openPythonTool() {
   alert("Hey!!! Python here.");
 }
@@ -21,14 +30,36 @@ if (typeof Navigation === 'undefined')
 (function (Navigation) {
   var Menu = (function (_super) {
     __extends(_super, Menu);
+
+    /**
+     * Constructs Menu.
+     * 
+     * @class Navigation#Menu
+     * @classdesc The top menu bar.
+     * @param {string} menuFile The file to load menu data from.
+     */
     function Menu(menuFile) {
       _super.apply(this, arguments);
 
+      /**
+       * The path to the menu data file.
+       * 
+       * @name Navigation#Menu#menuUrl
+       * @type {string}
+       */
       this.menuUrl = menuFile || "resources/menu.json";
       this.loadMenuFile();
     }
-    //Execute a function using just the function name (string) under
-    //a given context.  Arguments may be passed through using third parameters.
+    
+    /**
+     * Creates a menu item click handler.
+     * 
+     * @name Navigation#Menu#executeMenu
+     * @function
+     * @param {string} fName The name of the menu item function.
+     * @param {*} context Context to bind the menu function to.
+     * @returns {Function} The click handler.
+     */
     Menu.prototype.executeMenu = function (fName, context) {
       return function () {
         var args = Array.prototype.slice.call(arguments, 2);
@@ -46,10 +77,15 @@ if (typeof Navigation === 'undefined')
       }
     }
 
-    //Create the menu with a hierarchical tree structure (title, function, submenu[]).   
-    //It recursively call itself to generate all menu items.  It makes call to the given function name 
-    //through a help <ExecuteMenu> function.
-
+    /**
+     * Creates sub-menu entries.
+     * 
+     * @name Navigation#Menu#createSubMenu
+     * @function
+     * @param {MenuItem[]} menuItems The items in the menu.
+     * @param {HTMLElement} parent The element to create the menu within.
+     * @param {boolean} [isMain] If the current item is at the top level of the menu.
+     */
     Menu.prototype.createSubMenu = function (menuItems, parent, isMain) {
       if (menuItems && menuItems.length > 0) {
         var ul = document.createElement('ul');
@@ -107,9 +143,13 @@ if (typeof Navigation === 'undefined')
       }
     }
 
-
-    //Add menu to the menu <nav> tag, supporting HTML5 only.
-    //<nav> is dependent on a menu.css file.
+    /**
+     * Adds a menu to the menu nav tag.
+     * 
+     * @name Navigation#Menu#createMenu
+     * @function
+     * @param {object} menuObj The menu JSON.
+     */
     Menu.prototype.createMenu = function (menuObj) {
 
       //first attempt to use DOM node.
@@ -139,8 +179,13 @@ if (typeof Navigation === 'undefined')
       //});
 
     }
-
-    //load a menu file and generate the menu.
+    
+    /**
+     * Loads the menu JSON file from the server.
+     * 
+     * @name Navigation#Menu#loadMenuFile
+     * @function
+     */
     Menu.prototype.loadMenuFile = function () {
       getServerFile(this.menuUrl, function (jsonStr) {
         try {

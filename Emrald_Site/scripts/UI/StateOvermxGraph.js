@@ -1,4 +1,7 @@
-﻿// Copyright 2021 Battelle Energy Alliance
+﻿/**
+ * @file Custom implementations of mxGraph functions.
+ * @copyright 2021 Battelle Energy Alliance
+ */
 
 'use strict';
 
