@@ -1,5 +1,15 @@
-// JavaScript source code
-// get a date from the tree logic
+/**
+ * @file Function for saving fault trees.
+ */
+
+/**
+ * Exports a graph as a FTL file.
+ * 
+ * @name ftEditor#SaveFTL
+ * @function
+ * @param {mxGraph} graph The editor graph.
+ * @param {string} filename The name of the file.
+ */
 function SaveFTL(graph, filename)
 {
   var model = graph.getModel();

@@ -1,8 +1,16 @@
-// Copyright 2021 Battelle Energy Alliance
+/**
+ * @file Handles app routing.
+ * @copyright 2021 Battelle Energy Alliance
+ */
 
 var path = require("path");
 
-// Routes the request, so that a proper file can be found for it.
+/**
+ * Routes the request, so that a proper file can be found for it.
+ * 
+ * @param {string} pathname The requested path name.
+ * @returns {string} The file to handle the request.
+ */
 var route = function(pathname) {
 
     var path = process.cwd() + "\\"; // Sets up the path to the

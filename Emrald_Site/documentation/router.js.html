@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: simApp</title>
+    <title>JSDoc: Source: router.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,180 +17,66 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: simApp</h1>
+    <h1 class="page-title">Source: router.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>simApp</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line540">line 540</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="simApp_SimApp.html">SimApp</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="mainApp"><span class="type-signature"></span>mainApp<span class="type-signature"> :SimApp</span></h4>
-
-
-
-
-<div class="description">
-    The global main app.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">SimApp</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line579">line 579</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Handles app routing.
+ * @copyright 2021 Battelle Energy Alliance
+ */
+
+var path = require("path");
+
+/**
+ * Routes the request, so that a proper file can be found for it.
+ * 
+ * @param {string} pathname The requested path name.
+ * @returns {string} The file to handle the request.
+ */
+var route = function(pathname) {
+
+    var path = process.cwd() + "\\"; // Sets up the path to the
+    // current directory, the one
+    // that will contain the pages.
+
+    // If the file ending has been corrected before hand
+    var corrected = false;
+
+    if (pathname === "" || pathname === "index" || pathname === "home"
+            || pathname === "index.html" || pathname === "home.html") {
+        // If it should be routed to the home page.
+        path += "index.html"; // Sets it to the index page
+        corrected = true;
+
+    } else {
+
+        // If it isn't any of those, then just appends the pathname
+        path += pathname;
+    }
+
+    // Splits it using "." separator. If the length of the split is only one
+    // then no file type has been specified, and so one will be generated
+    var pathSplit = pathname.split(".");
+
+    if (pathSplit.length === 1 &amp;&amp; corrected === false) {
+        // If the split leaves length one then appends .html to the end.
+        path += ".html";
+
+    }
+    console.log("Path is : " + path);
+    return path; // Returns the path.
+
+};
+
+exports.route = route;</code></pre>
+        </article>
+    </section>
 
 
 

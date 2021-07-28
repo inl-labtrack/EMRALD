@@ -1,3 +1,14 @@
+/**
+ * @file Configures styles for the fault tree editor. 
+ */
+
+/**
+ * Configures styles for the fault tree editor.
+ * 
+ * @name ftEditor#configureStylesheets
+ * @function
+ * @param {mxGraph} graph The editor mxGraph.
+ */
 function configureStyleSheets(graph)
 {
   // Set some stylesheet options for the visual appearance of vertices

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: simApp</title>
+    <title>JSDoc: Source: ftEditScripts/ftStyles.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,180 +17,151 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: simApp</h1>
+    <h1 class="page-title">Source: ftEditScripts/ftStyles.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>simApp</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line540">line 540</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="simApp_SimApp.html">SimApp</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="mainApp"><span class="type-signature"></span>mainApp<span class="type-signature"> :SimApp</span></h4>
-
-
-
-
-<div class="description">
-    The global main app.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">SimApp</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line579">line 579</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Configures styles for the fault tree editor. 
+ */
+
+/**
+ * Configures styles for the fault tree editor.
+ * 
+ * @name ftEditor#configureStylesheets
+ * @function
+ * @param {mxGraph} graph The editor mxGraph.
+ */
+function configureStyleSheets(graph)
+{
+  // Set some stylesheet options for the visual appearance of vertices
+  var style = graph.getStylesheet().getDefaultVertexStyle();
+  style[mxConstants.STYLE_SHAPE] = 'label';
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_TOP;
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_CENTER;
+  style[mxConstants.STYLE_SPACING_LEFT] = 0;
+  style[mxConstants.STYLE_GRADIENTCOLOR] = '#7d85df';
+  style[mxConstants.STYLE_STROKECOLOR] = '#5d65df';
+  style[mxConstants.STYLE_FILLCOLOR] = '#adc5ff';
+  style[mxConstants.STYLE_GRADIENT_DIRECTION] = mxConstants.DIRECTION_SOUTH;
+  style[mxConstants.STYLE_FONTCOLOR] = '#1d258f';
+  style[mxConstants.STYLE_FONTFAMILY] = 'Verdana';
+  style[mxConstants.STYLE_FONTSIZE] = '10';
+  style[mxConstants.STYLE_FONTSTYLE] = '1';
+  style[mxConstants.STYLE_SHADOW] = '1';
+  style[mxConstants.STYLE_ROUNDED] = '1';
+  style[mxConstants.STYLE_GLASS] = '1';
+  //style[mxConstants.STYLE_DELETABLE] = 0;
+
+
+  // Sets the default style for edges
+  style = graph.getStylesheet().getDefaultEdgeStyle();
+  style[mxConstants.STYLE_ROUNDED] = true;
+  style[mxConstants.STYLE_STROKEWIDTH] = 3;
+  style[mxConstants.STYLE_EXIT_X] = 0.5; // center
+  style[mxConstants.STYLE_EXIT_Y] = 1.0; // bottom
+  style[mxConstants.STYLE_EXIT_PERIMETER] = 0; // disabled
+  style[mxConstants.STYLE_ENTRY_X] = 0.5; // center
+  style[mxConstants.STYLE_ENTRY_Y] = 0; // top
+  style[mxConstants.STYLE_ENTRY_PERIMETER] = 0; // disabled
+  style[mxConstants.STYLE_ENDARROW] = 'none';
+  style.endArrow = 'none';
+
+  // Disable the following for straight lines
+  style[mxConstants.STYLE_EDGE] = mxEdgeStyle.TopToBottom;
+
+  //Style for the Gate Shape
+  style = new Object();
+  style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_IMAGE;
+  style[mxConstants.STYLE_FONTCOLOR] = '#774400';
+  style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+  style[mxConstants.STYLE_PERIMETER_SPACING] = '6';
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_LEFT;
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_MIDDLE;
+  style[mxConstants.STYLE_FONTSIZE] = '10';
+  style[mxConstants.STYLE_FONTSTYLE] = 2;
+  style[mxConstants.STYLE_IMAGE_WIDTH] = '16';
+  style[mxConstants.STYLE_IMAGE_HEIGHT] = '16';
+  //style[mxConstants.STYLE_DELETABLE] = 0;
+  graph.getStylesheet().putCellStyle('ftGateShape', style);
+
+  //Style for Name Part
+  style = new Object();
+  style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_IMAGE; //SHAPE_IMAGE is just transparent if not image
+  style[mxConstants.STYLE_FONTCOLOR] = '#000000';
+  style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+  style[mxConstants.STYLE_PERIMETER_SPACING] = '6';
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_LEFT;
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_MIDDLE;
+  style[mxConstants.STYLE_FONTSIZE] = '11';
+  style[mxConstants.STYLE_FONTSTYLE] = 3;
+  //style[mxConstants.STYLE_DELETABLE] = 0;
+  graph.getStylesheet().putCellStyle('ftName', style);
+
+  //Style for Description Part
+  style = new Object();
+  style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_IMAGE; //SHAPE_IMAGE is just transparent if not image
+  style[mxConstants.STYLE_FONTCOLOR] = '#000000';
+  style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+  style[mxConstants.STYLE_PERIMETER_SPACING] = '6';
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_LEFT;
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_TOP;
+  style[mxConstants.STYLE_FONTSIZE] = '10';
+  style[mxConstants.STYLE_FONTSTYLE] = 2;
+  //style[mxConstants.STYLE_DELETABLE] = 0;
+  graph.getStylesheet().putCellStyle('ftDesc', style);
+
+  //Style for BE Value Part
+  style = new Object();
+  style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_RECTANGLE;
+  style[mxConstants.STYLE_FONTCOLOR] = '#000000';
+  style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+  style[mxConstants.STYLE_PERIMETER_SPACING] = '6';
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_Center;
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_MIDDLE;
+  style[mxConstants.STYLE_FONTSIZE] = '10';
+  style[mxConstants.STYLE_FONTSTYLE] = 2;  
+  style[mxConstants.STYLE_OPACITY] = '60';
+  style[mxConstants.STYLE_SHADOW] = null;
+  style[mxConstants.STYLE_STROKECOLOR] = 'black';
+  style[mxConstants.STYLE_ROUNDED] = true;
+  style[mxConstants.STYLE_FILLCOLOR] = '#EEEEEE';
+  style[mxConstants.STYLE_GRADIENTCOLOR] = 'white';
+  //style[mxConstants.STYLE_DELETABLE] = 0;
+  graph.getStylesheet().putCellStyle('ftValue', style);
+
+  //Style for BE Item Part
+  style = new Object();
+  style[mxConstants.STYLE_SHAPE] = 'label';
+  style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_TOP;
+  style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_CENTER;
+  style[mxConstants.STYLE_SPACING_LEFT] = 0;
+  style[mxConstants.STYLE_GRADIENTCOLOR] = 'orange';
+  style[mxConstants.STYLE_FILLCOLOR] = 'yellow';
+  style[mxConstants.STYLE_STROKECOLOR] = 'black'; //line around item
+  style[mxConstants.STYLE_GRADIENT_DIRECTION] = mxConstants.DIRECTION_EAST;
+  style[mxConstants.STYLE_FONTCOLOR] = '#1d258f';
+  style[mxConstants.STYLE_FONTFAMILY] = 'Verdana';
+  style[mxConstants.STYLE_FONTSIZE] = '10';
+  style[mxConstants.STYLE_FONTSTYLE] = '1';
+  style[mxConstants.STYLE_SHADOW] = '1';
+  style[mxConstants.STYLE_ROUNDED] = '1';
+  style[mxConstants.STYLE_GLASS] = '1';
+  graph.getStylesheet().putCellStyle('ftBasicEvent', style);
+
+  //style[mxConstants.STYLE_GRADIENTCOLOR] = 'black';
+  //style[mxConstants.STYLE_STROKECOLOR] = 'red';
+  //style[mxConstants.STYLE_FILLCOLOR] = 'white';
+
+}// JavaScript source code
+</code></pre>
+        </article>
+    </section>
 
 
 

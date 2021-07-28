@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: simApp</title>
+    <title>JSDoc: Class: FTItemArray</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: simApp</h1>
+    <h1 class="page-title">Class: FTItemArray</h1>
 
     
 
@@ -28,7 +28,10 @@
 
 <header>
     
-        <h2>simApp</h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="ftEditor.html">ftEditor</a>#</span>FTItemArray<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Fault Tree Item array</div>
         
     
 </header>
@@ -38,7 +41,32 @@
     
         
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="FTItemArray"><span class="type-signature"></span>new FTItemArray<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Constructs FTItemArray
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -70,7 +98,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line540">line 540</a>
+        <a href="ftEditScripts_ftParseFiles.js.html">ftEditScripts/ftParseFiles.js</a>, <a href="ftEditScripts_ftParseFiles.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -82,7 +110,24 @@
 </dl>
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     </div>
 
@@ -90,13 +135,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="simApp_SimApp.html">SimApp</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
@@ -110,13 +148,13 @@
 
         
             
-<h4 class="name" id="mainApp"><span class="type-signature"></span>mainApp<span class="type-signature"> :SimApp</span></h4>
+<h4 class="name" id="ftItems"><span class="type-signature"></span>ftItems<span class="type-signature"> :Array.&lt;object></span></h4>
 
 
 
 
 <div class="description">
-    The global main app.
+    The items in the array.
 </div>
 
 
@@ -125,7 +163,7 @@
     <ul>
         <li>
             
-<span class="param-type">SimApp</span>
+<span class="param-type">Array.&lt;object></span>
 
 
         </li>
@@ -164,7 +202,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line579">line 579</a>
+        <a href="ftEditScripts_ftParseFiles.js.html">ftEditScripts/ftParseFiles.js</a>, <a href="ftEditScripts_ftParseFiles.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -183,6 +221,257 @@
         
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="AddItem"><span class="type-signature"></span>AddItem<span class="signature">(toAddItem)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Adds an item to the array.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toAddItem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The item to add.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ftEditScripts_ftParseFiles.js.html">ftEditScripts/ftParseFiles.js</a>, <a href="ftEditScripts_ftParseFiles.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="Sort"><span class="type-signature"></span>Sort<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;object>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sorts the item in the array.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ftEditScripts_ftParseFiles.js.html">ftEditScripts/ftParseFiles.js</a>, <a href="ftEditScripts_ftParseFiles.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The sorted items.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     

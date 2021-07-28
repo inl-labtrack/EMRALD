@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: simApp</title>
+    <title>JSDoc: Source: ftEditScripts/ftExport.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,180 +17,141 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: simApp</h1>
+    <h1 class="page-title">Source: ftEditScripts/ftExport.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>simApp</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Function for saving fault trees.
+ */
+
+/**
+ * Exports a graph as a FTL file.
+ * 
+ * @name ftEditor#SaveFTL
+ * @function
+ * @param {mxGraph} graph The editor graph.
+ * @param {string} filename The name of the file.
+ */
+function SaveFTL(graph, filename)
+{
+  var model = graph.getModel();
+
+  // Gets the default parent for inserting new cells. This
+  // is normally the first child of the root (ie. layer 0).
+  var treeTop = graph.getDefaultParent().children[0];
+
+  //var cell = graph.getSelectionCell();
+  //graph.traverse(treeTop, false, testTraverse);
+  var ftl = { logicStr: '' };
+  ftl.logicStr = "";
+  var topName = TreeTraverse(model, treeTop, ftl);
+  ftl.logicStr = projName + ", " + topName + "\n" + ftl.logicStr;
+  alert(ftl.logicStr);
+  //var obj = { item: "unchanged" };
+  //TreeTraverse(model, treeTop, obj);
+  //alert(obj.item);
+
+  //graph.prototype.traverse = testTraverse;
+
+
+  function TreeTraverse(model, vertex, resLogic, visited)
+  {
+    var curLine = '';
+    var retName = '';
+
+    if (vertex != null)
+    {
+      visited = visited || [];
+      var id = mxCellPath.create(vertex);
+
+      if (visited[id] == null)
+      {
+        visited[id] = vertex;
+
+        //var curShape = graph.getView().getState(vertex).shape;
+        //var gType = curShape.getGateType();
+        //retName = curShape.getTitle();
+        retName = vertex.value.name;
+        if (vertex.value.gType != 'BE')
+        {
+          curLine = retName + ' ' + vertex.value.gType + ' ';
+        }
+
+
+        var edgeCount = model.getEdgeCount(vertex);
+        var inputsStr = '';
+
+        if (edgeCount > 0)
+        {
+          for (var i = 0; i &lt; edgeCount; i++)
+          {
+            var e = model.getEdgeAt(vertex, i);
+            var isSource = model.getTerminal(e, true) == vertex;
+
+            if (isSource)
+            {
+              var next = model.getTerminal(e, !isSource);
+              inputsStr = inputsStr + TreeTraverse(model, next, resLogic, visited) + ' ';
+            }
+          }
+        }
+        if (curLine != '')
+        {
+          curLine = curLine + inputsStr;
+          resLogic.logicStr = resLogic.logicStr + curLine + '\n';
+        }
+      }
+    }
+
+    return retName;
+  };
+
+  //function testTraverse(vertex,edge)
+  //{
+  //  //vertex
+  //  var curShape = graph.getView().getState(vertex).shape;
+  //  var gInputs = '';
+  //  for (var i=0; i&lt;vertex)
+  //  resStr = resStr + curShape.getTitle + " " + curShape.gateType + " " ;
+  //  //graph.getView().getState(vertex).shape.title
+  //  //model.state[0].name;
+
+
+  //}
+
 
-<article>
-    <div class="container-overview">
-    
-        
+  //var model = graph.getModel();
 
-        
+  //// Gets the default parent for inserting new cells. This
+  //// is normally the first child of the root (ie. layer 0).
+  //var parent = graph.getDefaultParent();
+  //var resStr = "";
 
+  //GenerateFTLStrRec(parent);
 
-<dl class="details">
 
-    
+  //function GenerateFTLStrRec(pNode)
+  //{
+  //  resStr = resStr + "node \n";
+  //  alert("Node");
 
-    
+  //  for (var i = 0; i &lt; parent.getChildCount; i++)
+  //  {
+  //    //GenerateFTLStrRec(pNpde.)
+  //  }
+  //}
 
-    
 
-    
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line540">line 540</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="simApp_SimApp.html">SimApp</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="mainApp"><span class="type-signature"></span>mainApp<span class="type-signature"> :SimApp</span></h4>
-
-
-
-
-<div class="description">
-    The global main app.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">SimApp</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line579">line 579</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+};</code></pre>
+        </article>
+    </section>
 
 
 

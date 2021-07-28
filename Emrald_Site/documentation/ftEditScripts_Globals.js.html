@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: simApp</title>
+    <title>JSDoc: Source: ftEditScripts/Globals.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,180 +17,66 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: simApp</h1>
+    <h1 class="page-title">Source: ftEditScripts/Globals.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>simApp</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line540">line 540</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="simApp_SimApp.html">SimApp</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="mainApp"><span class="type-signature"></span>mainApp<span class="type-signature"> :SimApp</span></h4>
-
-
-
-
-<div class="description">
-    The global main app.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">SimApp</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="UI_simApp.js.html">UI/simApp.js</a>, <a href="UI_simApp.js.html#line579">line 579</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Fault Tree global settings.
+ */
+
+/**
+ * @namespace ftEditor
+ */
+
+/**
+ * @interface ftEditor#Globals
+ */
+var Globals = {};
+
+/**
+ * @interface ftEditor#Globals#ftNodeSettings
+ */
+Globals.ftNodeSettings = {};
+
+/**
+ * Fault Tree node height.
+ * 
+ * @name ftEditor#Globals#ftNodeSettings#height
+ * @type {number}
+ */
+Globals.ftNodeSettings.height = 50;
+
+/**
+ * Fault Tree node width.
+ * 
+ * @name ftEditor#Globals#ftNodeSettings#width
+ * @type {number}
+ */
+Globals.ftNodeSettings.width = 130;
+
+/**
+ * Fault Tree node value space.
+ * 
+ * @name ftEditor#Globals#ftNodeSettings#valSpace
+ * @type {number}
+ */
+Globals.ftNodeSettings.valSpace = 0;
+
+/**
+ * Fault Tree gate image size.
+ * 
+ * @name ftEditor#Globals#ftNodeSettings#gateImgSize
+ * @type {number}
+ */
+Globals.ftNodeSettings.gateImgSize = 24;</code></pre>
+        </article>
+    </section>
 
 
 
