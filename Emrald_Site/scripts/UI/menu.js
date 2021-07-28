@@ -103,9 +103,9 @@ if (typeof Navigation === 'undefined')
           li.appendChild(a);
 
           li.onmouseover = function (evt) {
-            for (var j = 0; j < li.children.length; j++) {
-              if (li.children[j].nodeName == 'UL') {
-                li.children[j].style.visibility = 'visible';
+            for (var j = 0; j < this.children.length; j++) {
+              if (this.children[j].nodeName == 'UL') {
+                this.children[j].style.visibility = 'visible';
                 break; //should be only one.
               }
             }
@@ -113,9 +113,9 @@ if (typeof Navigation === 'undefined')
           }
 
           li.onmouseout = function (evt) {
-            for (var j = 0; j < li.children.length; j++) {
-              if (li.children[j].nodeName == 'UL') {
-                li.children[j].style.visibility = 'hidden';
+            for (var j = 0; j < this.children.length; j++) {
+              if (this.children[j].nodeName == 'UL') {
+                this.children[j].style.visibility = 'hidden';
                 break; //should be only one.
               }
             }
@@ -123,9 +123,9 @@ if (typeof Navigation === 'undefined')
           }
 
           li.onmouseup = function (evt) {
-            for (var j = 0; j < li.children.length; j++) {
-              if (li.children[j].nodeName == 'UL') {
-                li.children[j].style.visibility = 'hidden';
+            for (var j = 0; j < this.children.length; j++) {
+              if (this.children[j].nodeName == 'UL') {
+                this.children[j].style.visibility = 'hidden';
                 break; //should be only one.
               }
             }
