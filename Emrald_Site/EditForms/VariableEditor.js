@@ -222,8 +222,8 @@ function OnLoad(dataObj) {
 
           //for regular expression items
           if (scope.data.docType.value == "dtTextRegEx") {
-            scope.data.useRegExLine = (variableData.regExpLine > 0); // checked if a line is specified
-            scope.data.useRegExNumChars = (variableData.numChars >= 0); //checked if not -1
+            scope.data.useRegExLine = (variableData.regExpLine !== null); // checked if a line is specified
+            scope.data.useRegExNumChars = (variableData.numChars !== null); //checked if not null
             scope.data.regExLine = variableData.regExpLine;
             scope.data.regExBegPos = variableData.begPosition;
             scope.data.regExNumChars = variableData.numChars;
@@ -309,9 +309,9 @@ function GetDataObject() {
     dataObj.pathMustExist = scope.data.resetOnRuns;
     if (scope.data.docType.value == "dtTextRegEx") {
       //set the extra regExp options to not used unless checked
-      dataObj.regExpLine = 0;
-      dataObj.begPosition = 0;
-      dataObj.numChars = -1;
+      dataObj.regExpLine = null;
+      dataObj.begPosition = null;
+      dataObj.numChars = null;
 
       //Assign if checked 
       if (scope.data.useRegExLine) {
@@ -461,10 +461,10 @@ variableModule.controller("variableController", ["$scope", function ($scope) {
     varLink: "",
     
     useRegExLine: false,
-    regExLine: 0,
-    regExBegPos: 0,
-    useRegExNumChars: true,
-    regExNumChars: -1,
+    regExLine: null,
+    regExBegPos: null,
+    useRegExNumChars: false,
+    regExNumChars: null,
 
     sim3DId: "",
 
@@ -518,6 +518,26 @@ variableModule.controller("variableController", ["$scope", function ($scope) {
     { name: "Second", value: "trSeconds", abbr: "Sec" }
   ];
   $scope.accrualUnit = $scope.accrualUnits[1]; // Default to Hours
+
+  /**
+   * When the line # checkbox is clicked, this will initialize the value to 0 if it's not already set.
+   */
+  $scope.initializeRegExLine = function () {
+    if ($scope.data.regExLine === null) {
+      $scope.data.regExLine = 0;
+      $scope.data.regExBegPos = 0;
+    }
+    $scope.data.useRegExNumChars = $scope.data.useRegExLine && ($scope.data.regExNumChars !== null);
+  }
+
+  /**
+   * When the num chars checkbox is clicked, this will initialize the value to 0 if it's not already set.
+   */
+  $scope.initializeRegExNumChars = function () {
+    if ($scope.data.regExNumChars === null) {
+      $scope.data.regExNumChars = 0;
+    }
+  }
 
 }]);
 
