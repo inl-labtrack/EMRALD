@@ -53,7 +53,7 @@ Whether you're identifying or adding variables to a Variable Condition Event or 
 |---|---|
 |<div style="width:300px">![Variable Condition Options](/images/Modeling/events/VarConditionOptions.png)</div>|<div style="width:330px">![Change Variable Value Options](/images/Modeling/actions/ChangeVarValueOptions.png)</div>|
 
-This list will not include pre-existing variables such as CurTime. See [Dynamic Scripts](./backendInfo.md#dynamic-scripts) for more information. It will include the all of the variables that you create and are listed in the "All" Tab of the Left Navigation Frame. Check the box(es) to identify which variables are used in the code.
+This list will not include pre-existing variables such as curTime. Note on curTime: it is a double variable in hours. See [Dynamic Scripts](./backendInfo.md#dynamic-scripts) for more information. It will include the all of the variables that you create and are listed in the "All" Tab of the Left Navigation Frame. Check the box(es) to identify which variables are used in the code.
 
 See Variable Condition Event under [Conditional Events](./events.md#conditional-events) and Change Variable Value Action under [Types of Actions](./actions.md#types-of-actions) for more information on those respective topics.
 
