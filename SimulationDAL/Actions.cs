@@ -104,7 +104,7 @@ namespace SimulationDAL
       addToList.allActions.Add(this, false);
     }
   }
-    
+
 
   public class TransitionAct : Action //atTransition
   {
@@ -132,16 +132,19 @@ namespace SimulationDAL
     public override string GetDerivedJSON(EmraldModel lists)
     {
       string retStr = "";
-      retStr = retStr + "\"mutExcl\": \"" + this.mutExcl.ToString() + "\"";
+      retStr = retStr + "\"mutExcl\": \"" + this.mutExcl.ToString().ToLower() + "\"";
       retStr = retStr + "," + Environment.NewLine + "\"newStates\": [";
       string varProbStr;
       for (int i = 0; i < this._newStateIDs.Count; ++i)
       {
-        varProbStr = this._toStateVarProb[i] == null ? "null" : this._toStateVarProb[i].name;
+        varProbStr = this._toStateVarProb[i] == null ? null : this._toStateVarProb[i].name;
         //retStr = retStr + Environment.NewLine + "{" + this._newStateIDs[i].GetJSON(false, false) + ",";
         retStr = retStr + Environment.NewLine + "{\"toState\": \"" + this._newStateIDs[i].name + "\",";
         retStr = retStr + Environment.NewLine + "\"prob\":" + this._toStateProb[i].ToString() + ",";
-        retStr = retStr + Environment.NewLine + "\"varProb\": \"" + varProbStr + "\",";
+        if (this._toStateVarProb[i] != null)
+          retStr = retStr + Environment.NewLine + "\"varProb\": \"" + this._toStateVarProb[i].name + "\",";
+        else
+          retStr = retStr + Environment.NewLine + "\"varProb\": null,";
         retStr = retStr + Environment.NewLine + "\"failDesc\":\"" + this._failDesc[i] + "\"}";
         if (i < this._newStateIDs.Count - 1)
         {
@@ -181,7 +184,7 @@ namespace SimulationDAL
       //  foreach (dynamic curToObj in dynObj.newStates)
       //  {
       //    State curState = lists.allStates.FindByName((string)curToObj.toState);
-          
+
       //    if (curState == null)
       //    {
       //      //create a place holder for the state until the rest of the data is filled in.
@@ -189,7 +192,7 @@ namespace SimulationDAL
       //      curState.name = (string)curToObj.toState;
       //      lists.allStates.Add(curState);
       //    }
-          
+
       //    _newStateIDs.Add(curState);
       //    _toStateProb.Add((double)curToObj.prob);
       //    _failDesc.Add((string)curToObj.failDesc);
@@ -251,20 +254,20 @@ namespace SimulationDAL
 
     public void AddToState(State toState, SimVariable varProb, string failDesc = "")
     {
-       //use the remainder
+      //use the remainder
 
       if (varProb == null)
         throw new Exception("Variable for the probability cannot be null");
       if (toState == null)
         throw new Exception("Null toState for action is not allowed - " + this.name);
 
-      
+
       hasVarProbs = true;
       this._toStateProb.Insert(0, varProb.dblValue);
       this._toStateVarProb.Insert(0, varProb);
       this._newStateIDs.Insert(0, toState);
       this._failDesc.Insert(0, failDesc);
-      
+
 
       //RecalcBoundBoxes();
     }
@@ -342,8 +345,8 @@ namespace SimulationDAL
     //    else
     //      throw new Exception("Remainder to State will never be hit, the Probabilities add up to more than 1.0. Action - " + this.name);
     //  }
-  
-      
+
+
     //  //double remProb = 1.0;
     //  //for (int i = 0; i < _toStateProb.Count(); ++i)
     //  //{
@@ -442,7 +445,7 @@ namespace SimulationDAL
     public List<IdxAndStr> WhichToState()
     {
       if (hasVarProbs)
-        for(int i=0; i<_toStateVarProb.Count; ++i)
+        for (int i = 0; i < _toStateVarProb.Count; ++i)
         {
           if (_toStateVarProb[i] != null)
             _toStateProb[i] = _toStateVarProb[i].dblValue;
@@ -450,7 +453,7 @@ namespace SimulationDAL
 
       List<IdxAndStr> retStateIDs = new List<IdxAndStr> { };
       double probSum = _toStateProb.Sum();
-      if (mutExcl && (probSum > 0) && (probSum < 1.0) && (_toStateProb[_toStateProb.Count-1] > 0))
+      if (mutExcl && (probSum > 0) && (probSum < 1.0) && (_toStateProb[_toStateProb.Count - 1] > 0))
       {
 #if DEBUG
         throw new Exception("For action " + this.name + " Transition and probabilities don't add up to 1.0 or no default value");
@@ -459,17 +462,17 @@ namespace SimulationDAL
         return retStateIDs;
 #endif
       }
-      else if (_toStateProb.Count == 0) 
+      else if (_toStateProb.Count == 0)
         throw new Exception(this.name + " has no _toSateProbs in list - no TO state added to the action.");
-//      else if (mutExcl && (_toStateProb[_toStateProb.Count - 1] != -1) && (_toStateProb[_toStateProb.Count - 1] != 1))
-//      {
-//#if DEBUG
-//        throw new Exception("Missing default option for independent failures " + this.name);
-//#else
-//        System.Diagnostics.Debug.Write("Missing default option for independent failures. " + this.name);
-//        return retStateIDs;
-//#endif
-//      }
+      //      else if (mutExcl && (_toStateProb[_toStateProb.Count - 1] != -1) && (_toStateProb[_toStateProb.Count - 1] != 1))
+      //      {
+      //#if DEBUG
+      //        throw new Exception("Missing default option for independent failures " + this.name);
+      //#else
+      //        System.Diagnostics.Debug.Write("Missing default option for independent failures. " + this.name);
+      //        return retStateIDs;
+      //#endif
+      //      }
       else if ((_newStateIDs.Count < 1) || (_newStateIDs.Count != _toStateProb.Count))
       {
 #if DEBUG
@@ -479,11 +482,11 @@ namespace SimulationDAL
         return retStateIDs;
 #endif
       }
-      else if (mutExcl &&((_toStateProb[0] == 1.0) || (_toStateProb[0] == -1.0)))
+      else if (mutExcl && ((_toStateProb[0] == 1.0) || (_toStateProb[0] == -1.0)))
       {
         retStateIDs.Add(new IdxAndStr(_newStateIDs[0].id, _failDesc[0]));
         return retStateIDs;
-      }      
+      }
 
       double randNum = SingleRandom.Instance.NextDouble();
       int slot = 0;
@@ -514,9 +517,9 @@ namespace SimulationDAL
       }
 
       if (retStateIDs.Count == 0) //no probability items were selected we must use the default state
-        retStateIDs.Add(new IdxAndStr(_newStateIDs[_toStateProb.Count - 1].id, _failDesc[_toStateProb.Count-1]));
+        retStateIDs.Add(new IdxAndStr(_newStateIDs[_toStateProb.Count - 1].id, _failDesc[_toStateProb.Count - 1]));
 
-      return retStateIDs;   
+      return retStateIDs;
     }
 
     public override void LookupRelatedItems(EmraldModel all, EmraldModel addToList)
@@ -536,15 +539,14 @@ namespace SimulationDAL
     }
   }
 
-  public abstract class ScriptAct : Action 
+  public abstract class ScriptAct : Action
   {
     protected ScriptEngine scriptRunner = null;
     protected List<String> codeVariables = new List<String>();
     protected bool compiled = false;
     protected Type _retType = typeof(double);
-
     public string scriptCode = "";
-   
+
     public ScriptAct(EnActionType actType)
       : base("", actType)
     {
@@ -563,7 +565,7 @@ namespace SimulationDAL
     public override string GetDerivedJSON(EmraldModel lists)
     {
       string newScriptStr = scriptCode.Replace("\n", "\\n").Replace("\r", "\\r");
-      
+
       string retStr = Environment.NewLine + "\"scriptCode\":" + "\"" + newScriptStr + "\"";
 
       if (codeVariables != null)
@@ -584,7 +586,7 @@ namespace SimulationDAL
         }
         retStr = retStr + "]" + Environment.NewLine;
       }
-      
+
       return retStr;
     }
 
@@ -620,7 +622,7 @@ namespace SimulationDAL
 
         dynObj = ((dynamic)obj).Action;
       }
-      
+
       this.codeVariables.Clear();
       if (dynObj.codeVariables != null)
       {
@@ -664,7 +666,7 @@ namespace SimulationDAL
         {
           SimVariable var = allVars.FindByName(varName);
 
-          if(var == null)
+          if (var == null)
             throw new Exception("failed to compile " + this.name + " no variable named " + varName + " defined in the diagram.");
 
           if ((varName != "CurTime") &&
@@ -694,7 +696,7 @@ namespace SimulationDAL
     //public int varID { get { return simVar.id; } }
     public int varID { get { return (simVar != null) ? simVar.id : 0; } }
     //public bool isTimeStateVar { get { return this.simVar is TimeStateVariable; } }  
-    
+
     public VarValueAct()
       : base(EnActionType.atCngVarVal) { }
 
@@ -706,7 +708,7 @@ namespace SimulationDAL
       : base(inName, inNewValCode, inCodeVars, EnActionType.atCngVarVal)
     {
       this.simVar = inSimVar;
-      if((inRetType != typeof(double)) && (inRetType != typeof(string)) &&  (inRetType != typeof(bool)))
+      if ((inRetType != typeof(double)) && (inRetType != typeof(string)) && (inRetType != typeof(bool)))
         throw new Exception("This return type is not implemented " + inRetType.Name);
       this._retType = inRetType;
     }
@@ -714,7 +716,7 @@ namespace SimulationDAL
     public override string GetDerivedJSON(EmraldModel lists)
     {
       string newValStr = scriptCode.Replace("\n", "\\n").Replace("\r", "\\r");
-      
+
       string retStr = base.GetDerivedJSON(lists);
       if (simVar != null)
         retStr = retStr + "," + Environment.NewLine + "\"variableName\":" + "\"" + simVar.name + "\"";
@@ -826,9 +828,9 @@ namespace SimulationDAL
       //  return retVal;
       //}
 
-      
-      
-      
+
+
+
     }
   }
 
@@ -837,9 +839,9 @@ namespace SimulationDAL
     //TimeStateVariable savedTime = null;
 
     public JumpToTimeAct()
-      : base() 
+      : base()
     {
-      this._actType = EnActionType.atJumpToTime; 
+      this._actType = EnActionType.atJumpToTime;
     }
 
     //public JumpToTimeAct(string inName, TimeStateVariable saved)
@@ -897,7 +899,7 @@ namespace SimulationDAL
       : base(EnActionType.atCustomStateShift) { }
 
     public CustomStateShiftAct(string inName, SimVariable inSimVar, string inScriptCode, List<String> inCodeVars)
-      : base(inName, inScriptCode, inCodeVars, EnActionType.atCngVarVal) {}
+      : base(inName, inScriptCode, inCodeVars, EnActionType.atCngVarVal) { }
 
 
     public bool CompileCode(EmraldModel lists)
@@ -1000,20 +1002,23 @@ namespace SimulationDAL
 
   }
 
+  public enum ReturnType { rtNone, rtStateList, rtVar };
+
   public class RunExtAppAct : Action //atRunExtApp
   {
-    private string exePath = "";    
+    private string exePath = "";
     private ScriptEngine makeInputFileCompEval = null;
     private ScriptEngine processOutputFileCompEval = null;
-    private List<String> codeVariables = new List<String>();
+    public List<String> codeVariables = new List<String>();
     private bool compiled;
     private ProcessStartInfo extApp = null;
     private Process proc = null;
     private string exeOutputPath = "";
-
     public string makeInputFileCode = "";
     public string processOutputFileCode = "";
-    
+    public ReturnType returnProcess = ReturnType.rtStateList;
+    public SimVariable assignVariable = null;
+
     public RunExtAppAct()
       : base("", EnActionType.atRunExtApp)
     {
@@ -1024,7 +1029,7 @@ namespace SimulationDAL
       : base(inName, EnActionType.atRunExtApp)
     {
       this.compiled = false;
-      if(inCodeVariables != null)
+      if (inCodeVariables != null)
         this.codeVariables = new List<String>(inCodeVariables);
 
       this.makeInputFileCode = inMakeInputFileCode;
@@ -1044,29 +1049,23 @@ namespace SimulationDAL
       string code1Str = makeInputFileCode.Replace("\\", "\\\\").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\"", "\\\""); //
       string code2Str = processOutputFileCode.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r");
       string exePathStr = exePath.Replace("\\", "\\\\").Replace("\"", "\\\"");
-      //JObject codeJson1 = new JObject();
-      //codeJson1.Add("code", code1Str);
-      //JObject codeJson2 = new JObject();
-      //codeJson2.Add("code", code2Str);
-      //code1Str = codeJson1.ToString();
-      //code2Str = codeJson2.ToString();
-      //code1Str = code1Str.Substring(14, code1Str.Length - 18);
-      //code2Str = code2Str.Substring(14, code2Str.Length - 18);
 
-
+      if(Environment.OSVersion.Platform == PlatformID.Unix)
+      {
+        code1Str = makeInputFileCode.Replace("\\", "/").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\"", "\\\""); //
+        code2Str = processOutputFileCode.Replace("\\", "/").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r");
+        exePathStr = exePath.Replace("\\", "/").Replace("\"", "\\\"");
+      }
 
       string retStr = Environment.NewLine + "\"makeInputFileCode\":" + "\"" + code1Str + "\"";
       retStr = retStr + "," + Environment.NewLine + "\"processOutputFileCode\":" + "\"" + code2Str + "\"";
       retStr = retStr + "," + Environment.NewLine + "\"exePath\":" + "\"" + exePathStr + "\"";
-      retStr = retStr + "," + Environment.NewLine + "\"exeOutputPath\":" + "\"" + exeOutputPath + "\"";
-
-      //string codeStr = "{\"processOutputFileCode\":" + "\"" + code2Str + "\"}";
-
-      //JObject retJO = new JObject();
-      //retJO.Add("code", code2Str);
-      //string jStr = retJO.ToString();
-      //var dynamicObj = Json.Decode(jStr);
-
+      //retStr = retStr + "," + Environment.NewLine + "\"exeOutputPath\":" + "\"" + exeOutputPath + "\"";
+      //retStr = retStr + "," + Environment.NewLine + "\"returnProcess\":" + "\"" + returnProcess.ToString() + "\"";
+      if (assignVariable != null)
+      {
+        retStr = retStr + "," + Environment.NewLine + "\"variableName\":" + "\"" + assignVariable.name + "\"";
+      }
 
       if (codeVariables != null)
       {
@@ -1086,7 +1085,7 @@ namespace SimulationDAL
         }
         retStr = retStr + "]" + Environment.NewLine;
       }
-      
+
 
       return retStr;
     }
@@ -1110,6 +1109,16 @@ namespace SimulationDAL
       makeInputFileCode = (string)dynObj.makeInputFileCode;
       processOutputFileCode = (string)dynObj.processOutputFileCode;
       exePath = (string)dynObj.exePath;
+
+      if (dynObj.returnProcess != null)
+      {
+        returnProcess = (ReturnType)Enum.Parse(typeof(ReturnType), (string)dynObj.returnProcess, true);
+      }
+
+      if ((returnProcess == ReturnType.rtVar) && (dynObj.variableName == null))
+      {
+        throw new Exception("missing variable definition  " + exePath);
+      }
 
       if (Path.IsPathRooted(exePath))
       {
@@ -1163,7 +1172,11 @@ namespace SimulationDAL
           this.codeVariables.Add((string)varName);
         }
       }
-      
+
+      if (dynObj.variableName != null)
+      {
+        assignVariable = lists.allVariables.FindByName((string)dynObj.variableName);
+      }
 
       return true;
     }
@@ -1188,7 +1201,7 @@ namespace SimulationDAL
       {
         foreach (string varName in codeVariables)
         {
-          
+
           //makeInputFileCompEval.AddVariable(varName, typeof(double));
           SimVariable var = lists.allVariables.FindByName(varName);
           if (var == null)
@@ -1199,7 +1212,7 @@ namespace SimulationDAL
           {
             makeInputFileCompEval.AddVariable(varName, var.dType);
           }
-          
+
         }
       }
 
@@ -1211,7 +1224,7 @@ namespace SimulationDAL
         makeInputFileCompEval.AddVariable(state.Value.name + "_Time", typeof(TimeSpan));
       }
 
-      
+
 
       if (!makeInputFileCompEval.Compile(typeof(string)))
       {
@@ -1284,7 +1297,7 @@ namespace SimulationDAL
 
     private void WriteStandardOutput()
     {
-      using (StreamWriter writer = File.CreateText(exeOutputPath + "\\_out.txt"))
+      using (StreamWriter writer = File.CreateText(exeOutputPath + Path.DirectorySeparatorChar + "_out.txt"))
       using (StreamReader reader = proc.StandardOutput)
       {
         writer.AutoFlush = true;
@@ -1301,9 +1314,9 @@ namespace SimulationDAL
         }
       }
 
-      if (File.Exists(exeOutputPath + "\\_out.txt"))
+      if (File.Exists(exeOutputPath + Path.DirectorySeparatorChar + "_out.txt"))
       {
-        FileInfo info = new FileInfo(exeOutputPath + "\\_out.txt");
+        FileInfo info = new FileInfo(exeOutputPath + Path.DirectorySeparatorChar + "_out.txt");
 
         // if the error info is empty or just contains eof etc.
 
@@ -1318,9 +1331,11 @@ namespace SimulationDAL
       {
         if (!CompileMakeInputFileCode(lists))
           throw new Exception("MakeInputFile Code failed to compile, can not evaluate");
-
-        if (!CompileProcessOutputFileCode(lists))
-          throw new Exception("ProcessOutputFile Code failed compile, can not evaluate");
+        if ((processOutputFileCode != null) && (processOutputFileCode != ""))
+        {
+          if (!CompileProcessOutputFileCode(lists))
+            throw new Exception("ProcessOutputFile Code failed compile, can not evaluate");
+        }
       }
 
       //Set all the variable values
@@ -1336,7 +1351,7 @@ namespace SimulationDAL
         }
 
         makeInputFileCompEval.SetVariable("CurTime", typeof(double), curTime.TotalHours);
-        makeInputFileCompEval.SetVariable("ExePath", typeof(string), Path.GetDirectoryName(exePath));        
+        makeInputFileCompEval.SetVariable("ExePath", typeof(string), Path.GetDirectoryName(exePath));
       }
 
       //add if in states
@@ -1347,21 +1362,27 @@ namespace SimulationDAL
         {
           makeInputFileCompEval.SetVariable(state.Value.name, typeof(bool), true);
           makeInputFileCompEval.SetVariable(state.Value.name + "_Time", typeof(TimeSpan), stateTime);
-          processOutputFileCompEval.SetVariable(state.Value.name, typeof(bool), true);
-          processOutputFileCompEval.SetVariable(state.Value.name + "_Time", typeof(TimeSpan), stateTime);
+          if (processOutputFileCompEval != null)
+          {
+            processOutputFileCompEval.SetVariable(state.Value.name, typeof(bool), true);
+            processOutputFileCompEval.SetVariable(state.Value.name + "_Time", typeof(TimeSpan), stateTime);
+          }
         }
         else
         {
           makeInputFileCompEval.SetVariable(state.Value.name, typeof(bool), false);
           makeInputFileCompEval.SetVariable(state.Value.name + "_Time", typeof(TimeSpan), TimeSpan.FromMilliseconds(0));
-          processOutputFileCompEval.SetVariable(state.Value.name, typeof(bool), false);
-          processOutputFileCompEval.SetVariable(state.Value.name + "_Time", typeof(TimeSpan), TimeSpan.FromMilliseconds(0));
+          if (processOutputFileCompEval != null)
+          {
+            processOutputFileCompEval.SetVariable(state.Value.name, typeof(bool), false);
+            processOutputFileCompEval.SetVariable(state.Value.name + "_Time", typeof(TimeSpan), TimeSpan.FromMilliseconds(0));
+          }
         }
       }
 
       string runParams = makeInputFileCompEval.EvaluateString();
       string fullExePath = exePath;
-      if ((exePath[0] == '.')&&(!Path.IsPathRooted(exePath)))
+      if ((exePath[0] == '.') && (!Path.IsPathRooted(exePath)))
       {
         fullExePath = lists.rootPath;
         if (!fullExePath.EndsWith(@"\"))
@@ -1392,8 +1413,8 @@ namespace SimulationDAL
         extApp.RedirectStandardError = false;
 
         // Do you want to show a console window?
-        //extApp.WindowStyle = Hidden.ProcessWindowStyle;
-        //extApp.CreateNoWindow = true;
+        // extApp.WindowStyle = Hidden.ProcessWindowStyle;
+        extApp.CreateNoWindow = true;
 
         // Run the external process & wait for it to finish
         using (proc = Process.Start(extApp))
@@ -1413,64 +1434,78 @@ namespace SimulationDAL
           //  throw new Exception("Failed to run external code - " + exePath + ".   exit code - " + exitCode.ToString());
         }
       }
-      else 
+      else
         exitCode = -1;
 
-      processOutputFileCompEval.SetVariable("CurTime", typeof(double), curTime.TotalHours);
-      processOutputFileCompEval.SetVariable("ExeExitCode", typeof(int), exitCode);
-      processOutputFileCompEval.SetVariable("outputFile", typeof(string), exeOutputPath + "\\_out.txt");
       //Set all the variable values
-      if (codeVariables != null)
+      if (processOutputFileCompEval != null)
       {
-        foreach (string varName in codeVariables)
+        processOutputFileCompEval.SetVariable("CurTime", typeof(double), curTime.TotalHours);
+        processOutputFileCompEval.SetVariable("ExeExitCode", typeof(int), exitCode);
+        processOutputFileCompEval.SetVariable("outputFile", typeof(string), exeOutputPath + "\\_out.txt");
+        //Set all the variable values
+        if (codeVariables != null)
         {
-          SimVariable curVar = lists.allVariables.FindByName(varName);
-          if (curVar == null)
-            throw new Exception("Failed to find variable named " + varName);
+          foreach (string varName in codeVariables)
+          {
+            SimVariable curVar = lists.allVariables.FindByName(varName);
+            if (curVar == null)
+              throw new Exception("Failed to find variable named " + varName);
 
-          processOutputFileCompEval.SetVariable(curVar.name, curVar.dType, curVar.value);
+            processOutputFileCompEval.SetVariable(curVar.name, curVar.dType, curVar.value);
+          }
         }
       }
 
 
-      List<String> retStates = processOutputFileCompEval.EvaluateStrList();
-      System.Threading.Thread.Sleep(10);
-
-      while (File.Exists(Path.GetDirectoryName(exePath) + "\\_out.txt"))
+      switch (this.returnProcess)
       {
-        try
-        {
-          System.IO.File.Delete(Path.GetDirectoryName(exePath) + "\\_out.txt");
-        }
-        catch
-        {
-          //do nothing;
-        }
-      }
+        case ReturnType.rtStateList:
+          List<String> retStates = processOutputFileCompEval.EvaluateStrList();
+          System.Threading.Thread.Sleep(10);
 
-      //make sure all the IDs returned are valid state IDs.
-      foreach (string listItem in retStates)
-      {
-        if ((listItem[0] != '+') && (listItem[0] != '-'))
-          throw new Exception("States must be tagged with '+' or '-' for adding or removing");
+          while (File.Exists(Path.GetDirectoryName(exePath) + "\\_out.txt"))
+          {
+            try
+            {
+              System.IO.File.Delete(Path.GetDirectoryName(exePath) + "\\_out.txt");
+            }
+            catch
+            {
+              //do nothing;
+            }
+          }
 
-        bool add = listItem[0] == '+';
-        string stateName = listItem.Substring(1);
-        State retState = lists.allStates.FindByName(stateName);
-        if (retState == null)
-        {
-          throw new Exception("processOuputFile code did not generate vaild state IDs.");
-        }
-        else
-        {
-          if (add)
-            addStates.Add(retState.id);
-          else
-            removeStates.Add(retState.id);
-        }
+          //make sure all the IDs returned are valid state IDs.
+          foreach (string listItem in retStates)
+          {
+            if ((listItem[0] != '+') && (listItem[0] != '-'))
+              throw new Exception("States must be tagged with '+' or '-' for adding or removing");
+
+            bool add = listItem[0] == '+';
+            string stateName = listItem.Substring(1);
+            State retState = lists.allStates.FindByName(stateName);
+            if (retState == null)
+            {
+              throw new Exception("processOuputFile code did not generate vaild state IDs.");
+            }
+            else
+            {
+              if (add)
+                addStates.Add(retState.id);
+              else
+                removeStates.Add(retState.id);
+            }
+          }
+          break;
+        case ReturnType.rtVar:
+          assignVariable.SetValue(processOutputFileCompEval.EvaluateGeneric());
+          break;
+
+        default: //do nothing
+          break;
       }
     }
-
   }
 
   public class Sim3DAction : Action //at3DSim
@@ -1490,7 +1525,7 @@ namespace SimulationDAL
 
 
     public Sim3DAction()
-      : base("", EnActionType.at3DSimMsg){ }
+      : base("", EnActionType.at3DSimMsg) { }
 
     public Sim3DAction(string inName, SimActionType message, ExternalSim simData, SimVariable inSimVar = null, String inParams = "")
       : base(inName, EnActionType.at3DSimMsg)
@@ -1515,15 +1550,10 @@ namespace SimulationDAL
     public override string GetDerivedJSON(EmraldModel lists)
     {
 
-      string retStr = "," + Environment.NewLine + "\"sim3DMessageID\":" + "\"" + sim3DMessage.ToString() + "\"";
+      string retStr = Environment.NewLine + "\"sim3DMessage\":" + "\"" + sim3DMessage.ToString() + "\"";
       retStr = retStr + "," + Environment.NewLine + "\"extSim\":" + "\"" + _extSim.name + "\"";
       if (this.simVar != null)
         retStr = retStr + "," + Environment.NewLine + "\"sim3DVariable\":" + "\"" + simVar.name + "\"";
-      if (this._extSim != null)
-        retStr = retStr + "," + Environment.NewLine + "\"sim3DModelRef\":" + "\"" + _extSim.modelRef + "\"";
-      if (this._extSim != null)
-        retStr = retStr + "," + Environment.NewLine + "\"sim3DConfigData\":" + "\"" + _extSim.configData + "\"";
-      retStr = retStr + "," + Environment.NewLine + "\"openSimVarParams\":" + openSimVarParams.ToString();
       return retStr;
     }
 
@@ -1612,7 +1642,7 @@ namespace SimulationDAL
       //if the parameters are variable verify they exist
       if (dynObj.openSimVarParams != null)
       {
-        if((_extSim.modelRef != "") && (lists.allVariables.FindByName(_extSim.modelRef) == null))
+        if ((_extSim.modelRef != "") && (lists.allVariables.FindByName(_extSim.modelRef) == null))
         {
           throw new Exception("Model reference marked as a variable but variable named - " + _extSim.modelRef + " does not exist");
         }
@@ -1631,7 +1661,7 @@ namespace SimulationDAL
       string retVal = _extSim.modelRef;
       if (openSimVarParams)
       {
-         retVal = lists.allVariables.FindByName(_extSim.modelRef, true).strValue;
+        retVal = lists.allVariables.FindByName(_extSim.modelRef, true).strValue;
       }
 
       return retVal;
@@ -1701,7 +1731,10 @@ namespace SimulationDAL
 
       this.Clear();
 
-      this.moveFromCurrent = (bool)dynObj.moveFromCurrent;
+      if (dynObj.moveFromCurrent != null)
+        this.moveFromCurrent = (bool)dynObj.moveFromCurrent;
+      else
+        this.moveFromCurrent = true;
 
       if (dynObj.actions != null)
       {
@@ -1713,7 +1746,7 @@ namespace SimulationDAL
           {
             throw new Exception("Failed to find Action - " + (string)toActName);
           }
-          
+
           this.Add(curAct);
         }
       }
@@ -1726,7 +1759,7 @@ namespace SimulationDAL
   {
     private List<Action> deleted = new List<Action>();
     private Dictionary<string, int> nameToID = new Dictionary<string, int>();
-    
+
     public bool loaded = false;
 
     public void Add(Action inAction, bool errorOnDup = true)
@@ -1739,7 +1772,7 @@ namespace SimulationDAL
       }
 
       nameToID.Add(inAction.name, inAction.id);
-      
+
       this.Add(inAction.id, inAction);
     }
 
@@ -1789,10 +1822,10 @@ namespace SimulationDAL
         deleted.Add(curAct);
 
         nameToID.Remove(curAct.name);
-        
+
         base.Remove(key);
       }
-    }    
+    }
 
     public Action FindByName(string name, bool exception = true)
     {
@@ -1816,7 +1849,7 @@ namespace SimulationDAL
           throw new Exception("Failed to find Action - " + name);
         else
           return null;
-      }      
+      }
     }
 
     public static Action CreateNewAction(EnActionType actType)
@@ -1914,10 +1947,10 @@ namespace SimulationDAL
       foreach (var wrapper in dynamicObj)
       {
         var item = wrapper.Action;
-        
+
         Action curItem = this.FindByName((string)item.name);
         try
-        { 
+        {
           if (curItem == null)
           {
             throw new Exception("Failed to find Action with the name of " + (string)item.name);
@@ -1931,7 +1964,7 @@ namespace SimulationDAL
         {
           throw new Exception("On Action named " + curItem.name + ". " + e.Message);
         }
-      }  
+      }
 
 
       return true;
@@ -1939,9 +1972,9 @@ namespace SimulationDAL
 
     public void CompileCodes(EmraldModel lists)
     {
-      foreach(var item in this)
+      foreach (var item in this)
       {
-        if(item.Value is VarValueAct)
+        if (item.Value is VarValueAct)
         {
           try
           {
@@ -1951,10 +1984,10 @@ namespace SimulationDAL
           {
             throw new Exception("Action \"" + item.Value.name + " \" - " + e.Message);
           }
-          
+
         }
 
-        if(item.Value is RunExtAppAct)
+        if (item.Value is RunExtAppAct)
         {
           try
           {
@@ -1964,14 +1997,16 @@ namespace SimulationDAL
           {
             throw new Exception("Action \"" + item.Value.name + " \"  preprocessor code - " + e.Message);
           }
-
-          try
+          if ((((RunExtAppAct)item.Value).processOutputFileCode != null) && (((RunExtAppAct)item.Value).processOutputFileCode != ""))
           {
-            ((RunExtAppAct)item.Value).CompileProcessOutputFileCode(lists);
-          }
-          catch (Exception e)
-          {
-            throw new Exception("Action \"" + item.Value.name + " \" postprocessing code -" + e.Message);
+            try
+            {
+              ((RunExtAppAct)item.Value).CompileProcessOutputFileCode(lists);
+            }
+            catch (Exception e)
+            {
+              throw new Exception("Action \"" + item.Value.name + " \" postprocessing code -" + e.Message);
+            }
           }
         }
       }
