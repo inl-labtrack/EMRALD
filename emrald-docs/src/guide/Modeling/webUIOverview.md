@@ -1,4 +1,3 @@
-
 # Web User Interface
 
 ## Initial Screen
@@ -6,50 +5,48 @@
   This is the screen you will see when you first open the EMRALD model editor. It contains the 
   <span style="color:red">Modeling Area</span> which is the main workspace, 
   <span style="color:green">Top Menu Bar</span>, and
-  <span style="color:blue">Left Navigation Frame</span>
-   which are editing and navigation panes that will be explained in the following sections.
+  <span style="color:blue">Left Navigation Frame</span>.
+  These areas will be discussed in detail in the following sections.
 
 ## Top Menu Bar
-**Project** <br>
-  <div style="width:600px">![Project Menu](/images/Modeling/webUIOverview/TopMenuProject.png)</div> <br>
-  * **New**: Creates a new project. The following window appears in the Modeling Area.<br>
-  <div style="width:500px">![New Project Window](/images/Modeling/webUIOverview/NewProject.png)</div><br>
+### Project
 
+<img src="/images/Modeling/webUIOverview/TopMenuProject.webp" alt="Project Menu" width="500"/><br />
+- **New:** Creates a new project. The following window appears in the Modeling Area.<br>
+<div style="width:500px">![New Project Window](/images/Modeling/webUIOverview/NewProject.png)</div><br>
+    After hitting the "OK" button, your project name will show in the right corner of the Top Menu Bar. <br>
+<div style="width:500px">![New Project Window](/images/Modeling/webUIOverview/NewProjectHeader.png)</div>
+- **Open:** Opens a project in the UI, replacing the current project. Clicking Open will open a File Explorer window, in which you can browser for the EMRALD project file you want to open.
+<div style="width:500px">![Open Project Window](/images/Modeling/webUIOverview/OpenProjectWindow.webp)</div>
+- **Merge:** Merges one project into another project. This will pull in all diagrams, states, events, actions, variables, and logic trees into the project. First it will bring up a File Explorer window, then browse for the file you want to merge in and click "Open". <br>
+<div style="width:500px">![Open File to Merge Window](/images/Modeling/webUIOverview/Merge_1.png)</div><br>
+If there are diagrams or components with identical names in the models being merged, a conflict window will appear with a list of all of the identically named items. See [Conflict Resolution](diagrams.md#conflict-resolution) for details on how to use this window.
+- **Save:** Operates like a standard "Save As" to save the current project.
+- **Templates:** Hovering over this option will open a sub-menu with options for interacting with templates. See [Templates](diagrams.md#templates) for more details.
+  - *Import Templates:* Opens a File Explorer window to allow you to select a file containing diagram templates. The templates in the file will be added to your local template list.
+  - *Export Templates:* Saves your local template list to a file on your computer.
+  - *Clear Templates:* Clears your local template list.
+- **Load Demo:** Exits the current project and loads the demo project. As with any changing of projects, unsaved changes in the current project would be lost.
 
-      After hitting the "Ok" button, your project name will populate the right corner of the header. See the following subsection, "Click Here to Name Project," to see another method for naming or renaming your project. <br>![New Project Window](/images/Modeling/webUIOverview/NewProjectHeader.png)
-  - **Merge:** Merge one project into another project. This will pull in all diagrams, states, events, actions, variables, and logic trees into the project. First it will bring up a File Explorer, browse for the file you want to merge in and click "Open". <br>
-  <div style="width:500px">![Open File to Merge Window](/images/Modeling/webUIOverview/Merge_1.png)</div><br>
-  If there are diagrams or components with identical names in the models being merged, a conflict window will appear with a list of all of the identically named items. There are three options of how to resolve the conflict.
-    - Overwrite: The item being merged in will replace the item in the base project.
-    - Ignore: The item being merged in will be disregarded and the item in the base project will remain unchanged.
-    - Rename: The item being merged in can be renamed and made a new and separate item. A text box will appear in an adjacent column where you can edit the new name of the item being merged in. <br>
+### **Download**
+  
+<img src="/images/Modeling/webUIOverview/TopMenuDownload.png" alt="Download Menu" width="500"/><br />
+- **Solver Engine:** Downloads the EMRALD model solver, a separate executable that runs locally on your computer.
+- **Client Tester:** Downloads an example test client that couples with EMRALD through message protocal. For use in testing and developing custom software coupling.
+- **Client Tester Source:** Downloads the source code for the Client Tester.
 
-    ![Open File to Merge Window](/images/Modeling/webUIOverview/Merge_3.png)<br>
+### **Help**
 
-  Once you complete your conflict resolution choices, click ""Submit"" and the model will merge into the base model accordingly.
-  - **Open:** Browse to open an existing project.
-  - **Save:** Operates like a standard "Save As" to save the current project.
-  - **Export Templates:** Allows you to save any project template items for use in other projects. When clicked from the dropdown menu, the following window appears in the Modeling Area.<br><div style="width:400px">![Export Template Window](/images/Modeling/webUIOverview/ExportTemplate.png)</div>
-  - **Load Demo:** Exits the current project and loads the demo project as with any changing of projects, unsaved changes in the current project would be lost.
+<img src="/images/Modeling/webUIOverview/TopMenuHelp.png" alt="Help Menu" width="500"/><br />
+Opens the EMRALD documentation.
 
+### **About**
 
-**Download** <br>
-  <div style="width:500px">![Download Menu](/images/Modeling/webUIOverview/TopMenuDownload.png)</div> <br>
-  - **Solver Engine:** Downloads the EMRALD model solver which is a separate executable.
-  - **Client Tester:** Downloads an example test client that couples with EMRALD through message protocal. For use in testing and developing custom software coupling.
-  - **Client Tester Source:** Downloads the source code for the Client Tester.
+<img src="/images/Modeling/webUIOverview/TopMenuAbout.png" alt="About Menu" width="500"/><br />
+This redirects you to the INL [EMRALD Website](https://google.com) as shown below.<br>
+<div style="width:500px">![About Menu](/images/Modeling/webUIOverview/AboutRedirect.png)</div><br>
 
-**Help** <br>
-  <div style="width:500px">![Help Menu](/images/Modeling/webUIOverview/TopMenuHelp.png)</div> <br>
-  Opens up a basic help window in the Modeling Area as shown below. <br>
-  ![Help Window](/images/Modeling/webUIOverview/Help.png) <br>
-
-**About** <br>
-  <div style="width:500px">![About Menu](/images/Modeling/webUIOverview/TopMenuAbout.png)</div> <br>
-  This redirects you to the INL [EMRALD Website](https://google.com) as shown below.<br>
-  ![About Menu](/images/Modeling/webUIOverview/AboutRedirect.png) <br>
-
-**Click Here to Name Project** <br>
+### Click Here to Name Project
   Click this to rename the project. A pop up window will appear that will allow you to change the name of the current project. Type the new name in.<div style="width:400px">![Rename Pop Up](/images/Modeling/webUIOverview/EnterNewName.png)</div>
 
   The new name will replace "Click Here to Name Project" in the top right hand corner.  
@@ -94,7 +91,7 @@
   A Fault Tree from traditional modeling could be directly converted into System diagram with just two states and a "Component Logic" event used to determine the boolean logic from component diagrams. See [Logic Trees](/guide/Modeling/logicTree.md) and [Events](/guide/Modeling/events.md) for more information.  The two states for this diagram are "Active" and "Failed", with a "Component Logic" event in the active state evaluating the assigned logic whenever a component diagram state changes.  If the logic ever evaluates to false, then the current state shifts from "Active" to "Failed". This is similar to a typical PRA model except the logic does not contain any probabilities, just references to the Component diagrams.
     
 **Logic Tree** <br>
-  All of logic trees are accessible in this section. Double clicking on the individual Logic Trees will open them in the Modeling Area. <br>
+  All of the logic trees are accessible in this section. Double clicking on the individual Logic Trees will open them in the Modeling Area. <br>
        
   ![Logic Tree Expanded](/images/Modeling/webUIOverview/LogicTree.png) <br>
   Logic Trees utilize boolean gates to solve for the top value of the tree which can inform "Component Logic" [events](/guide/Modeling/events.md) in [diagrams](/guide/Modeling/diagrams.md). <br>
@@ -103,7 +100,7 @@
 
 **External Sims** <br>
   All of your external simulation links will be available in this section. <br> 
-  <div style="width:300px">![External Sims Expanded](/images/Modeling/webUIOverview/ExternalSimsExpanded.png)</div><br>
+  <div style="width:300px">![External Sims Expanded](/images/Modeling/webUIOverview/ExternalSimsExpanded.webp)</div><br>
   The External simulations are defined coupled links to an external code, such as physics models that inform the EMRALD model. This is used for special coupling cases to simply run an executable and process the results, use a "Run Application" action as described in the Run Application section of [Types of Actions](./actions.md#types-of-actions).<br>
 
   See [External Simulations](/guide/Modeling/externalSims.md) for more information.
