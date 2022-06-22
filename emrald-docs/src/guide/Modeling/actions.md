@@ -91,7 +91,7 @@ Use "[Remove Action](#removing-an-action)" to just remove it from the selected s
 
 ## Types of Actions
 
-<h3>Transition <img src="/images/Modeling/actions/TransitionArrow.png" alt="Transition" width="25"/></h3>
+### Transition <img src="/images/Modeling/actions/TransitionArrow.png" alt="Transition" width="25"/>
 
 A transition action always adds the state it references to the current state list, meaning that it is now in that state during the simulation. If the event is marked as "Exit" when it occurs, (See [State Properties](./states.md#state-properties) and [Editing an Event](./events.md#editing-an-event) for more information) then the model is
 moving from the one state to the other. A solid black arrow indicates moving, and a dashed green indicated adding to the current states. A transition action in 
@@ -114,7 +114,7 @@ You can either fill in a constant value from 0.0 to 1.0 in the second column or 
 clicking the variable you want to define the probability. The variable allows you to dynamically change the rate according to other conditions, but if the variable
 changes after entering the state, a new sample will not be made.
 
-<h3>Change Variable Value <img src="/images/Modeling/actions/varCond.png" alt="Change Variable Value" width="25"/></h3>  
+### Change Variable Value <img src="/images/Modeling/actions/varCond.png" alt="Change Variable Value" width="25"/>
 Listed as "Change Var Value" in the dropdown menu. This action changes the value of a variable according to a user defined script.
 
 <img src="/images/Modeling/actions/ChangeVarValueOptions.png" alt="Change Variable Value Options" width="500"/>
@@ -125,14 +125,14 @@ The value returned by the script is assigned to the variable, so one must be sel
 same type as the assigned variable or an error will occur. Other variables from the code can be used in the script if marked in the Variables section.
 - **Variables used in code:** A list of variables available in the model. This list will not include pre-existing variables such as CurTime. See [Dynamic Scripts](./backendInfo.md#dynamic-scripts) for more information. It will include all of the variables that you create and are listed in the "All" Tab of the Left Navigation Frame. Click the check box to identify which variables are used in the code. Do not click the check box for the variable that is being updated even if it is used in the code. It only needs to be selected from the "Variable" dropdown menu.
 
-<h3>External Simulation Message <img src="/images/Modeling/actions/extSim.png" alt="External Simulation Message" width="25"/></h3>  
+### External Simulation Message <img src="/images/Modeling/actions/extSim.png" alt="External Simulation Message" width="25"/>
 Listed as "Ext. Sim Message" in the dropdown menu. This action sends a message to an external code through coupled communication messaging protocol. See [XMPP communication protocol](/guide/Modeling/xmppProtocol.md) for details on coupling code to EMRALD.
 
 <img src="/images/Modeling/actions/ExtSimMessageOptions.png" alt="External Simulation Message Options" width="500"/>
 
 See [External Simulation Message Action](./externalSims.md#external-simulation-message-action) for more information.
 
-<h3>Run Application <img src="/images/Modeling/actions/cogwheel.png" alt="Run Application" width="25"/></h3>  
+### Run Application <img src="/images/Modeling/actions/cogwheel.png" alt="Run Application" width="25"/>
 Runs user defined scripts to both execute an external piece of code and process the results to direct state changes.</br>
 
 <img src="/images/Modeling/actions/RunApplicationOptions.png" alt="Run Application Options" width="500"/>

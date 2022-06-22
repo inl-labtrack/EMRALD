@@ -22,9 +22,9 @@ Event Modeling Risk Assessment using Linked Diagrams (EMRALD) is a software tool
 		3. Under "Debug," select "Start New Instance"
     - To run the Documentation Project:
         1. Download and install Node.js from [https://nodejs.org/en/](https://nodejs.org/en/) (This will also install npm)
-        2. Once Node.js is installed, navigate to the "emrald-docs" directory (i.e. \EMRALD\emrald-docs) in a terminal window (such as Command Prompt)
+        2. Once Node.js is installed, navigate to the EMRALD directory in a terminal window (such as Command Prompt)
         3. Run the commmand `npm install` to install the project's dependencies
-        4. Start the local dev server by running the command `npm run dev`
+        4. Start the local dev server by running the command `npm run docs:dev`
         5. Once the server is running, this message should appear: `VuePress dev server listening at http://localhost:8080/`
         6. Navigate to [http://localhost:8080/](http://localhost:8080/) to view the EMRALD Documentation.
 	- To build the offline executable:

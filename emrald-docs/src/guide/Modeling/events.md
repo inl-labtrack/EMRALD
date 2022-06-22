@@ -96,7 +96,7 @@
   <div style="width:500px">![Event Type Grayed](/images/Modeling/events/EventTypeGrayed.png)</div>
 
 ## Conditional Events
-<h3>Variable Condition <img src="/images/Modeling/events/varCond.png" alt="Variable Condition" width="25"/></h3>  
+### Variable Condition <img src="/images/Modeling/events/varCond.png" alt="Variable Condition" width="25"/>
   Listed as Var Condition in the dropdown menu. Monitors variable values with user-defined code to determine event execution.</br>
   <img src="/images/Modeling/events/VarConditionOptions.png" alt="Variable Condition Options" width="500"/>
  
@@ -127,7 +127,7 @@
   - **On Success:** Check this box if you want to trigger the event upon success of the Logic Tree evaluation, default is failure of the logic tree. 
   - **Logic Top:** Click the field to expand the dropdown menu containing all of your Logic Trees. Click on the Logic Tree you would like evaluated when the event is triggered.
   
-<h3>External Simulation <img src="/images/Modeling/events/ExtInput.png" alt="External Simulation" width="25"/></h3>
+### External Simulation <img src="/images/Modeling/events/ExtInput.png" alt="External Simulation" width="25"/>
   Listed as Ext. Simulation in the dropdown menu. This event is triggered when the assigned variable is modified by and external simulation and the evaluation code returns true.<br>
 
   For example, you want to trigger the event when a tank is over 2 meters full so you have created a new "Ext Sim Variable" named "Height" to monitor the tank fill height. When "Height" gets modified by the external simulation, you would put the code "return Height > 2;". See [External Simulation Variables](./variables.md#external-simulation-variables) for more information.<br>
@@ -140,7 +140,7 @@
 
 ## Time Based Events
   
-  <h3>Timer <img src="/images/Modeling/events/alarm.png" alt="Timer" width="25"/></h3>
+### Timer <img src="/images/Modeling/events/alarm.png" alt="Timer" width="25"/>
   Monitors the time after entering the parent state against the user specified or sampled time. This can be set to a static value or to a variable value. The fields will change form depending on what type of value you are setting it to. Leave the checkbox next to "Use Variable?" blank to set a static value or check it to use a variable value.<br>
   
   #### Static Value Timer
@@ -154,7 +154,7 @@
 
   - **Time Span:** Enter the amount of model time to pass after entering this state before the event actions are triggered. The first field is the variable value you would like to use. The second field is the time unit you would like to use. Click the field to reveal the dropdown menu of options then click your desired selection to set it.
 
-<h3>Failure Rate <img src="/images/Modeling/events/dice.png" alt="Failure Rate" width="25"/></h3>
+### Failure Rate <img src="/images/Modeling/events/dice.png" alt="Failure Rate" width="25"/>
   Samples a given probability of failure (P(t) = e^(-lambda*t)) to determine the time (t) of this event. The lambda or frequency value can be set to a static value or to a variable value. The lambda/frequency field will change form slightly depending on what type of value you are setting it to. Leave the checkbox next to "Use Variable Lambda/Frequency?" blank to set a static value or check it to use a variable value.<br>
   
   #### Static Failure Rate
@@ -166,7 +166,7 @@
   - **Lambda/Freq:** The frequency (instances) of this event occurring per the time rate defined. Likely a decimal value like 0.0003. If you choose to have it as a static value, checkbox unchecked, type in the value into the field. If you choose to have it as a variable value, checkbox checked, click the field to reveal the dropdown menu of variables available in your model and click the variable to set it.
   - **Time Rate:** Enter the time rate that the frequency is sampled over. The first box is the number of days, the second is the number of hours, the third is the number of minutes, and the fourth is the number of seconds. Values can only be integers.
 
-
+### Distribution
 <h3>Normal Distribution <img src="/images/Modeling/events/dist.png" alt="Normal Distribution" width="25"/></h3>
   Listed as Norm. Distribution in the dropdown menu. Samples a normal distribution according to user specified parameters for when this event will occur from the time entering the state.<br>
   
