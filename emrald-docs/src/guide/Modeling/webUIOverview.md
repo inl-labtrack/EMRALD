@@ -22,7 +22,7 @@
 <div style="width:500px">![Open File to Merge Window](/images/Modeling/webUIOverview/Merge_1.png)</div><br>
 If there are diagrams or components with identical names in the models being merged, a conflict window will appear with a list of all of the identically named items. See [Conflict Resolution](diagrams.md#conflict-resolution) for details on how to use this window.
 - **Save:** Operates like a standard "Save As" to save the current project.
-- **Templates:** Hovering over this option will open a sub-menu with options for interacting with templates. See [Templates](diagrams.md#templates) for more details.
+- **Templates:** Hovering over this option will open a sub-menu with options for interacting with templates. See [Templates](diagrams.md#template-lists) for more details.
   - *Import Templates:* Opens a File Explorer window to allow you to select a file containing diagram templates. The templates in the file will be added to your local template list.
   - *Export Templates:* Saves your local template list to a file on your computer.
   - *Clear Templates:* Clears your local template list.
