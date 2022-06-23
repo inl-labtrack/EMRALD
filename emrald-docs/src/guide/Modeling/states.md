@@ -83,7 +83,7 @@ Start states are the states the model is in when the simulation begins. There mu
 A normal state representing no special conditions. It will have no icon in the Header.<br>
 <div style="width:220px">![Standard State](/images/Modeling/states/StandardState.png)</div>
 
-<h3>Key <img src="/images/Modeling/states/key.png" alt="Key" width="25"/></h3>
+### Key <img src="/images/Modeling/states/key.png" alt="Key" width="25"/>
 
 A key state is what is of interest in the model, it will be tracked and reported if the model is in this state at the end of a simulation. In comparison to traditional PRA, all "End Sates" would have a corresponding "Key State." <br>
 <div style="width:220px">![Key State](/images/Modeling/states/KeyState.png)</div>
