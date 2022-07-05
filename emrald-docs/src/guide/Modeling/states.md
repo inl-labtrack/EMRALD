@@ -1,7 +1,7 @@
 # States
   A state is a logical representation for the condition of a component, person, system, process, etc. Each state has a Name, Immediate Action, and Event Action section.
   There are four different kinds of states: Start, Standard, Key, and Terminal.
-  The Header indicates what kind of state with an icon it is as well as the name of the state. The Immediate Action section lists actions taken when a new state is entered. The Event Action section lists events to look for when in this state and what action to take if the event is triggered.<br>
+  The Header indicates what kind of state it is, as well as the name of the state. The Immediate Action section lists actions taken when a new state is entered. The Event Action section lists events to look for when in this state and what action to take if the event is triggered.<br>
   
   <img src="/images/Modeling/states/StateAnatomy.png" alt="State Anatomy" width="220"/>
 
@@ -32,26 +32,21 @@
   ![Edit State Option 2 Step 2](/images/Modeling/states/EditStateOpt2_2.png)
 
 ## State Properties
-  State properties depend on the type of diagram. All diagram states have an "Exit" property for each of the events in the "Event Actions" list. This property tells the simulation to exit the state after the events actions are executed. This adds a door with arrow icon ( <img src="/images/Modeling/states/exit-icon.png" alt="Start" width="18"/> ) to the right of the event and any arrows going from the action will turn black. If there are no transition actions.<br>
+  State properties depend on the type of diagram. All diagram states have an "Exit" property for each of the events in the "Event Actions" list. This property tells the simulation to exit the state after the events actions are executed. This adds an icon ( <img src="/images/Modeling/states/exit-icon.png" alt="Start" width="18"/> ) to the right of the event and any arrows going from the action will turn black.<br>
   
   Note that the exit property can also be set when editing the event properties.
-  <div style="width:450px">![Event Properties Exit Option](/images/Modeling/states/ExitPropertyInEventProperties.png)</div><br>
+  <div style="width:450px">![Event Properties Exit Option](/images/Modeling/states/ExitPropertyInEventProperties.webp)</div><br>
 
 ### Single State Diagrams (System, Component)
 Single State diagrams such as system and components have an additional status value. This field is used for logic tree evaluations. 
-They must have at least one state with a "True" value and one with a "False". The "Unknown" value can be used if it is not to have any effect on the logic evaluation. 
-See the following screenshots of the CCS System diagram as an example, there should never be a green dashed arrow in the diagram and the events for all transition
+They must have at least one state with a "True" value and one with a "False" value. The "Unknown" value can be used if it is not to have any effect on the logic evaluation. 
+See the following screenshots of the CCS System diagram as an example - there should never be a green dashed arrow in the diagram and the events for all transition
 actions should have a exit symbol.<br>
 
-The Single State diagram representing the CCS System.
-<div style="width:500px">![Single State Diagram Example](/images/Modeling/states/StatusValueExample.png)</div><br>
+<img src="/images/Modeling/states/StatusValueExample.png" alt="Single State Diagram Example" width="500" />
 
 The CCS_Sys_Active State Properties window with "True" selected as the Status Value.
-<div style="width:450px">![Status Value True](/images/Modeling/states/StatusValueTrue.png)</div><br>
-
-The CCS_Sys_Failed State Properties window with "False" selected as the Status Value.
-<div style="width:450px">![Status Value False](/images/Modeling/states/StatusValueFalse.png)</div><br>
-
+<div style="width:450px">![Status Value True](/images/Modeling/states/StatusValueTrue.webp)</div><br>
 
 ## Deleting a State
 **Option 1:** <br> 
@@ -102,11 +97,11 @@ A user-defined simulation stopping point. A terminal state is not required but t
   An icon on the left of the action shows what type of action it is. Refer to the [Actions](./icons.md#Actions) section of the Icons page too see what icons are associated with each action type. 
   
   ::: tip Note 
-  A Transition Action in Immediate Actions area can not exit the state (black arrow), but adds the "too" state as current state (dotted green arrow). See the [Elements of a Diagram: Arrows](./diagrams.md#arrows) section for more information.
+  A Transition Action in Immediate Actions area can not exit the state (black arrow), but adds the "to" state as current state (dotted green arrow). See the [Elements of a Diagram: Arrows](./diagrams.md#arrows) section for more information.
   :::
 
 ### Adding an Immediate Action  
-To add an Immediate Action, you can either...<br>
+To add an Immediate Action, you can either:<br>
 
 **Option 1:** Right-click on the Immediate Action header in the state to create a new Immediate Action or <br>
 ![New Action 1](/images/Modeling/actions/NewAction1.png)<br>
@@ -125,7 +120,7 @@ See [Actions](/guide/Modeling/actions.md) for more information.
 An icon on the left of the action shows what type of action it is. See [Icons](/guide/Modeling/icons.md) for descriptions of each icon.
 
 ### Adding an Event
-To add an Event, you can either...<br>
+To add an Event, you can either:<br>
 
 **Option 1:** Right-click on the Event Actions header in the state to create a new event or <br>
 ![New Event Step 1](/images/Modeling/events/NewEvent1.png)<br>
@@ -138,7 +133,7 @@ See [Creating a New Event](./events.md#creating-a-new-event) for detailed instru
 See [Events](/guide/Modeling/events.md) for more information.
 
 ### Adding an Action for an Event
-To add an action to an event, you can either...<br>
+To add an action to an event, you can either:<br>
 
 **Option 1:** Under the Event Actions header, right-click on the event you want to add the action to create a new Event Action or <br>
 ![New Event Action](/images/Modeling/states/AddNewEventAction.png)<br>
