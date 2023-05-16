@@ -11,7 +11,7 @@
 
 /* eslint-disable prefer-destructuring */
 /** @type {*} */ const win = window;
-/** @type {import('maap-inp-parser').MAAPInpParser} */
+/** @type {{ default: import('maap-inp-parser').MAAPInpParser}} */
 const maapInpParser = win.maapInpParser;
 /** @type {import('maap-par-parser').MAAPParParser} */
 const maapParParser = win.maapParParser;
@@ -21,6 +21,10 @@ const angular = win.angular;
 
 /**
  * @typedef {import('maap-inp-parser').SourceElement} SourceElement
+ */
+
+/**
+ * @typedef {import('maap-inp-parser').Comment} MAAPComment
  */
 
 /**
@@ -44,7 +48,7 @@ const angular = win.angular;
  * @property {SourceElement[]} parameters - Parameter items.
  * @property {SourceElement[]} initiators - Initiators.
  * @property {VarLink[]} varLinks - Var links.
- * @property {(Comment | SourceElement)[]} blocks - Input blocks.
+ * @property {(MAAPComment | SourceElement)[]} blocks - Input blocks.
  * @property {SourceElement[]} initiatorOptions - Initiator options.
  * @property {boolean} parametersLoaded - If the parameters file has been loaded & parsed.
  * @property {string[]} operators - Possible operator choices.
@@ -79,7 +83,7 @@ const angular = win.angular;
 /**
  * Gets a list of variable names from the blocks.
  *
- * @param {SourceElement | Comment} block - The block to get names from.
+ * @param {SourceElement | MAAPComment} block - The block to get names from.
  * @returns {string[]} The list of variable names.
  */
 function getBlockVarNames(block) {
@@ -135,6 +139,7 @@ class MAAPForm extends ExternalExeForm {
     const scope = this.$scope;
     dataObj.raLocation = '';
     dataObj.varNames = [];
+    console.log(scope.sections);
     scope.sections.forEach((section) => {
       getBlockVarNames(section).forEach((name) => {
         if (dataObj.varNames.indexOf(name) < 0) {
@@ -163,9 +168,8 @@ class MAAPForm extends ExternalExeForm {
       'temp.log',
     )}`;
     const overrideCode = `newInp += "${scope.sections
-      .map((section) =>
-        maapInpParser.default.toString(section).replace(/\n/g, '\\n'),
-      )
+      .map((section) => maapInpParser.default
+        .toString(section).replace(/\n/g, '\\n'))
       .join('\\n')}";`;
     /* eslint-disable max-len */
     dataObj.raPreCode = `string exeLoc = @"${this.escape(scope.exePath)}";
@@ -332,8 +336,10 @@ maapForm.controller('maapFormController', [
       }
       if (typeof raFormData.varLinks === 'object') {
         $scope.varLinks = raFormData.varLinks.map(
-          (varLink) =>
-            new VarLink(varLink.target, form.findVariable(varLink.variable)),
+          (varLink) => new VarLink(
+            varLink.target,
+            form.findVariable(varLink.variable),
+          ),
         );
       }
       if (raFormData.sections) {
@@ -343,12 +349,14 @@ maapForm.controller('maapFormController', [
             section.type === 'block' &&
             section.blockType === 'PARAMETER CHANGE'
           ) {
-            $scope.parameters = section.value.map((v) => {
-              if (v.useVariable) {
-                v.variable = form.findVariable(v.variable);
-              }
-              return v;
-            });
+            $scope.parameters = section.value
+              .filter((v) => v.type !== 'comment')
+              .map((v) => {
+                if (v.useVariable) {
+                  v.variable = form.findVariable(v.variable);
+                }
+                return v;
+              });
           } else if (
             section.type === 'block' &&
             section.blockType === 'INITIATORS'
@@ -372,6 +380,8 @@ maapForm.controller('maapFormController', [
                 });
             };
             bindBlockVars(section);
+            $scope.blocks.push(section);
+          } else if (section.type === 'comment') {
             $scope.blocks.push(section);
           }
         });
@@ -497,9 +507,8 @@ maapForm.controller('maapFormController', [
         parsed.output.value.forEach((sourceElement, i) => {
           if (sourceElement.type === 'comment') {
             comments[i] = sourceElement;
-          } else {
-            $scope.sections.push(sourceElement);
           }
+          $scope.sections.push(sourceElement);
           switch (sourceElement.type) {
             case 'block':
               if (sourceElement.blockType === 'PARAMETER CHANGE') {
@@ -533,7 +542,11 @@ maapForm.controller('maapFormController', [
               break;
             case 'conditional_block':
               if (comments[i - 1]) {
-                $scope.blocks.push(comments[i - 1]);
+                let j = i - 1;
+                while (comments[j]) {
+                  $scope.blocks.push(comments[j]);
+                  j -= 1;
+                }
               }
               $scope.blocks.push(sourceElement);
               $scope.overrideSections.push({
