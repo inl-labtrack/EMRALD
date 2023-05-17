@@ -139,7 +139,6 @@ class MAAPForm extends ExternalExeForm {
     const scope = this.$scope;
     dataObj.raLocation = '';
     dataObj.varNames = [];
-    console.log(scope.sections);
     scope.sections.forEach((section) => {
       getBlockVarNames(section).forEach((name) => {
         if (dataObj.varNames.indexOf(name) < 0) {
@@ -305,6 +304,8 @@ maapForm.controller('maapFormController', [
     $scope.sections = [];
     $scope.possibleInitiators = {};
 
+    $scope.toString = maapInpParser.default.toString;
+
     const { parentScope } = form;
     $scope.variables = parentScope.data.cvVariables;
     $scope.exePath = parentScope.data.raLocation;
@@ -361,7 +362,9 @@ maapForm.controller('maapFormController', [
             section.type === 'block' &&
             section.blockType === 'INITIATORS'
           ) {
-            $scope.initiators = section.value;
+            $scope.initiators = section.value.filter(
+              (v) => v.type !== 'comment',
+            );
           } else if (section.type === 'conditional_block') {
             /**
              * Binds the variable property of each block to the actual object reference.

@@ -181,7 +181,7 @@
                 <th>Remove</th>
               </tr>
               <tr ng-repeat="(i, initiator) in initiators">
-                <td>{{initiator.value}}</td>
+                <td>{{toString(initiator)}}</td>
                 <td>
                   <button type="button" ng-click="removeInitiator(i)">X</button>
                 </td>

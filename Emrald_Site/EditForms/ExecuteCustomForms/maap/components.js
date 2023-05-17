@@ -120,7 +120,30 @@ angular.module('maapExpressionType', []).directive('maapExpressionType', [
     template: `<div ng-switch="data.type">
     <div ng-switch-when="call_expression" maap-call-expression data="data"></div>
     <div ng-switch-when="expression_block" maap-expression-block data="data"></div>
+    <div ng-switch-when="assignment" maap-assignment data="data"></div>
     <div ng-switch-default maap-variable data="data"></div>
+  </div>`,
+  }),
+]);
+
+angular.module('maapAssignment', []).directive('maapAssignment', [
+  '$compile',
+  ($compile) => ({
+    compile: function (el) {
+      const contents = el.contents().remove();
+      return (scope, el2) => {
+        $compile(contents)(scope, (clone) => {
+          el2.append(clone);
+        });
+      };
+    },
+    scope: {
+      data: '=',
+    },
+    template: `<div>
+    <div maap-variable data="data.target"></div>
+    =
+    <div maap-expression data="data.value"></div>
   </div>`,
   }),
 ]);
@@ -204,7 +227,10 @@ angular.module('maapSourceElement', []).directive('maapSourceElement', [
     scope: {
       data: '=',
     },
-    template: `<div maap-expression data="data"></div>`,
+    template: `<div ng-switch="data.type">
+    <div ng-switch-when="comment">{{ data.value }}</div>
+    <div ng-switch-default maap-expression data="data"></div>
+    </div>`,
   }),
 ]);
 
@@ -244,4 +270,5 @@ window.maapComponents = [
   'maapVariable',
   'maapSourceElement',
   'maapConditionalBlock',
+  'maapAssignment',
 ];
