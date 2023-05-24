@@ -652,6 +652,7 @@ actionModule.controller('actionController', ['$scope', function ($scope) {
 
     window.addEventListener('message', (ev) => {
         var { payload } = ev.data;
+        console.log(payload);
         switch (ev.data.type) {
             case 'saveTemplate':
                 $scope.data.raLocation = payload.raLocation;
