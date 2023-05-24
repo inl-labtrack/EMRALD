@@ -495,6 +495,7 @@ maapForm.controller('maapFormController', [
         $scope.parameters = [];
         $scope.initiators = [];
         $scope.blocks = [];
+        $scope.sections = [];
         /** @type {import('maap-inp-parser').MAAPInpParser} */
         const parser = maapInpParser.default;
         // Turning safeMode on will allow the file to fully parse even if there are syntax errors
