@@ -284,6 +284,8 @@ maapForm.controller('maapFormController', [
     $scope.inputFile = '';
     $scope.parameters = [];
     $scope.initiators = [];
+
+    // Currently displayed initiator options based on the user's search
     $scope.initiatorOptions = [];
     $scope.exePath = '';
     $scope.parameterPath = '';
@@ -299,6 +301,8 @@ maapForm.controller('maapFormController', [
     $scope.overrideSections = [];
     $scope.form = form;
     $scope.sections = [];
+
+    // All possible options for initiators to add, loaded from the .PAR file
     $scope.possibleInitiators = {};
 
     const { parentScope } = form;
@@ -378,6 +382,11 @@ maapForm.controller('maapFormController', [
       }
     }
 
+    /**
+     * Makes sure an initiator is removed from both the initiators and sections arrays.
+     *
+     * @param {*} index - The index in the initiators array of the element to remove.
+     */
     $scope.removeInitiator = function removeInitiator(index) {
       const removed = $scope.initiators.splice(index, 1)[0];
       $scope.sections.forEach((section) => {
@@ -394,6 +403,10 @@ maapForm.controller('maapFormController', [
       form.save();
     };
 
+    /**
+     * Called when the add initiator input box changes.
+     * Filters the initiator options displayed in the Initiators tab.
+     */
     $scope.findInitiators = function findInitiators() {
       if ($scope.data.initiatorQuery.length > 0) {
         $scope.initiatorOptions = [];
@@ -419,7 +432,6 @@ maapForm.controller('maapFormController', [
      * @param {import('maap-par-parser').MAAPParParserOutput} data The initiator to add.
      */
     $scope.addInitiator = function addInitiator(data) {
-      // TODO?
       $scope.initiators.push({
         type: 'parameter_name',
         value: data.value,

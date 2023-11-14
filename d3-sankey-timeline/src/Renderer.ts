@@ -285,7 +285,7 @@ export default class Renderer {
       .append('g')
       .selectAll('g')
       .data(this.timeline.graph.nodes)
-      .join('g')
+      .enter()
       .append('text')
       .data(this.timeline.graph.nodes)
       .attr('text-anchor', 'middle')
@@ -315,10 +315,15 @@ export default class Renderer {
       .style('height', this.options.height)
       .style('top', '23px')
       .style('position', 'relative');
+    // Assigns textHeight and textWidth properties to all nodes in the graph based on label sizes
     this.calculateLabelSizes();
+    // Creates default layout properties on all nodes
     this.initializeLayout();
+    // Assigns layout.x and layout.y properties to all nodes
     this.calculateLayout();
+    // Assigns layout.path and layout.width properties to all links
     this.calculateLinkPaths();
+    // Shifts everything to the right to avoid going off the left hand side of the screen
     this.calculateShift();
     this.calculateLinkPaths(); // Reposition links after shifting
     if (this.options.layout === 'timeline') {
@@ -392,7 +397,7 @@ export default class Renderer {
       .attr('fill', 'none')
       .selectAll('g')
       .data(this.graph.links)
-      .join('g')
+      .enter()
       .attr('stroke', (d: TimelineLink) =>
         (color(d.source.layout.color) as RGBColor).toString(),
       )
@@ -802,7 +807,6 @@ export default class Renderer {
    */
   private getCurvePath(link: TimelineLink) {
     const curve = this.calculateCurve(link);
-    // TODO: Have curveHeight option effect non-circular curve paths
     // TODO: If the curve width is larger than the nodes it connects to,
     // adjust the curve to be the size of the node at the connection point
     let path = `M${curve[0][0]},${curve[0][1]}C${curve[1][0]},${curve[1][1]},${curve[2][0]},${curve[2][1]},${curve[3][0]},${curve[3][1]}`;
