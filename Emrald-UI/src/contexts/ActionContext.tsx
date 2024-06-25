@@ -29,7 +29,8 @@ export const emptyAction: Action = {
   desc: '',
   actType: 'atTransition',
   mainItem: false,
-  required: false
+  required: false,
+  objType: "Action",
 };
 
 const ActionContext = createContext<ActionContextType | undefined>(undefined);
