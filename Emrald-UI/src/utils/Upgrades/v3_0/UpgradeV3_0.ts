@@ -32,8 +32,8 @@ function UpgradeV3_0_Recursive(oldModel: EMRALD_ModelV2_4): EMRALD_Model {
             return {
                 ...rest, // Spread the rest of the properties
                 id: id !== undefined ? String(id) : undefined,
-                objType: "Diagram",
-                diagramType: mapDiagramType(Diagram.diagramType) // Add the mapped diagramType
+                diagramType: mapDiagramType(Diagram.diagramType), // Add the mapped diagramType
+                required: false
             };
         }) : [],
         ExtSimList: oldModel.ExtSimList ? oldModel.ExtSimList.map(({ ExtSim }) => {
@@ -55,8 +55,8 @@ function UpgradeV3_0_Recursive(oldModel: EMRALD_ModelV2_4): EMRALD_Model {
             return {
                 ...rest,                
                 id: id !== undefined ? String(id) : undefined,
-                objType: "State",
-                geometryInfo
+                geometryInfo,
+                required: false
             };
         }) : [],
         ActionList: oldModel.ActionList ? oldModel.ActionList.map(({ Action }) => {
@@ -65,8 +65,8 @@ function UpgradeV3_0_Recursive(oldModel: EMRALD_ModelV2_4): EMRALD_Model {
             return {
                 ...rest,
                 id: id !== undefined ? String(id) : undefined,
-                objType: "Action",
-                mainItem
+                mainItem,
+                required: false
             };
         }) : [],
         EventList: oldModel.EventList ? oldModel.EventList.map(({ Event }) => {
@@ -77,8 +77,8 @@ function UpgradeV3_0_Recursive(oldModel: EMRALD_ModelV2_4): EMRALD_Model {
             return {
                 ...rest,                
                 id: id !== undefined ? String(id) : undefined,
-                objType: "Event",
-                ifInState
+                ifInState,
+                required: false
             };
 
         }) : [],

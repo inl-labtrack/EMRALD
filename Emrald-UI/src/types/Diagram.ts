@@ -30,9 +30,8 @@ export interface Diagram {
    * Names of the states used in this diagram
    */
   states: string[]
+  
   changeLog?: ChangeLog
-  /**
-   * If this is a template then it indicates the item must exist in the current model before using the template.
-   */
+    
   required?: boolean
 }

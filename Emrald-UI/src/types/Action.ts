@@ -105,9 +105,7 @@ export interface Action {
    * Used for custom form, variables used in the form.
    */
   updateVariables?: unknown[]
-  /**
-   * If this is a template then it indicates the item must exist in the current model before using the template.
-   */
+  
   required?: boolean
 }
 

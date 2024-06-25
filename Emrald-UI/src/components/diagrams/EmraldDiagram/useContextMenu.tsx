@@ -94,7 +94,6 @@ const useContextMenu = (getStateNodes?: () => void, setEdges?: (edges: Edge[]) =
         },
         isDivider: true,
       },
-
       {
         label: 'Delete State',
         action: () => {
@@ -205,7 +204,7 @@ const useContextMenu = (getStateNodes?: () => void, setEdges?: (edges: Edge[]) =
           addWindow(
             'New Action',
             <ActionFormContextProvider>
-              <ActionForm />
+              <ActionForm event={event} state={state}/>
             </ActionFormContextProvider>,
           );
           closeContextMenu();
@@ -223,6 +222,24 @@ const useContextMenu = (getStateNodes?: () => void, setEdges?: (edges: Edge[]) =
         label: 'Move Down',
         action: () => {
           moveEvent(state, event.name, 'down');
+          closeContextMenu();
+        },
+        isDivider: true,
+      },
+      {
+        label: 'Copy Event',
+        action: () => {
+          navigator.clipboard.writeText(JSON.stringify(event, null, 2));
+          closeContextMenu();
+        },      
+      },
+      {
+        label: 'Paste Event',
+        action: async () => {
+          const pastedData = await navigator.clipboard.readText();
+          if(isEvent(JSON.parse(pastedData))) {
+            console.log('pasted Event:', JSON.parse(pastedData));
+          };
           closeContextMenu();
         },
         isDivider: true,
@@ -300,6 +317,24 @@ const useContextMenu = (getStateNodes?: () => void, setEdges?: (edges: Edge[]) =
         label: 'Move Down',
         action: () => {
           moveAction(state, action.name, 'down', type);
+          closeContextMenu();
+        },
+        isDivider: true,
+      },
+      {
+        label: 'Copy Action',
+        action: () => {
+          navigator.clipboard.writeText(JSON.stringify(action, null, 2));
+          closeContextMenu();
+        },      
+      },
+      {
+        label: 'Paste Action',
+        action: async () => {
+          const pastedData = await navigator.clipboard.readText();
+          if(isAction(JSON.parse(pastedData))) {
+            console.log('pasted action:', JSON.parse(pastedData));
+          };
           closeContextMenu();
         },
         isDivider: true,

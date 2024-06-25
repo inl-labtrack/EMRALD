@@ -85,9 +85,7 @@ export interface Event {
   parameters?: Parameters
   dfltTimeRate?: TimeVariableUnit
   changeLog?: ChangeLog
-  /**
-   * If this is a template then it indicates the item must exist in the current model before using the template.
-   */
+    
   required?: boolean
 }
 
