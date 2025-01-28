@@ -61,15 +61,15 @@ const MAAP = () => {
   string resLoc = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\EMRALD_MAAP\" + Path.GetFileNameWithoutExtension(inpLoc) + ".log";
   File.Copy(resLoc, docVarPath, true);`);
 
-    setReturnProcess('rtVar');
+    setReturnProcess('rtNone');
 
     setFormData({
       ...formData,
-      exePath,
+      exePath: exePath.replace(/\\/g, '/'),
       inputFile,
-      inputPath,
+      inputPath: inputPath.replace(/\\/g, '/'),
       parameterFile,
-      parameterPath,
+      parameterPath: parameterPath.replace(/\\/g, '/'),
     });
   }, [inputPath, parameterFile, parameterPath]);
 
@@ -82,7 +82,7 @@ const MAAP = () => {
         let tempPath = parameterPath;
         let sections = tempPath.split(/[\\/]/);
         sections[sections.length - 1] = parameterFileName;
-        setParameterPath(sections.join('\\'));
+        setParameterPath(sections.join('/'));
       }
       const possibleInitiators: Initiator[] = [];
       const allData: any[] = [];
@@ -116,12 +116,12 @@ const MAAP = () => {
       if (inputFile) {
         const inputFileName = inputFile.name;
         if (!inputPath) {
-          setInputPath('.\\' + inputFileName);
+          setInputPath('./' + inputFileName);
         } else {
           let tempPath = inputPath;
           let sections = tempPath.split(/[\\/]/);
           sections[sections.length - 1] = inputFileName;
-          setInputPath(sections.join('\\'));
+          setInputPath(sections.join('/'));
         }
         const fileString = await inputFile.text();
         try {

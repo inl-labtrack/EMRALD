@@ -42,7 +42,7 @@ export function useCustomForm() {
   };
 
   const ReturnExePath = (path: string) => {
-    setExePath(path);
+    setExePath(path.replace(/\\/g, '/'));
   };
 
   const ReturnUsedVariables = (variableName: string) => {
